@@ -5,7 +5,7 @@ push:
 branches:
 - main
 paths:
-- "*.html" # Fixed: Wrapped wildcard in quotes
+- "*.html"
 
 permissions:
 contents: write
@@ -23,11 +23,11 @@ run: |
 TODAY=$(date -u +"%Y-%m-%d")
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
-echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+echo '<urlset xmlns="http://sitemaps.org">' >> sitemap.xml
 
 # Homepage
 echo " <url>" >> sitemap.xml
-echo " <loc>https://theplantmatrix.com/</loc>" >> sitemap.xml
+echo " <loc>https://theplantmatrix.com</loc>" >> sitemap.xml
 echo " <lastmod>$TODAY</lastmod>" >> sitemap.xml
 echo " <changefreq>daily</changefreq>" >> sitemap.xml
 echo " <priority>1.0</priority>" >> sitemap.xml
@@ -42,7 +42,7 @@ page="${file%.html}"
 LASTMOD=$(date -u -r "$file" +"%Y-%m-%d")
 
 echo " <url>" >> sitemap.xml
-echo " <loc>https://theplantmatrix.com/$page</loc>" >> sitemap.xml
+echo " <loc>https://theplantmatrix.com$page</loc>" >> sitemap.xml
 echo " <lastmod>$LASTMOD</lastmod>" >> sitemap.xml
 echo " <changefreq>monthly</changefreq>" >> sitemap.xml
 echo " <priority>0.8</priority>" >> sitemap.xml
@@ -55,7 +55,7 @@ echo "</urlset>" >> sitemap.xml
 - name: Commit sitemap
 run: |
 git config user.name "github-actions[bot]"
-git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+git config user.email "41898282+github-actions[bot]@://github.com"
 
 git add sitemap.xml
 
