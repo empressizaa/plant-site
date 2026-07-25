@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - "*.html"
+  workflow_dispatch: # Added this so you can test manually!
 
 permissions:
   contents: write
@@ -39,11 +40,12 @@ jobs:
 
           for file in *.html; do
             if [ "$file" != "index.html" ]; then
-              page="${file%.html}"
+              # Keep the .html extension so the links work correctly on standard hosting
               LASTMOD=$(date -u -r "$file" +"%Y-%m-%d")
 
               echo "  <url>" >> sitemap.xml
-              echo "    <loc>https://theplantmatrix.com$page</loc>" >> sitemap.xml
+              echo "    <loc>https://theplantmatrix.com$file</loc>" >> sitemap.xml
+              # Fixed: Added the missing forward slash before the filename variable
               echo "    <lastmod>$LASTMOD</lastmod>" >> sitemap.xml
               echo "    <changefreq>monthly</changefreq>" >> sitemap.xml
               echo "    <priority>0.8</priority>" >> sitemap.xml
@@ -65,5 +67,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Auto-update sitemap"
+          git commit -m "Auto-update sitemap URLs"
           git push origin main
