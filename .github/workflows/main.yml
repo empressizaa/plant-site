@@ -44,7 +44,7 @@ jobs:
               LASTMOD=$(date -u -r "$file" +"%Y-%m-%d")
 
               echo "  <url>" >> sitemap.xml
-              echo "    <loc>https://theplantmatrix.com$file</loc>" >> sitemap.xml
+              echo "    <loc>https://theplantmatrix.com/$file</loc>" >> sitemap.xml
               # Fixed: Added the missing forward slash before the filename variable
               echo "    <lastmod>$LASTMOD</lastmod>" >> sitemap.xml
               echo "    <changefreq>monthly</changefreq>" >> sitemap.xml
