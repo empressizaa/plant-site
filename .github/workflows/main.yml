@@ -1,5 +1,5 @@
 
-name: Generate Sitemap
+name: Generate Sitemap and Deploy
 
 on:
   push:
@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 jobs:
-  sitemap:
+  sitemap-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -45,7 +45,6 @@ jobs:
 
               echo "  <url>" >> sitemap.xml
               echo "    <loc>https://theplantmatrix.com/$file</loc>" >> sitemap.xml
-              # Fixed: Added the missing forward slash before the filename variable
               echo "    <lastmod>$LASTMOD</lastmod>" >> sitemap.xml
               echo "    <changefreq>monthly</changefreq>" >> sitemap.xml
               echo "    <priority>0.8</priority>" >> sitemap.xml
@@ -55,17 +54,23 @@ jobs:
 
           echo "</urlset>" >> sitemap.xml
 
-      - name: Commit sitemap
+      - name: Commit and Push Sitemap Changes
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@://github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add sitemap.xml
 
           if git diff --cached --quiet; then
-            echo "No sitemap changes."
-            exit 0
+            echo "No sitemap changes to commit."
+          else
+            git commit -m "Auto-update sitemap URLs"
+            git push origin main
           fi
 
-          git commit -m "Auto-update sitemap URLs"
-          git push origin main
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+ 
