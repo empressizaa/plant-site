@@ -1,0 +1,6 @@
+name = "plant-site"
+main = "index.html"
+
+[assets]
+directory = "."
+html_handling = "drop-extension"
