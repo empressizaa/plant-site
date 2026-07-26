@@ -14,7 +14,6 @@ contents: write
 jobs:
 sitemap:
 runs-on: ubuntu-latest
-
 steps:
 - name: Checkout repository
 uses: actions/checkout@v4
@@ -22,7 +21,6 @@ uses: actions/checkout@v4
 - name: Generate sitemap.xml
 run: |
 TODAY=$(date -u +"%Y-%m-%d")
-
 echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
 echo '<urlset xmlns="http://sitemaps.org">' >> sitemap.xml
 
@@ -36,11 +34,9 @@ echo " </url>" >> sitemap.xml
 
 # Article pages
 shopt -s nullglob
-
 for file in *.html; do
 if [ "$file" != "index.html" ]; then
 LASTMOD=$(date -u -r "$file" +"%Y-%m-%d")
-
 echo " <url>" >> sitemap.xml
 echo " <loc>https://theplantmatrix.com</loc>" >> sitemap.xml
 echo " <lastmod>$LASTMOD</lastmod>" >> sitemap.xml
@@ -49,20 +45,16 @@ echo " <priority>0.8</priority>" >> sitemap.xml
 echo " </url>" >> sitemap.xml
 fi
 done
-
 echo "</urlset>" >> sitemap.xml
 
 - name: Commit sitemap
 run: |
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@://github.com"
-
 git add sitemap.xml
-
 if git diff --cached --quiet; then
 echo "No sitemap changes."
 exit 0
 fi
-
 git commit -m "Auto-update sitemap URLs"
 git push origin main
