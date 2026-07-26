@@ -1,4 +1,4 @@
-name: Generate Sitemap
+name: Generate Sitemap and Deploy
 
 on:
 push:
@@ -10,9 +10,10 @@ workflow_dispatch:
 
 permissions:
 contents: write
+deployments: write
 
 jobs:
-sitemap:
+build-and-deploy:
 runs-on: ubuntu-latest
 
 steps:
@@ -61,8 +62,14 @@ git add sitemap.xml
 
 if git diff --cached --quiet; then
 echo "No sitemap changes."
-exit 0
-fi
-
+else
 git commit -m "Auto-update sitemap URLs"
 git push origin main
+fi
+
+- name: Deploy to Cloudflare Pages
+uses: cloudflare/wrangler-action@v3
+with:
+apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+command: pages deploy . --project-name=plant-site
