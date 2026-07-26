@@ -15,48 +15,47 @@ jobs:
 build:
 runs-on: ubuntu-latest
 steps:
-- name: Checkout repository
+              - name: Checkout repository
 uses: actions/checkout@v4
-
 - name: Process Sitemap and Homepage Links
-run: |
-TODAY=$(date -u +"%Y-%m-%d")
-echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
-echo '<urlset xmlns="http://sitemaps.org">' >> sitemap.xml
-echo ' <url>' >> sitemap.xml
-echo ' <loc>https://theplantmatrix.com</loc>' >> sitemap.xml
-echo " <lastmod>${TODAY}</lastmod>" >> sitemap.xml
-echo ' <changefreq>daily</changefreq>' >> sitemap.xml
-echo ' <priority>1.0</priority>' >> sitemap.xml
-echo ' </url>' >> sitemap.xml
-echo '' > links_tmp.txt
-shopt -s nullglob
-for file in *.html; do
-if [ "$file" != "index.html" ]; then
-LASTMOD=$(date -u -r "$file" +"%Y-%m-%d")
-echo ' <url>' >> sitemap.xml
-echo " <loc>https://theplantmatrix.com${file}</loc>" >> sitemap.xml
-echo " <lastmod>${LASTMOD}</lastmod>" >> sitemap.xml
-echo ' <changefreq>monthly</changefreq>' >> sitemap.xml
-echo ' <priority>0.8</priority>' >> sitemap.xml
-echo ' </url>' >> sitemap.xml
-CLEAN_NAME=$(echo "$file" | sed 's/\.html//g' | tr '-' ' ' | awk '{for(i=1;i<=NF;i++)sub(/./,toupper(substr($i,1,1)),$i)}1')
-echo " <li><a href=\"/${file}\">${CLEAN_NAME}</a></li>" >> links_tmp.txt
-fi
-done
-echo '</urlset>' >> sitemap.xml
-sed -i '/<!-- START_ARTICLE_LIST -->/,/<!-- END_ARTICLE_LIST -->/{//!d;}' index.html
-sed -i '/<!-- START_ARTICLE_LIST -->/r links_tmp.txt' index.html
-rm links_tmp.txt
-
-- name: Commit changes
-run: |
-git config user.name "github-actions[bot]"
-git config user.email "41898282+github-actions[bot]@://github.com"
-git add sitemap.xml index.html
-if git diff --cached --quiet; then
-echo "No changes detected."
-exit 0
-fi
-git commit -m "Auto-update sitemap and homepage article links"
-git push origin main
+    run: |       
+           TODAY=$(date -u +"%Y-%m-%d")
+            echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+            echo '<urlset xmlns="http://sitemaps.org">' >> sitemap.xml
+            echo ' <url>' >> sitemap.xml
+           echo ' <loc>https://theplantmatrix.com</loc>' >> sitemap.xml
+           echo " <lastmod>${TODAY}</lastmod>" >> sitemap.xml
+           echo ' <changefreq>daily</changefreq>' >> sitemap.xml
+           echo ' <priority>1.0</priority>' >> sitemap.xml
+           echo ' </url>' >> sitemap.xml
+            echo '' > links_tmp.txt
+             shopt -s nullglob
+            for file in *.html; do
+         if [ "$file" != "index.html" ]; then
+        LASTMOD=$(date -u -r "$file" +"%Y-%m-%d")
+        echo ' <url>' >> sitemap.xml
+         echo " <loc>https://theplantmatrix.com${file}</loc>" >> sitemap.xml
+        echo " <lastmod>${LASTMOD}</lastmod>" >> sitemap.xml
+       echo ' <changefreq>monthly</changefreq>' >> sitemap.xml
+        echo ' <priority>0.8</priority>' >> sitemap.xml
+        echo ' </url>' >> sitemap.xml
+        CLEAN_NAME=$(echo "$file" | sed 's/\.html//g' | tr '-' ' ' | awk '{for(i=1;i<=NF;i++)sub(/./,toupper(substr($i,1,1)),$i)}1')
+        echo " <li><a href=\"/${file}\">${CLEAN_NAME}</a></li>" >> links_tmp.txt
+         fi
+         done
+  echo '</urlset>' >> sitemap.xml
+  sed -i '/<!-- START_ARTICLE_LIST -->/,/<!-- END_ARTICLE_LIST -->/{//!d;}' index.html
+  sed -i '/<!-- START_ARTICLE_LIST -->/r links_tmp.txt' index.html
+  rm links_tmp.txt
+  
+  - name: Commit changes
+   run: |
+    git config user.name "github-actions[bot]"
+    git config user.email "41898282+github-actions[bot]@://github.com"
+    git add sitemap.xml index.html
+    if git diff --cached --quiet; then
+    echo "No changes detected."
+    exit 0
+    fi
+    git commit -m "Auto-update sitemap and homepage article links"
+    git push origin main
