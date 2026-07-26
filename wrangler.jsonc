@@ -1,0 +1,7 @@
+{
+"name": "plant-site",
+"assets": {
+"directory": ".",
+"html_handling": "drop-extension"
+}
+}
