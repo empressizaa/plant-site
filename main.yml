@@ -1,0 +1,100 @@
+name: Generate Sitemap and Update Homepage
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate sitemap and homepage
+        shell: bash
+        run: |
+          set -e
+
+          TODAY=$(date -u +"%Y-%m-%d")
+
+          cat > sitemap.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://theplantmatrix.com/</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+EOF
+
+          rm -f links.tmp
+          touch links.tmp
+
+          find . -maxdepth 1 -name "*.html" ! -name "index.html" | sort | while read file
+          do
+            FILE=$(basename "$file")
+            LASTMOD=$(date -u -r "$FILE" +"%Y-%m-%d")
+
+            cat >> sitemap.xml <<EOF
+  <url>
+    <loc>https://theplantmatrix.com/${FILE}</loc>
+    <lastmod>${LASTMOD}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+EOF
+
+            TITLE=$(echo "$FILE" \
+              | sed 's/\.html$//' \
+              | sed 's/-/ /g' \
+              | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1')
+
+            echo "    <li><a href=\"/${FILE}\">${TITLE}</a></li>" >> links.tmp
+          done
+
+          echo "</urlset>" >> sitemap.xml
+
+          awk '
+          /START_ARTICLE_LIST/{
+              print;
+              while ((getline line < "links.tmp") > 0)
+                  print line;
+              skip=1;
+              next
+          }
+          /END_ARTICLE_LIST/{
+              skip=0;
+              print;
+              next
+          }
+          !skip
+          ' index.html > index.new
+
+          mv index.new index.html
+          rm links.tmp
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add sitemap.xml index.html
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Auto-update sitemap and homepage"
+          git push
