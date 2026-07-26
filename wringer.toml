@@ -1,0 +1,10 @@
+name = "plant-site"
+
+[assets]
+directory = "."
+html_handling = "drop-extension"
+
+[[assets.headers]]
+rules = [
+  { "match" = "/*", "headers" = { "content-type" = "text/html" } }
+]
