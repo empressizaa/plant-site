@@ -1,0 +1,6 @@
+name = "plant-site"
+
+[assets]
+directory = "."
+html_handling = "drop-extension"
+not_found_handling = "single-page-application"
