@@ -1,0 +1,109 @@
+name: Generate Sitemap and Update Homepage
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - sitemap.xml
+      - index.html
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate sitemap and homepage
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TODAY="$(date -u +'%Y-%m-%d')"
+
+          {
+            printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>'
+            printf '%s\n' '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            printf '%s\n' '  <url>'
+            printf '%s\n' '    <loc>https://theplantmatrix.com/</loc>'
+            printf '    <lastmod>%s</lastmod>\n' "$TODAY"
+            printf '%s\n' '    <changefreq>daily</changefreq>'
+            printf '%s\n' '    <priority>1.0</priority>'
+            printf '%s\n' '  </url>'
+          } > sitemap.xml
+
+          rm -f links.tmp
+          touch links.tmp
+
+          find . -maxdepth 1 -type f -name "*.html" ! -name "index.html" | sort | while IFS= read -r file
+          do
+            FILE="$(basename "$file")"
+            LASTMOD="$(date -u -r "$file" +'%Y-%m-%d')"
+
+            {
+              printf '%s\n' '  <url>'
+              printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "$FILE"
+              printf '    <lastmod>%s</lastmod>\n' "$LASTMOD"
+              printf '%s\n' '    <changefreq>monthly</changefreq>'
+              printf '%s\n' '    <priority>0.8</priority>'
+              printf '%s\n' '  </url>'
+            } >> sitemap.xml
+
+            TITLE="$(
+              echo "$FILE" \
+                | sed 's/\.html$//' \
+                | sed 's/-/ /g' \
+                | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1'
+            )"
+
+            printf '    <li><a href="/%s">%s</a></li>\n' "$FILE" "$TITLE" >> links.tmp
+          done
+
+          printf '%s\n' '</urlset>' >> sitemap.xml
+
+          awk '
+          /<!-- START_ARTICLE_LIST -->/ {
+              print
+              while ((getline line < "links.tmp") > 0)
+                  print line
+              close("links.tmp")
+              skip=1
+              next
+          }
+          /<!-- END_ARTICLE_LIST -->/ {
+              skip=0
+              print
+              next
+          }
+          !skip
+          ' index.html > index.new
+
+          mv index.new index.html
+
+          rm -f links.tmp
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add sitemap.xml index.html
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Auto-update sitemap and homepage"
+          git push origin main
