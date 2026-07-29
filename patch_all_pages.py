@@ -4,7 +4,7 @@ TOP_SLOT = '<div id="ad-top-slot" style="text-align:center; margin:20px 0;"></di
 BOT_SLOT = '<div id="ad-bottom-slot" style="text-align:center; margin:20px 0;"></div>\n'
 SCRIPT_LINK = '<script src="/monetization.js"></script>\n'
 
- for filename in os.listdir('.'):
+for filename in os.listdir('.'):
      if filename.endswith('.html') and filename != 'index.html':
      with open(filename, 'r', encoding='utf-8') as f:
           content = f.read()
