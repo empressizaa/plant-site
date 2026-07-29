@@ -3,9 +3,9 @@ import re
 from xml.sax.saxutils import escape
 
 def extract_meta(html_content):
-# Extract title
-title_match = re.search(r'<title>(.*?)</title>', html_content, re.IGNORECASE | re.DOTALL)
-title = title_match.group(1).strip() if title_match else "Untitled Article"
+  # Extract title
+  title_match = re.search(r'<title>(.*?)</title>', html_content, re.IGNORECASE | re.DOTALL)
+  title = title_match.group(1).strip() if title_match else "Untitled Article"
 
 # Extract description from meta tag (handles any attribute order)
 desc_match = re.search(r'<meta\s+[^>]*name=["\']description["\'][^>]*content=["\'](.*?)["\']', html_content, re.IGNORECASE | re.DOTALL)
