@@ -1,89 +1,83 @@
 name: Generate RSS Feed
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "*.html"
-    paths-ignore:
-      - "index.html"
-      - "feed.xml"
+push:
+branches:
+- main
+paths:
+- "*.html"
+paths-ignore:
+- "feed.xml"
+- "index.html"
 
-  workflow_dispatch:
+workflow_dispatch:
 
 permissions:
-  contents: write
+contents: write
 
 jobs:
-  generate-rss:
-    runs-on: ubuntu-latest
+generate-rss:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+steps:
+- name: Checkout repository
+uses: actions/checkout@v4
+with:
+fetch-depth: 0
 
-      - name: Generate feed.xml
-        shell: bash
-        run: |
-          set -euo pipefail
+- name: Generate feed.xml
+shell: bash
+run: |
+set -euo pipefail
 
-          NOW="$(date -u +"%a, %d %b %Y %H:%M:%S GMT")"
+NOW="$(date -u +"%a, %d %b %Y %H:%M:%S GMT")"
 
-          cat > feed.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-<channel>
-<title>The Plant Matrix</title>
-<link>https://theplantmatrix.com/</link>
-<description>Plant care and watering guides.</description>
-<language>en-us</language>
-<lastBuildDate>${NOW}</lastBuildDate>
-<atom:link href="https://theplantmatrix.com/feed.xml" rel="self" type="application/rss+xml"/>
-EOF
+{
+echo '<?xml version="1.0" encoding="UTF-8"?>'
+echo '<rss version="2.0">'
+echo '<channel>'
+echo '<title>The Plant Matrix</title>'
+echo '<link>https://theplantmatrix.com/</link>'
+echo '<description>Comprehensive plant watering and care guides.</description>'
+echo "<lastBuildDate>${NOW}</lastBuildDate>"
 
-          find . -maxdepth 1 -type f -name "*.html" ! -name "index.html" | while read file
-          do
-            FILE=$(basename "$file")
-            URL="https://theplantmatrix.com/$FILE"
-            TITLE=$(grep -oPm1 '(?<=<title>)[^<]+' "$file" || true)
-            DESCRIPTION=$(grep -oPm1 '(?<=<meta name="description" content=")[^"]+' "$file" || true)
-            PUBDATE=$(git log -1 --format="%aD" -- "$file")
+find . -maxdepth 1 -name "*.html" ! -name "index.html" | sort | while read file
+do
+FILE=$(basename "$file")
+URL="https://theplantmatrix.com/$FILE"
 
-            [ -z "$TITLE" ] && TITLE="${FILE%.html}"
-            [ -z "$DESCRIPTION" ] && DESCRIPTION="$TITLE"
-            [ -z "$PUBDATE" ] && PUBDATE="$NOW"
+TITLE=$(grep -oPm1 '(?<=<title>)[^<]+' "$file" || true)
+DESC=$(grep -oPm1 '(?<=<meta name="description" content=")[^"]+' "$file" || true)
+DATE=$(git log -1 --format="%aD" -- "$file" || true)
 
-cat >> feed.xml <<EOF
-<item>
-<title><![CDATA[$TITLE]]></title>
-<link>$URL</link>
-<guid isPermaLink="true">$URL</guid>
-<pubDate>$PUBDATE</pubDate>
-<description><![CDATA[$DESCRIPTION]]></description>
-</item>
-EOF
-          done
+[ -z "$TITLE" ] && TITLE="${FILE%.html}"
+[ -z "$DESC" ] && DESC="$TITLE"
+[ -z "$DATE" ] && DATE="$NOW"
 
-cat >> feed.xml <<EOF
-</channel>
-</rss>
-EOF
+echo "<item>"
+echo "<title><![CDATA[$TITLE]]></title>"
+echo "<link>$URL</link>"
+echo "<guid>$URL</guid>"
+echo "<pubDate>$DATE</pubDate>"
+echo "<description><![CDATA[$DESC]]></description>"
+echo "</item>"
+done
 
-      - name: Commit feed.xml
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+echo '</channel>'
+echo '</rss>'
+} > feed.xml
 
-          git add feed.xml
+- name: Commit feed.xml
+run: |
+git config user.name "github-actions[bot]"
+git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git diff --cached --quiet; then
-            echo "No RSS changes."
-            exit 0
-          fi
+git add feed.xml
 
-          git commit -m "Auto-update RSS feed"
-          git push
+if git diff --cached --quiet; then
+echo "No changes."
+exit 0
+fi
+
+git commit -m "Auto-update RSS feed"
+git push
