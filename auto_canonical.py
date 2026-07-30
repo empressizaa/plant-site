@@ -1,28 +1,23 @@
 import os
-import re
 
-# Scan the directory for all HTML files
+# Get all HTML files in the main folder
 files = [f for f in os.listdir('.') if f.endswith('.html')]
 
 for filename in files:
-    # Skip the homepage
     if filename == 'index.html':
         continue
         
     with open(filename, 'r', encoding='utf-8') as f:
         content = f.read()
         
-    # Generate the clean canonical link using the filename slug
-    slug = filename.replace('.html', '')
-    canonical_link = f'<link rel="canonical" href="https://theplantmatrix.com{slug}" />'
-    
-    # If a canonical tag exists, update it; otherwise, insert it in the <head>
-    if 'rel="canonical"' in content:
-        content = re.sub(r'<link rel="canonical" href="[^"]+" */?>', canonical_link, content)
-    else:
-        content = content.replace('<head>', f'<head>\n    {canonical_link}')
+    # Check if the placeholder example domain exists in the file
+    if '://example.com' in content:
+        print(f"Fixing domain in: {filename}")
+        # Swap out example.com for your real, clean live domain
+        content = content.replace('://example.com', 'theplantmatrix.com')
         
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(content)
+        # Save the updated file back to the repository
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(content)
 
-print(f"Successfully processed {len(files) - 1} article pages!")
+print("All files scanned and domains corrected successfully!")
