@@ -1,0 +1,27 @@
+name: Manual Canonical Patch
+
+on:
+  workflow_dispatch: # Adds the manual play button in GitHub web dashboard
+
+jobs:
+  patch-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run Auto-Canonical Script
+        run: python auto_canonical.py
+
+      - name: Commit Fixed Tags
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@://github.com"
+          git add *.html
+          git diff --quiet && git diff --staged --quiet || git commit -m "Safe patch changing example.com to real domain"
+          git push origin main
