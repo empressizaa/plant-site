@@ -2,7 +2,7 @@ import os
 import xml.etree.ElementTree as ET
 
 # CONFIGURATION
-DEFAULT_IMAGE = "https://theplantmatrix.com/assets/images/logo.png" 
+DEFAULT_IMAGE = "https://theplantmatrix.com/logo.png" 
 
 rss_root = ET.Element("rss", version="2.0")
 channel = ET.SubElement(rss_root, "channel")
