@@ -1,34 +1,34 @@
 import os
 import re
 
-# Get all files in your root directory
+# Get all HTML files in your root directory
 files = [f for f in os.listdir('.') if f.endswith('.html')]
 
 for filename in files:
-    # Skip index.html if you don't want it to have individual canonical formatting
+    # Skip the main index page to preserve your custom grid formatting
     if filename == "index.html":
         continue
 
     with open(filename, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Create the perfect clean link based on the actual filename
+    # Create the clean canonical link based on the true file slug
     slug = filename.replace('.html', '')
     perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com{slug}">'
 
-    # 1. FIX THE CANONICAL TAG: Strip out any existing broken or empty canonical tags completely
+    # 1. FIX CANONICALS: Find and completely delete any existing messy, broken, or empty canonical links
     content = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']*)["\']\s*/?>', '', content, flags=re.IGNORECASE)
     
-    # Inject the perfect fresh canonical link directly right under the <head> tag
+    # Inject the pristine, accurate canonical link directly under the opening <head> tag
     if '<head>' in content:
         content = content.replace('<head>', f'<head>\n    {perfect_canonical}')
 
-    # 2. INJECT PRIVACY POLICY FOOTER: Add the footer link right before the closing body tag
+    # 2. INJECT PRIVACY POLICY FOOTER: Add the structural footer link right before the closing body tag
     footer_html = '\n<footer style="text-align: center; padding: 20px 0; margin-top: 40px; font-size: 14px;"><a href="/privacy-policy" style="color: #555; text-decoration: none;">Privacy Policy</a></footer>\n'
     if '</body>' in content and 'privacy-policy' not in content:
         content = content.replace('</body>', footer_html + '</body>')
 
-    # Save the updated content back down safely
+    # Save the polished content safely back down
     with open(filename, "w", encoding="utf-8") as f:
         f.write(content)
 
