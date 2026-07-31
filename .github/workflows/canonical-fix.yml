@@ -1,7 +1,10 @@
-name: Manual Canonical Patch
+name: Manual and Automated Canonical Patch
 
 on:
-  workflow_dispatch: # Adds the manual play button in GitHub web dashboard
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Keeps the manual play button active in the Actions dashboard
 
 jobs:
   patch-links:
@@ -23,5 +26,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@://github.com"
           git add *.html
-          git diff --quiet && git diff --staged --quiet || git commit -m "Safe patch changing example.com to real domain"
-          git push origin main
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Safe patch changing example.com to real domains" && git push origin main)
