@@ -23,8 +23,8 @@ for filename in files:
     if '<head>' in content:
         content = content.replace('<head>', f'<head>\n    {perfect_canonical}')
 
-    # 2. INJECT PRIVACY POLICY FOOTER: Add the structural footer link right before the closing body tag
-    footer_html = '\n<footer style="text-align: center; padding: 20px 0; margin-top: 40px; font-size: 14px;"><a href="/privacy-policy" style="color: #555; text-decoration: none;">Privacy Policy</a></footer>\n'
+        footer_html = '\n<footer style="text-align: center; padding: 20px 0; margin-top: 40px; font-size: 14px;"><a href="/about" style="color: #555; text-decoration: none; margin-right: 20px;">About Us</a> | <a href="/privacy-policy" style="color: #555; text-decoration: none; margin-left: 20px;">Privacy Policy</a></footer>\n'
+
     if '</body>' in content and 'privacy-policy' not in content:
         content = content.replace('</body>', footer_html + '</body>')
 
