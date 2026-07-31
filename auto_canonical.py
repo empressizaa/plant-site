@@ -1,36 +1,35 @@
 import os
 import re
 
-# Get all HTML files in your root directory
+# Get all files in your root directory
 files = [f for f in os.listdir('.') if f.endswith('.html')]
 
 for filename in files:
-    # Always skip the main homepage file
-    if filename == 'index.html':
+    # Skip index.html if you don't want it to have individual canonical formatting
+    if filename == "index.html":
         continue
-        
-    with open(filename, 'r', encoding='utf-8') as f:
+
+    with open(filename, "r", encoding="utf-8") as f:
         content = f.read()
-        
+
     # Create the perfect clean link based on the actual filename
     slug = filename.replace('.html', '')
     perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com{slug}">'
+
+    # 1. FIX THE CANONICAL TAG: Strip out any existing broken or empty canonical tags completely
+    content = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']*)["\']\s*/?>', '', content, flags=re.IGNORECASE)
     
-    # This regex catches ANY canonical tag, no matter what junk text is inside it
-    # It will match href="#", href="example.com", or anything else!
-    canonical_pattern = r'<link\s+rel=["\']canonical["\']\s+href=["\'][^"\']*["\']\s*/?>'
-    
-    if re.search(canonical_pattern, content):
-        print(f"Replacing broken tag in: {filename}")
-        # Overwrite the broken tag with your perfect live URL
-        content = re.sub(canonical_pattern, perfect_canonical, content)
-    else:
-        print(f"No tag found. Injecting new tag in: {filename}")
-        # If the tag is completely missing, inject it right under the <head>
+    # Inject the perfect fresh canonical link directly right under the <head> tag
+    if '<head>' in content:
         content = content.replace('<head>', f'<head>\n    {perfect_canonical}')
-        
-    # Save the polished file back to GitHub
-    with open(filename, 'w', encoding='utf-8') as f:
+
+    # 2. INJECT PRIVACY POLICY FOOTER: Add the footer link right before the closing body tag
+    footer_html = '\n<footer style="text-align: center; padding: 20px 0; margin-top: 40px; font-size: 14px;"><a href="/privacy-policy" style="color: #555; text-decoration: none;">Privacy Policy</a></footer>\n'
+    if '</body>' in content and 'privacy-policy' not in content:
+        content = content.replace('</body>', footer_html + '</body>')
+
+    # Save the updated content back down safely
+    with open(filename, "w", encoding="utf-8") as f:
         f.write(content)
 
-print("All article files successfully sanitized and fixed!")
+print("Successfully fixed canonical tags and injected privacy policies across all pages!")
