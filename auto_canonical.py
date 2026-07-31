@@ -14,7 +14,7 @@ for filename in files:
 
     # Create the clean canonical link based on the true file slug
     slug = filename.replace('.html', '')
-    perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com{slug}">'
+    perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com/{slug}">'
 
     # 1. FIX CANONICALS: Find and completely delete any existing messy, broken, or empty canonical links
     content = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']*)["\']\s*/?>', '', content, flags=re.IGNORECASE)
