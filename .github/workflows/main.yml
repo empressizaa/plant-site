@@ -50,7 +50,7 @@ jobs:
 
             {
               printf '%s\n' '  <url>'
-              printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "$FILE"
+              printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "${FILE%.html}"
               printf '    <lastmod>%s</lastmod>\n' "$LASTMOD"
               printf '%s\n' '    <changefreq>monthly</changefreq>'
               printf '%s\n' '    <priority>0.8</priority>'
@@ -64,7 +64,7 @@ jobs:
                 | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1'
             )"
 
-            printf '    <li><a href="/%s">%s</a></li>\n' "$FILE" "$TITLE" >> links.tmp
+            printf '    <li><a href="/%s">%s</a></li>\n' "${FILE%.html}" "$TITLE" >> links.tmp
           done
 
           printf '%s\n' '</urlset>' >> sitemap.xml
