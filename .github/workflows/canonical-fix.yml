@@ -26,4 +26,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@://github.com"
           git add *.html
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Safe patch changing example.com to real domains" && git push origin main)
+          # Adding [skip ci] inside the message tells GitHub NOT to trigger a loop!
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Safe patch changing example.com to real domains [skip ci]" && git push origin main) 
