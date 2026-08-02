@@ -15,7 +15,7 @@ for filename in files:
     content = re.sub(r'(\n\s*){3,}', '\n\n', content)
 
     slug = filename.replace('.html', '')
-    perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com{slug}">'
+    perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com/{slug}">'
 
     # 2. CANONICAL CLEANUP: Strip out duplicate canonical tags if any accumulated
     content = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']*)["\']\s*/?>', '', content, flags=re.IGNORECASE)
