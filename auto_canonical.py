@@ -20,10 +20,10 @@ for filename in files:
     # 2. CANONICAL CLEANUP: Strip out duplicate canonical tags if any accumulated
     content = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']*)["\']\s*/?>', '', content, flags=re.IGNORECASE)
     
-        if '<head>' in content:
-        # Extract title and summary text from HTML structure
-        title_match = re.search(r'<h1>(.*?)</h1>', content, re.DOTALL | re.IGNORECASE)
-        p_match = re.search(r'<p>(.*?)</p>', content, re.DOTALL | re.IGNORECASE)
+    if '<head>' in content:
+        # Flexible match that handles case-sensitivity and internal tag attributes (like classes)
+        title_match = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL | re.IGNORECASE)
+        p_match = re.search(r'<p[^>]*>(.*?)</p>', content, re.DOTALL | re.IGNORECASE)
         
         schema_html = ""
         if title_match and p_match:
@@ -48,7 +48,6 @@ for filename in files:
 
         # Inject both your canonical tag AND the schema tag right below <head>
         content = content.replace('<head>', f'<head>\n    {perfect_canonical}{schema_html}')
-
 
     # 3. FOOTER SAFETY CHECK
     footer_html = '\n<footer style="text-align: center; padding: 20px 0; margin-top: 40px; font-size: 14px;"><a href="/about" style="color: #555; text-decoration: none; margin-right: 20px;">About Us</a> | <a href="/privacy-policy" style="color: #555; text-decoration: none; margin-left: 20px;">Privacy Policy</a></footer>\n'
