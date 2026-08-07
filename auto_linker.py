@@ -26,15 +26,14 @@ for i, current_page in enumerate(all_pages):
     top_related = []
     for offset in range(1, 6):
         next_index = (i + offset) % total_pages
-        # Safety check to ensure a site with under 6 pages doesn't link to itself
         if all_pages[next_index]["slug"] != current_page["slug"]:
             top_related.append(all_pages[next_index])
     
     if not top_related:
         continue
 
-    # Construct a clean, stylized HTML related linking element
-    linking_html = '\n<div class="related-guides" style="margin-top: 40px; padding: 15px; background-color: #f1f8e9; border-top: 2px solid #4CAF50; border-radius: 4px;">\n'
+    # Construct a clean, stylized HTML related linking element with clear block margins
+    linking_html = '\n<div class="related-guides" style="margin-top: 40px; padding: 15px; background-color: #f1f8e9; border-top: 2px solid #4CAF50; border-radius: 4px; clear: both; width: 100%; box-sizing: border-box;">\n'
     linking_html += '    <h3 style="margin-top: 0; color: #2e7d32;">Recommended Plant Guides</h3>\n    <ul style="padding-left: 20px; margin-bottom: 0;">\n'
     
     for item in top_related:
@@ -49,8 +48,10 @@ for i, current_page in enumerate(all_pages):
     # Strip out any old automated related blocks from prior runs to prevent accumulation loops
     file_content = re.sub(r'<div class=["\']related-guides["\'].*?</div>', '', file_content, flags=re.DOTALL)
 
-    # Inject right above the opening footer tag element safely
-    if '<footer' in file_content:
+    # FIX: Inject directly inside the closing </article> tag so it stays inside your main text layout bounds
+    if '</article>' in file_content:
+        file_content = file_content.replace('</article>', f'{linking_html}</article>')
+    elif '<footer' in file_content:
         file_content = file_content.replace('<footer', f'{linking_html}<footer')
     elif '</body>' in file_content:
         file_content = file_content.replace('</body>', f'{linking_html}</body>')
@@ -58,4 +59,4 @@ for i, current_page in enumerate(all_pages):
     with open(current_filename, "w", encoding="utf-8") as f:
         f.write(file_content)
 
-print(f"Successfully established a perfectly balanced circular link mesh across all {total_pages} pages!")
+print(f"Successfully established a layout-safe circular link mesh across all {total_pages} pages!")
