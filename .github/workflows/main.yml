@@ -22,6 +22,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Generate sitemap and homepage
         shell: bash
         run: |
@@ -90,6 +95,12 @@ jobs:
 
           rm -f links.tmp
 
+      - name: Run Schema Optimizer
+        run: python auto_canonical.py
+
+      - name: Run Programmatic Internal Linker
+        run: python auto_linker.py
+
       - name: Commit changes
         shell: bash
         run: |
@@ -105,5 +116,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Auto-update sitemap and homepage"
+          git commit -m "Auto-update sitemap, homepage, internal links, and schema markup"
           git push origin main
