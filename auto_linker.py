@@ -1,8 +1,9 @@
 import os
 import re
+import random
 
-# Get all HTML files in alphabetical order to lock in a permanent list sequence
-files = sorted([f for f in os.listdir('.') if f.endswith('.html') and f != "index.html"])
+# Get all HTML files in your root directory
+files = [f for f in os.listdir('.') if f.endswith('.html') and f != "index.html"]
 all_pages = []
 
 # Map out every page's URL and human-readable Title
@@ -18,22 +19,22 @@ for filename in files:
 
 total_pages = len(all_pages)
 
-# Process internal linking using a deterministic circular offset loop
-for i, current_page in enumerate(all_pages):
+# Process internal linking loops
+for current_page in all_pages:
     current_filename = current_page["filename"]
     
-    # Select the next 5 pages in the list index sequence
-    top_related = []
-    for offset in range(1, 6):
-        next_index = (i + offset) % total_pages
-        if all_pages[next_index]["slug"] != current_page["slug"]:
-            top_related.append(all_pages[next_index])
+    # Create a link pool excluding the current page so it never links to itself
+    pool = [p for p in all_pages if p["slug"] != current_page["slug"]]
+    
+    # Secure exactly 5 random pages from the entire database pool
+    sample_size = min(5, len(pool))
+    top_related = random.sample(pool, sample_size) if sample_size > 0 else []
     
     if not top_related:
         continue
 
-    # Construct a clean, stylized HTML related linking element with clear block margins
-    linking_html = '\n<div class="related-guides" style="margin-top: 40px; padding: 15px; background-color: #f1f8e9; border-top: 2px solid #4CAF50; border-radius: 4px; clear: both; width: 100%; box-sizing: border-box;">\n'
+    # Construct a clean, stylized HTML related linking element with strict layout constraints
+    linking_html = '\n<div class="related-guides" style="margin-top: 40px; padding: 15px; background-color: #f1f8e9; border-top: 2px solid #4CAF50; border-radius: 4px; display: block; clear: both; width: 100%; box-sizing: border-box;">\n'
     linking_html += '    <h3 style="margin-top: 0; color: #2e7d32;">Recommended Plant Guides</h3>\n    <ul style="padding-left: 20px; margin-bottom: 0;">\n'
     
     for item in top_related:
@@ -45,18 +46,20 @@ for i, current_page in enumerate(all_pages):
     with open(current_filename, "r", encoding="utf-8") as f:
         file_content = f.read()
 
-    # Strip out any old automated related blocks from prior runs to prevent accumulation loops
+    # Clean up any old structural links or related-guides blocks left over from earlier test runs
     file_content = re.sub(r'<div class=["\']related-guides["\'].*?</div>', '', file_content, flags=re.DOTALL)
 
-    # FIX: Inject directly inside the closing </article> tag so it stays inside your main text layout bounds
+    # CRITICAL POSITION FIX: Drop the box inside the main container element right before it closes
     if '</article>' in file_content:
         file_content = file_content.replace('</article>', f'{linking_html}</article>')
-    elif '<footer' in file_content:
-        file_content = file_content.replace('<footer', f'{linking_html}<footer')
+    elif '</div>\n\n<footer' in file_content:
+        file_content = file_content.replace('</div>\n\n<footer', f'{linking_html}</div>\n\n<footer')
+    elif '</div>\n<footer' in file_content:
+        file_content = file_content.replace('</div>\n<footer', f'{linking_html}</div>\n<footer')
     elif '</body>' in file_content:
         file_content = file_content.replace('</body>', f'{linking_html}</body>')
 
     with open(current_filename, "w", encoding="utf-8") as f:
         f.write(file_content)
 
-print(f"Successfully established a layout-safe circular link mesh across all {total_pages} pages!")
+print(f"Successfully random-linked exactly 5 pages across all {total_pages} site URLs!")
