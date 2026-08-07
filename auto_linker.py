@@ -44,9 +44,9 @@ if total < 2:
 print(f"Found {total} articles.")
 
 # -------------------------------------------------
-# Shuffle once
+# Deterministic Shuffle: Prevents infinite Git commit loops
 # -------------------------------------------------
-random.shuffle(pages)
+random.Random(42).shuffle(pages)
 
 # -------------------------------------------------
 # Process every article
@@ -56,7 +56,7 @@ for i, page in enumerate(pages):
     with open(page["filename"], "r", encoding="utf-8") as f:
         html = f.read()
 
-    # 1. CLEANUP NEW BLOCKS: Safely handle updates using target comment markers
+    # 1. CLEANUP NEW BLOCKS: Safely removes comment-marked blocks on subsequent runs
     html = re.sub(
         r'<!-- RELATED GUIDES START -->.*?<!-- RELATED GUIDES END -->',
         '',
@@ -64,12 +64,12 @@ for i, page in enumerate(pages):
         flags=re.DOTALL | re.IGNORECASE
     )
 
-    # 2. CLEANUP OLD BLOCKS: Flexible class-based sweeping without brittle <h3> dependencies
+    # 2. SAFE OLD BLOCK CLEANUP: Targets old un-commented sections up to the footer boundary
     html = re.sub(
-        r'<div\s+class="related-guides"[\s\S]*?(?=<footer|</body>)',
+        r'<div\s+class="related-guides"[\s\S]*?(?=<footer\b)',
         '',
         html,
-        flags=re.IGNORECASE
+        flags=re.DOTALL | re.IGNORECASE
     )
 
     # Number of links
@@ -132,46 +132,16 @@ margin-bottom:0;
 
 """
 
-    inserted = False
-
-    # Preferred location: Cleanly capture the footer and prepend the block
-    if re.search(r"<footer\s*[^>]*>", html, re.IGNORECASE):
-        html = re.sub(
-            r"(<footer\s*[^>]*>)",
-            related_html + r"\1",
-            html,
-            count=1,
-            flags=re.IGNORECASE
-        )
-        inserted = True
-
-    # Second choice: Inside the closing article wrapper container
-    elif re.search(r"</article\s*>", html, re.IGNORECASE):
-        html = re.sub(
-            r"</article\s*>",
-            related_html + "</article>",
-            html,
-            count=1,
-            flags=re.IGNORECASE
-        )
-        inserted = True
-
-    # Third choice: Right above closing body element
-    elif re.search(r"</body\s*>", html, re.IGNORECASE):
-        html = re.sub(
-            r"</body\s*>",
-            related_html + "</body>",
-            html,
-            count=1,
-            flags=re.IGNORECASE
-        )
-        inserted = True
-
-    # Fallback
-    if not inserted:
-        html += related_html
+    # 3. UNIFORM INSERTION: Always insert perfectly before the footer element
+    html = re.sub(
+        r'(<footer\b[^>]*>)',
+        related_html + r'\1',
+        html,
+        count=1,
+        flags=re.IGNORECASE
+    )
 
     with open(page["filename"], "w", encoding="utf-8") as f:
         f.write(html)
 
-print(f"✅ Successfully linked all {total} articles with a standardized layout.")
+print(f"✅ Successfully linked all {total} articles cleanly above the footer.")
