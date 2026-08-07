@@ -17,7 +17,7 @@ for filename in files:
     slug = filename.replace('.html', '')
     perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com/{slug}">'
 
-    # 2. BRUTE-FORCE CLEANUP: Wipe out any old stacked schemas or messy canonicals completely
+    # 2. CLEANUP OLD INJECTIONS: Clear existing canonical tags and schemas
     content = re.sub(r'<link\s+rel=["\']canonical["\'].*?>', '', content, flags=re.IGNORECASE)
     content = re.sub(r'<script\s+type=["\']application/ld\+json["\'].*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
     
@@ -27,7 +27,7 @@ for filename in files:
         # Pull your clear H1 title
         title_match = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL | re.IGNORECASE)
         
-        # Pull the text inside your quick-answer box to make the snippet highly accurate!
+        # Pull the text inside your quick-answer box
         answer_match = re.search(r'class=["\']quick-answer["\'][^>]*>(.*?)</div>', content, re.DOTALL | re.IGNORECASE)
         
         schema_html = ""
@@ -35,11 +35,11 @@ for filename in files:
             schema_title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip()
             schema_desc = re.sub(r'<[^>]+>', '', answer_match.group(1)).replace('Quick Answer:', '').strip()
             
-            # Clean quotes and lines to keep the JSON string clean
-            schema_title = schema_title.replace('\n', ' ').replace('"', '\\"')
-            schema_desc = schema_desc.replace('\n', ' ').replace('"', '\\"')
+            # AGGRESSIVE SANITIZATION: Collapse all inner linebreaks, tabs, or multi-spaces into a single clean line space
+            schema_title = re.sub(r'\s+', ' ', schema_title).replace('"', '\\"')
+            schema_desc = re.sub(r'\s+', ' ', schema_desc).replace('"', '\\"')
             
-            # Clean up trailing question marks if your titles already include them
+            # Clean up trailing question marks
             schema_title = schema_title.rstrip('?')
             
             schema_html = f"""
