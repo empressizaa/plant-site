@@ -56,12 +56,20 @@ for i, page in enumerate(pages):
     with open(page["filename"], "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Remove previous related section
+    # 1. CLEANUP NEW BLOCKS: Safely handle updates using target comment markers
     html = re.sub(
         r'<!-- RELATED GUIDES START -->.*?<!-- RELATED GUIDES END -->',
         '',
         html,
         flags=re.DOTALL | re.IGNORECASE
+    )
+
+    # 2. CLEANUP OLD BLOCKS: Flexible class-based sweeping without brittle <h3> dependencies
+    html = re.sub(
+        r'<div\s+class="related-guides"[\s\S]*?(?=<footer|</body>)',
+        '',
+        html,
+        flags=re.IGNORECASE
     )
 
     # Number of links
@@ -90,7 +98,7 @@ style="color:#2e7d32;text-decoration:none;font-weight:bold;">
 
 <!-- RELATED GUIDES START -->
 
-<div style="
+<div class="related-guides" style="
 clear:both;
 display:block;
 width:100%;
@@ -126,8 +134,19 @@ margin-bottom:0;
 
     inserted = False
 
-    # Preferred location
-    if re.search(r"</article\s*>", html, re.IGNORECASE):
+    # Preferred location: Cleanly capture the footer and prepend the block
+    if re.search(r"<footer\s*[^>]*>", html, re.IGNORECASE):
+        html = re.sub(
+            r"(<footer\s*[^>]*>)",
+            related_html + r"\1",
+            html,
+            count=1,
+            flags=re.IGNORECASE
+        )
+        inserted = True
+
+    # Second choice: Inside the closing article wrapper container
+    elif re.search(r"</article\s*>", html, re.IGNORECASE):
         html = re.sub(
             r"</article\s*>",
             related_html + "</article>",
@@ -137,18 +156,7 @@ margin-bottom:0;
         )
         inserted = True
 
-    # Second choice
-    elif re.search(r"</main\s*>", html, re.IGNORECASE):
-        html = re.sub(
-            r"</main\s*>",
-            related_html + "</main>",
-            html,
-            count=1,
-            flags=re.IGNORECASE
-        )
-        inserted = True
-
-    # Third choice
+    # Third choice: Right above closing body element
     elif re.search(r"</body\s*>", html, re.IGNORECASE):
         html = re.sub(
             r"</body\s*>",
@@ -166,4 +174,4 @@ margin-bottom:0;
     with open(page["filename"], "w", encoding="utf-8") as f:
         f.write(html)
 
-print(f"✅ Successfully linked all {total} articles.")
+print(f"✅ Successfully linked all {total} articles with a standardized layout.")
