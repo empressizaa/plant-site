@@ -95,14 +95,15 @@ jobs:
 
           rm -f links.tmp
 
-      - name: Run Schema Optimizer
-        run: python auto_canonical.py
-
       - name: Run Programmatic Internal Linker
         run: python auto_linker.py
 
+      - name: Run Schema Optimizer
+        run: python auto_canonical.py
+
       - name: Commit changes
         shell: bash
+
         run: |
           set -euo pipefail
 
