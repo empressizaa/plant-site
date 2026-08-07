@@ -11,41 +11,37 @@ for filename in files:
     with open(filename, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # 1. WHITESPACE COMPRESSION: Find any spot with 3 or more consecutive blank lines and shrink it to a single clean break
+    # 1. WHITESPACE COMPRESSION
     content = re.sub(r'(\n\s*){3,}', '\n\n', content)
 
     slug = filename.replace('.html', '')
     perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com/{slug}">'
 
-    # 2. CANONICAL CLEANUP: Strip out duplicate canonical tags if any accumulated
-    content = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']*)["\']\s*/?>', '', content, flags=re.IGNORECASE)
+    # 2. BRUTE-FORCE CLEANUP: Wipe out any old stacked schemas or messy canonicals completely
+    content = re.sub(r'<link\s+rel=["\']canonical["\'].*?>', '', content, flags=re.IGNORECASE)
+    content = re.sub(r'<script\s+type=["\']application/ld\+json["\'].*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
     
     # Case-insensitive check for the opening head tag
     head_match = re.search(r'<head[^>]*>', content, re.IGNORECASE)
     if head_match:
-        # Flexible match for any H1 header variant
+        # Pull your clear H1 title
         title_match = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL | re.IGNORECASE)
         
+        # Pull the text inside your quick-answer box to make the snippet highly accurate!
+        answer_match = re.search(r'class=["\']quick-answer["\'][^>]*>(.*?)</div>', content, re.DOTALL | re.IGNORECASE)
+        
         schema_html = ""
-        if title_match:
+        if title_match and answer_match:
             schema_title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip()
+            schema_desc = re.sub(r'<[^>]+>', '', answer_match.group(1)).replace('Quick Answer:', '').strip()
             
-            # Look for the next block of actual text content following the H1 tag
-            post_h1_content = content.split(title_match.group(0))[1]
-            
-            # Extract the first paragraph tag or text container block it can find
-            any_text_match = re.search(r'<(p|div|span)[^>]*>(.*?)</\1>', post_h1_content, re.DOTALL | re.IGNORECASE)
-            
-            if any_text_match:
-                schema_desc = re.sub(r'<[^>]+>', '', any_text_match.group(2)).strip()
-            else:
-                # Absolute fall-back if text container parsing completely fails
-                schema_desc = f"Learn how often to water and care for {schema_title} properly."
-
-            # Strip out any newline breaks inside the text content strings to keep JSON parsing happy
+            # Clean quotes and lines to keep the JSON string clean
             schema_title = schema_title.replace('\n', ' ').replace('"', '\\"')
             schema_desc = schema_desc.replace('\n', ' ').replace('"', '\\"')
-
+            
+            # Clean up trailing question marks if your titles already include them
+            schema_title = schema_title.rstrip('?')
+            
             schema_html = f"""
     <script type="application/ld+json">
     {{
@@ -62,7 +58,7 @@ for filename in files:
     }}
     </script>"""
 
-        # Inject both your canonical tag AND the schema tag right below the head tag variation found
+        # Inject exactly ONE canonical tag and ONE clean schema tag right below <head>
         original_head_tag = head_match.group(0)
         content = content.replace(original_head_tag, f'{original_head_tag}\n    {perfect_canonical}{schema_html}')
 
