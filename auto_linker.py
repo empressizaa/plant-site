@@ -1,16 +1,8 @@
 import os
 import re
 
-# 1. Define your category clusters based on your URL naming patterns
-CATEGORIES = {
-    "grass": ["grass", "sod", "lawn"],
-    "trees": ["tree", "aspen", "calamansi", "fig", "bay-tree", "blossom"],
-    "veggies": ["veggies", "vegetable", "tomato", "pepper", "garden"],
-    "succulents": ["succulent", "cactus", "adenium", "zz-plant", "indoor"]
-}
-
-# Get all HTML files
-files = [f for f in os.listdir('.') if f.endswith('.html') and f != "index.html"]
+# Get all HTML files in alphabetical order to lock in a permanent list sequence
+files = sorted([f for f in os.listdir('.') if f.endswith('.html') and f != "index.html"])
 all_pages = []
 
 # Map out every page's URL and human-readable Title
@@ -24,29 +16,20 @@ for filename in files:
         slug = filename.replace('.html', '')
         all_pages.append({"slug": slug, "title": title, "filename": filename})
 
-# Process internal linking loops
-for current_page in all_pages:
-    current_slug = current_page["slug"].lower()
+total_pages = len(all_pages)
+
+# Process internal linking using a deterministic circular offset loop
+for i, current_page in enumerate(all_pages):
     current_filename = current_page["filename"]
     
-    # Identify the matching category group
-    matched_category = None
-    for cat_name, keywords in CATEGORIES.items():
-        if any(keyword in current_slug for keyword in keywords):
-            matched_category = cat_name
-            break
+    # Select the next 5 pages in the list index sequence
+    top_related = []
+    for offset in range(1, 6):
+        next_index = (i + offset) % total_pages
+        # Safety check to ensure a site with under 6 pages doesn't link to itself
+        if all_pages[next_index]["slug"] != current_page["slug"]:
+            top_related.append(all_pages[next_index])
     
-    if not matched_category:
-        continue # Skip if it doesn't align with a core category cluster
-
-    # Find relevant internal peers within the same group (excluding itself)
-    related_links = [
-        p for p in all_pages 
-        if p["slug"] != current_page["slug"] and any(k in p["slug"].lower() for k in CATEGORIES[matched_category])
-    ]
-    
-    # Grab the top 3 contextual recommendations
-    top_related = related_links[:3]
     if not top_related:
         continue
 
@@ -75,4 +58,4 @@ for current_page in all_pages:
     with open(current_filename, "w", encoding="utf-8") as f:
         f.write(file_content)
 
-print(f"Successfully contextualized links across {len(all_pages)} site pages!")
+print(f"Successfully established a perfectly balanced circular link mesh across all {total_pages} pages!")
