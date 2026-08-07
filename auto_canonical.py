@@ -15,7 +15,7 @@ for filename in files:
     content = re.sub(r'(\n\s*){3,}', '\n\n', content)
 
     slug = filename.replace('.html', '')
-    perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com{slug}">'
+    perfect_canonical = f'<link rel="canonical" href="https://theplantmatrix.com/{slug}">'
 
     # 2. CANONICAL CLEANUP: Strip out duplicate canonical tags if any accumulated
     content = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']*)["\']\s*/?>', '', content, flags=re.IGNORECASE)
@@ -23,15 +23,29 @@ for filename in files:
     # Case-insensitive check for the opening head tag
     head_match = re.search(r'<head[^>]*>', content, re.IGNORECASE)
     if head_match:
-        # Flexible match that handles case-sensitivity and internal tag attributes (like classes)
+        # Flexible match for any H1 header variant
         title_match = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL | re.IGNORECASE)
-        p_match = re.search(r'<p[^>]*>(.*?)</p>', content, re.DOTALL | re.IGNORECASE)
         
         schema_html = ""
-        if title_match and p_match:
+        if title_match:
             schema_title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip()
-            schema_desc = re.sub(r'<[^>]+>', '', p_match.group(1)).strip()
             
+            # Look for the next block of actual text content following the H1 tag
+            post_h1_content = content.split(title_match.group(0))[1]
+            
+            # Extract the first paragraph tag or text container block it can find
+            any_text_match = re.search(r'<(p|div|span)[^>]*>(.*?)</\1>', post_h1_content, re.DOTALL | re.IGNORECASE)
+            
+            if any_text_match:
+                schema_desc = re.sub(r'<[^>]+>', '', any_text_match.group(2)).strip()
+            else:
+                # Absolute fall-back if text container parsing completely fails
+                schema_desc = f"Learn how often to water and care for {schema_title} properly."
+
+            # Strip out any newline breaks inside the text content strings to keep JSON parsing happy
+            schema_title = schema_title.replace('\n', ' ').replace('"', '\\"')
+            schema_desc = schema_desc.replace('\n', ' ').replace('"', '\\"')
+
             schema_html = f"""
     <script type="application/ld+json">
     {{
@@ -39,7 +53,7 @@ for filename in files:
       "@type": "FAQPage",
       "mainEntity": [{{
         "@type": "Question",
-        "name": "{schema_title}",
+        "name": "{schema_title}?",
         "acceptedAnswer": {{
           "@type": "Answer",
           "text": "{schema_desc}"
