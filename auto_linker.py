@@ -1,13 +1,16 @@
 import os
 import re
 
-# Stop words to ignore when calculating keyword relevance
-STOP_WORDS = {"how", "often", "to", "for", "in", "after", "the", "a", "and", "of", "on", "with", "at", "is", "zone"}
-SIMILARITY_THRESHOLD = 0.70  # Prevents repetitive topics from stacking up together
+# Expanded stop words to prevent phrases like "How Often to Water" from triggering matches
+STOP_WORDS = {
+    "how", "often", "to", "for", "in", "after", "the", "a", "and", "of", "on", "with", 
+    "at", "is", "zone", "water", "watering", "when", "should", "you", "frequently"
+}
+SIMILARITY_THRESHOLD = 0.50  # Lowered from 0.70 to force even MORE topic diversity
 
 pages = []
 
-print("Scanning clean files...")
+print("Scanning files with strict diversity rules...")
 for filename in os.listdir("."):
     if not filename.endswith(".html") or filename.lower() == "index.html":
         continue
@@ -15,7 +18,6 @@ for filename in os.listdir("."):
     with open(filename, "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Extract the H1 title to determine the topic
     match = re.search(r"<h1[^>]*>(.*?)</h1>", html, flags=re.IGNORECASE | re.DOTALL)
     if not match:
         continue
@@ -32,13 +34,16 @@ for filename in os.listdir("."):
     })
 
 total = len(pages)
-print(f"Found {total} clean articles. Generating smart recommendations...")
+print(f"Found {total} clean articles. Generating unique, diverse recommendations...")
 
 for page in pages:
     with open(page["filename"], "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Calculate match scores based on overlapping title words
+    # FORCE WIPE: Always clear out the previous block before creating a new one
+    html = re.sub(r'<!-- RELATED GUIDES START -->.*?<!-- RELATED GUIDES END -->', '', html, flags=re.DOTALL | re.IGNORECASE)
+    html = re.sub(r'<div class="related-guides"[\s\S]*?</div>', '', html, flags=re.DOTALL | re.IGNORECASE)
+
     candidates = []
     for other in pages:
         if other["filename"] == page["filename"]:
@@ -46,10 +51,8 @@ for page in pages:
         overlap = len(page["keywords"].intersection(other["keywords"]))
         candidates.append((overlap, other))
 
-    # Sort: highest keyword match first, then alphabetically by title for stability
-    candidates.sort(key=lambda x: (-x[0], x[1]["title"]))
+    candidates.sort(key=lambda x: (-x, x["title"]))
 
-    # Pick up to 5 unique guides while aggressively filtering out repetitive topics
     selected_guides = []
     for score, item in candidates:
         if len(selected_guides) >= min(5, len(candidates)):
@@ -62,7 +65,7 @@ for page in pages:
             shared_words = item["keywords"].intersection(selected_item["keywords"])
             smaller_set_size = min(len(item["keywords"]), len(selected_item["keywords"]))
             
-            # Skip if titles share more than 70% of the same words
+            # If the two titles match too closely on key plant words, skip it
             if (len(shared_words) / smaller_set_size) >= SIMILARITY_THRESHOLD:
                 is_duplicate_idea = True
                 break
@@ -70,7 +73,6 @@ for page in pages:
         if not is_duplicate_idea:
             selected_guides.append(item)
             
-    # Fallback padding to make sure we hit the target link count if filtering was tight
     if len(selected_guides) < min(5, len(candidates)):
         for score, item in candidates:
             if len(selected_guides) >= min(5, len(candidates)):
@@ -78,7 +80,6 @@ for page in pages:
             if item not in selected_guides:
                 selected_guides.append(item)
 
-    # Build the clean HTML link block markup
     links_html = ""
     for target in selected_guides:
         links_html += f'\n        <li style="margin-bottom:12px;"><a href="/{target["slug"]}.html" style="color:#2e7d32;text-decoration:none;font-weight:bold;">{target["title"]}</a></li>'
@@ -91,9 +92,7 @@ for page in pages:
 </div>
 <!-- RELATED GUIDES END -->\n"""
 
-    # TARGETED POSITIONING: Drop the block cleanly right above your text footer links
     if re.search(r'About Us\s*\|\s*Privacy Policy', html, flags=re.IGNORECASE):
-        # Insert perfectly directly above the line that contains your About Us link container
         html = re.sub(r'(<div[^>]*>\s*<a[^>]*>About Us)', lambda m: related_block + m.group(1), html, count=1, flags=re.IGNORECASE)
     elif re.search(r'<footer\b', html, flags=re.IGNORECASE):
         html = re.sub(r'(<footer\b[^>]*>)', related_block + r'\1', html, count=1, flags=re.IGNORECASE)
@@ -103,4 +102,4 @@ for page in pages:
     with open(page["filename"], "w", encoding="utf-8") as f:
         f.write(html)
 
-print("Successfully injected all smart contextual blocks.")
+print("Successfully injected diverse link blocks.")
