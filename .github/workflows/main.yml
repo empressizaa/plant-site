@@ -62,7 +62,7 @@ jobs:
               printf '%s\n' '  </url>'
             } >> sitemap.xml
 
-            TITLE="$(
+            TITLE="$(x
               echo "$FILE" \
                 | sed 's/\.html$//' \
                 | sed 's/-/ /g' \
