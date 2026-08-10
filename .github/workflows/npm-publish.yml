@@ -1,12 +1,17 @@
 name: Publish Plant Dataset to NPM
+
 on:
   push:
     branches:
-      - main # Triggers automatically every time you push an update to main
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code Repository
         uses: actions/checkout@v4
@@ -15,12 +20,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          registry-url: 'https://npmjs.org'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Project Files
         run: npm install --prefer-offline --no-audit
 
+      - name: Verify Package
+        run: npm pack --dry-run
+
       - name: Publish Package to Registry
-        run: npm publish --no-workspaces
+        run: npm publish --access public --no-workspaces
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
