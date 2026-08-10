@@ -1,0 +1,26 @@
+{
+  "name": "plant-matrix-data",
+  "version": "1.0.0",
+  "description": "Programmatic open-source botanical care database mapping watering frequencies, lighting algorithms, and soil metadata.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [
+    "botany",
+    "plant-care",
+    "gardening-data",
+    "monstera-care",
+    "succulent-watering"
+  ],
+  "author": "The Plant Matrix",
+  "license": "MIT",
+  "homepage": "https://theplantmatrix.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com"
+  },
+  "bugs": {
+    "url": "https://theplantmatrix.com"
+  }
+}
