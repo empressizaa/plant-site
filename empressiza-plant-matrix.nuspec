@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://openxmlformats.org">
+<package xmlns="http://microsoft.com">
   <metadata>
     <id>empressiza-plant-matrix</id>
     <version>1.0.0</version>
