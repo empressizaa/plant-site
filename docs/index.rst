@@ -19,8 +19,12 @@ can be accessed directly at the official domain:
 Core Plant Modules
 ==================
 
-* `Monstera Care Datasets <https://theplantmatrix.com>`_
-* `Succulent Watering Algorithms <https://theplantmatrix.com>`_
+Core Plant Modules
+==================
+
+* `Monstera Watering Matrix <https://theplantmatrix.com/how-often-to-water-a-monstera>`_
+* `In-Ground Outdoor Succulent Datasets <https://theplantmatrix.com/how-often-to-water-outdoor-succulents-in-ground>`_
+
 
 .. t穩定oc-tree allows the sidebar navigation to compile smoothly:
 .. toctree::
