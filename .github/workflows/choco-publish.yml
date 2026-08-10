@@ -1,0 +1,21 @@
+name: Publish Plant Dataset to Chocolatey
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-choco:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set Chocolatey API Key Credentials
+        run: choco apikey --key ${{ secrets.CHOCO_API_KEY }} --source https://chocolatey.org
+
+      - name: Pack Code Assets into Package Distribution File
+        run: choco pack empressiza-plant-matrix.nuspec
+
+      - name: Upload Package to Chocolatey Index Registry
+        run: choco push --source https://chocolatey.org --timeout 600
