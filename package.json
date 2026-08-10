@@ -1,6 +1,6 @@
 {
   "name": "empressiza-plant-matrix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Programmatic open-source botanical care database mapping watering frequencies, lighting algorithms, and soil metadata.",
   "main": "index.html",
   "scripts": {
