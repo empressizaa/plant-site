@@ -1,0 +1,29 @@
+name: Publish Plant Dataset to PyPI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-pypi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Deployment Build Tools
+        run: python -m pip install --upgrade pip build twine
+
+      - name: Build Python Package Distribution Files
+        run: python -m build
+
+      - name: Upload Package to PyPI Registry
+        run: python -m twine upload dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
