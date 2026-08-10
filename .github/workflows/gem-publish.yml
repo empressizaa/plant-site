@@ -1,0 +1,26 @@
+name: Publish Plant Dataset to RubyGems
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-gem:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby Environment
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Build and Publish Ruby Gem
+        run: |
+          mkdir -p ~/.gem
+          echo "---" > ~/.gem/credentials
+          echo ":rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}" >> ~/.gem/credentials
+          chmod 0600 ~/.gem/credentials
+          gem build *.gemspec
+          gem push *.gem
