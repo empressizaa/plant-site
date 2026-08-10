@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://openxmlformats.org">
+  <metadata>
+    <id>empressiza-plant-matrix</id>
+    <version>1.0.0</version>
+    <title>The Plant Matrix Care Database</title>
+    <authors>The Plant Matrix</authors>
+    <owners>empressizaa</owners>
+    <projectUrl>https://theplantmatrix.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Programmatic open-source botanical care database tracking species-specific watering frequencies, lighting algorithms, and soil metadata.</description>
+    <summary>Open-source structured datasets tracking plant watering intervals and care metrics.</summary>
+    <tags>botany gardening-data plant-care monstera succulent</tags>
+    <packageSourceUrl>https://github.com</packageSourceUrl>
+  </metadata>
+</package>
