@@ -6,7 +6,7 @@
 
     <title>Plant Spacing Calculator - Calculate How Many Plants You Need</title>
 
-    <meta name="description" content="Use our free plant spacing calculator to find how many plants fit in your garden, calculate plants per square foot, acre, or hectare, and compare rectangular and triangular planting patterns.">
+    <meta name="description" content="Use our free plant spacing calculator to estimate how many plants fit in your garden based on garden size, plant spacing, row spacing, and planting pattern.">
 
     <link rel="canonical" href="https://theplantmatrix.com/tools/plant-spacing-calculator.html">
 
@@ -211,6 +211,10 @@
             .container {
                 padding: 15px;
             }
+
+            .result-main {
+                font-size: 25px;
+            }
         }
     </style>
 </head>
@@ -223,9 +227,8 @@
 
     <div class="intro">
         <strong>How many plants can fit in your garden?</strong>
-        Use this free plant spacing calculator to estimate the number of plants you can grow in a specific area based on your garden dimensions, plant spacing, row spacing, and planting pattern.
+        Use this free plant spacing calculator to estimate how many plants you can grow in a specific area based on your garden dimensions, plant spacing, row spacing, and planting pattern.
     </div>
-
 
     <div class="calculator">
 
@@ -257,7 +260,6 @@
 
         </div>
 
-
         <div class="input-group">
 
             <label for="dimensionUnit">
@@ -270,7 +272,6 @@
             </select>
 
         </div>
-
 
         <div class="row">
 
@@ -290,7 +291,6 @@
 
             </div>
 
-
             <div class="input-group">
 
                 <label for="rowSpacing">
@@ -309,7 +309,6 @@
 
         </div>
 
-
         <div class="input-group">
 
             <label for="spacingUnit">
@@ -318,26 +317,14 @@
 
             <select id="spacingUnit">
 
-                <option value="inches">
-                    Inches
-                </option>
-
-                <option value="feet">
-                    Feet
-                </option>
-
-                <option value="centimeters">
-                    Centimeters
-                </option>
-
-                <option value="meters">
-                    Meters
-                </option>
+                <option value="inches">Inches</option>
+                <option value="feet">Feet</option>
+                <option value="centimeters">Centimeters</option>
+                <option value="meters">Meters</option>
 
             </select>
 
         </div>
-
 
         <div class="input-group">
 
@@ -359,11 +346,9 @@
 
         </div>
 
-
         <button onclick="calculatePlants()">
             Calculate Plant Quantity
         </button>
-
 
         <div class="result" id="result">
 
@@ -375,98 +360,78 @@
 
             </div>
 
-
             <div class="result-item">
 
                 <strong>Garden Area:</strong>
-
                 <span id="gardenArea"></span>
 
             </div>
 
-
             <div class="result-item">
 
-                <strong>Estimated Rows:</strong>
-
+                <strong>Full Rows That Fit:</strong>
                 <span id="rowCount"></span>
 
             </div>
 
-
             <div class="result-item">
 
-                <strong>Plants Per Row:</strong>
-
+                <strong>Plants Per Full Row:</strong>
                 <span id="plantsPerRow"></span>
 
             </div>
 
-
             <div class="result-item">
 
                 <strong>Plant Spacing:</strong>
-
                 <span id="displayPlantSpacing"></span>
 
             </div>
 
-
             <div class="result-item">
 
                 <strong>Row Spacing:</strong>
-
                 <span id="displayRowSpacing"></span>
 
             </div>
 
-
             <div class="result-item">
 
                 <strong>Plants Per Square Foot:</strong>
-
                 <span id="plantsPerSqFt"></span>
 
             </div>
 
-
             <div class="result-item">
 
                 <strong>Plants Per Square Meter:</strong>
-
                 <span id="plantsPerSqMeter"></span>
 
             </div>
 
-
             <div class="result-item">
 
                 <strong>Estimated Plants Per Acre:</strong>
-
                 <span id="plantsPerAcre"></span>
 
             </div>
 
-
             <div class="result-item">
 
                 <strong>Estimated Plants Per Hectare:</strong>
-
                 <span id="plantsPerHectare"></span>
 
             </div>
 
-
             <div class="note">
 
-                This result is an estimate. Real planting capacity can vary because of garden borders, paths, irregular garden shapes, mature plant size, and the recommended spacing for the specific plant.
+                The plant count is based on complete rows and complete plant-spacing intervals that fit within the entered garden dimensions. Actual planting capacity may vary because of garden borders, paths, irregular shapes, mature plant size, and the recommended spacing for the specific plant.
 
             </div>
 
         </div>
 
     </div>
-
 
     <h2>How to Use the Plant Spacing Calculator</h2>
 
@@ -482,7 +447,6 @@
         For example, if a plant should be placed 12 inches apart with rows 18 inches apart, enter 12 inches as the plant spacing and 18 inches as the row spacing.
     </p>
 
-
     <h2>What Is Plant Spacing?</h2>
 
     <p>
@@ -493,7 +457,6 @@
         Both measurements are important because plants need enough room for their roots, foliage, mature size, sunlight exposure, and airflow.
     </p>
 
-
     <h2>Plant Spacing Formula</h2>
 
     <div class="formula-box">
@@ -501,17 +464,24 @@
         <strong>Rectangular planting:</strong>
 
         <p>
-            Estimated plants = Garden area ÷ (plant spacing × row spacing)
+            Plants per row = Garden length ÷ plant spacing
         </p>
 
-        <strong>Triangular planting:</strong>
+        <p>
+            Number of rows = Garden width ÷ row spacing
+        </p>
 
         <p>
-            Triangular planting uses an approximately 13.4% higher planting density than a rectangular grid when the same spacing is used.
+            Estimated plants = complete plants per row × complete rows
+        </p>
+
+        <strong>Triangular / hexagonal planting:</strong>
+
+        <p>
+            Triangular or hexagonal spacing can fit approximately 15.5% more plants than a rectangular grid when the same plant and row spacing are used.
         </p>
 
     </div>
-
 
     <h2>Rectangular vs Triangular Plant Spacing</h2>
 
@@ -520,9 +490,8 @@
     </p>
 
     <p>
-        In triangular or hexagonal planting, plants in alternating rows are offset. This can allow more plants to fit into the same area when appropriate spacing is maintained.
+        In triangular or hexagonal planting, plants in alternating rows are offset. This can allow a higher planting density than a simple rectangular grid when the same spacing is used.
     </p>
-
 
     <h2>Why Proper Plant Spacing Matters</h2>
 
@@ -533,7 +502,6 @@
     <p>
         The ideal spacing depends on the plant. Always check the recommended mature spacing for the specific plant before planting.
     </p>
-
 
     <h2>Common Plant Spacing Examples</h2>
 
@@ -585,16 +553,13 @@
 
     </table>
 
-
     <h2>Frequently Asked Questions</h2>
-
 
     <h3>How many plants can I fit in my garden?</h3>
 
     <p>
-        Enter your garden's length and width along with the recommended plant and row spacing. The calculator will estimate how many plants can fit in the available area.
+        Enter your garden's length and width along with the recommended plant and row spacing. The calculator will estimate how many complete plants and rows can fit within the available area.
     </p>
-
 
     <h3>Can I use this calculator for any plant?</h3>
 
@@ -602,13 +567,11 @@
         Yes. The calculator does not require a specific plant type. Enter the recommended spacing for whatever plant you are growing.
     </p>
 
-
     <h3>What if I don't know my plant spacing?</h3>
 
     <p>
         Check the growing instructions for your particular plant to find its recommended spacing. You can then enter that measurement into the calculator.
     </p>
-
 
     <h3>Can I calculate plants per acre?</h3>
 
@@ -616,20 +579,17 @@
         Yes. The calculator provides an estimated plants-per-acre figure based on the spacing you enter.
     </p>
 
-
     <h3>Can I calculate plants per hectare?</h3>
 
     <p>
         Yes. The calculator also provides an estimated plants-per-hectare figure.
     </p>
 
-
     <h3>What is triangular plant spacing?</h3>
 
     <p>
-        Triangular spacing offsets plants between neighboring rows rather than placing every plant directly beside another plant. This can increase planting density compared with a simple rectangular grid.
+        Triangular spacing offsets plants between neighboring rows rather than placing every plant directly beside another plant. When the same spacing is used, this arrangement can provide approximately 15.5% greater theoretical planting density than a rectangular grid.
     </p>
-
 
     <div class="related-guides">
 
@@ -653,7 +613,6 @@
 
     </div>
 
-
     <footer style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
 
         <a
@@ -675,7 +634,6 @@
     </footer>
 
 </div>
-
 
 <script>
 
@@ -772,44 +730,86 @@ function calculatePlants() {
         lengthFeet * widthFeet;
 
 
-    let areaPerPlant =
-        spacingFeet * rowSpacingFeet;
-
-
     /*
-     * Triangular spacing:
-     * Approximately 13.4% more plants can fit
-     * than a rectangular grid at the same spacing.
+     * Count only complete plant-spacing intervals
+     * and complete rows that physically fit.
      */
 
-    if (pattern === "triangular") {
-
-        areaPerPlant =
-            areaPerPlant * 0.8660254;
-
-    }
-
-
-    const estimatedPlants =
-        Math.floor(
-            gardenArea / areaPerPlant
-        );
-
-
-    const actualRows =
-        Math.floor(
-            widthFeet / rowSpacingFeet
-        );
-
-
-    const plantsPerRow =
+    let plantsPerRow =
         Math.floor(
             lengthFeet / spacingFeet
         );
 
 
-    const plantsPerSqFt =
-        1 / areaPerPlant;
+    let rowCount =
+        Math.floor(
+            widthFeet / rowSpacingFeet
+        );
+
+
+    /*
+     * For triangular / hexagonal spacing,
+     * alternating rows are offset.
+     *
+     * The theoretical density increase is
+     * approximately 15.5% compared with a
+     * rectangular grid at the same spacing.
+     *
+     * We calculate the theoretical density
+     * separately for the density metrics below.
+     */
+
+    let densityMultiplier = 1;
+
+    if (pattern === "triangular") {
+        densityMultiplier = 1 / 0.8660254038;
+    }
+
+
+    /*
+     * Rectangular full-grid plant count.
+     */
+
+    let estimatedPlants =
+        plantsPerRow * rowCount;
+
+
+    /*
+     * For triangular planting, apply the
+     * theoretical density increase and round
+     * down to a whole plant.
+     */
+
+    if (pattern === "triangular") {
+
+        estimatedPlants =
+            Math.floor(
+                estimatedPlants * densityMultiplier
+            );
+
+    }
+
+
+    /*
+     * Plants per square foot based on the
+     * theoretical planting density.
+     */
+
+    let plantsPerSqFt =
+        1 /
+        (
+            spacingFeet *
+            rowSpacingFeet
+        );
+
+
+    if (pattern === "triangular") {
+
+        plantsPerSqFt =
+            plantsPerSqFt *
+            densityMultiplier;
+
+    }
 
 
     const plantsPerSqMeter =
@@ -839,7 +839,7 @@ function calculatePlants() {
     document.getElementById("rowCount").textContent =
         Math.max(
             0,
-            actualRows
+            rowCount
         ).toLocaleString();
 
 
