@@ -48,28 +48,41 @@ jobs:
           rm -f links.tmp
           touch links.tmp
 
-          find . -maxdepth 1 -type f -name "*.html" ! -name "index.html" | sort | while IFS= read -r file
+          find . -type f -name "*.html" \
+            ! -name "index.html" \
+            ! -path "./.git/*" \
+            | sort | while IFS= read -r file
           do
-            FILE="$(basename "$file")"
+            RELATIVE_PATH="${file#./}"
+            URL_PATH="${RELATIVE_PATH%.html}"
             LASTMOD="$(date -u -r "$file" +'%Y-%m-%d')"
 
             {
               printf '%s\n' '  <url>'
-              printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "${FILE%.html}"
+              printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "$URL_PATH"
               printf '    <lastmod>%s</lastmod>\n' "$LASTMOD"
               printf '%s\n' '    <changefreq>monthly</changefreq>'
               printf '%s\n' '    <priority>0.8</priority>'
               printf '%s\n' '  </url>'
             } >> sitemap.xml
 
-            TITLE="$(
-              echo "$FILE" \
-                | sed 's/\.html$//' \
-                | sed 's/-/ /g' \
-                | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1'
-            )"
+            # Only add root-level HTML articles to the homepage article list.
+            # Tool pages inside folders such as /tools/ are excluded.
+            if [[ "$RELATIVE_PATH" != */* ]]; then
 
-            printf '    <li><a href="/%s">%s</a></li>\n' "${FILE%.html}" "$TITLE" >> links.tmp
+              FILE="$(basename "$file")"
+
+              TITLE="$(
+                echo "$FILE" \
+                  | sed 's/\.html$//' \
+                  | sed 's/-/ /g' \
+                  | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1'
+              )"
+
+              printf '    <li><a href="/%s">%s</a></li>\n' "${FILE%.html}" "$TITLE" >> links.tmp
+
+            fi
+
           done
 
           printf '%s\n' '</urlset>' >> sitemap.xml
@@ -103,7 +116,6 @@ jobs:
 
       - name: Commit changes
         shell: bash
-
         run: |
           set -euo pipefail
 
