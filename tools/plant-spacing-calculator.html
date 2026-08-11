@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plant Spacing Calculator - Calculate How Many Plants You Need</title>
+
+    <meta name="description" content="Use our free plant spacing calculator to find how many plants fit in your garden, calculate plants per square foot, acre, or hectare, and compare rectangular and triangular planting patterns.">
+
+    <link rel="canonical" href="https://theplantmatrix.com/tools/plant-spacing-calculator.html">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Plant Spacing Calculator",
+      "url": "https://theplantmatrix.com/tools/plant-spacing-calculator.html",
+      "description": "A free calculator for estimating plant quantity based on garden dimensions, plant spacing, row spacing, and planting pattern.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2,
+        h3 {
+            color: #4CAF50;
+        }
+
+        .intro {
+            background-color: #e7f5e2;
+            border: 1px solid #4CAF50;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .calculator {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fff;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #388E3C;
+        }
+
+        .result {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #e7f5e2;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+        }
+
+        .result-main {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .result-item {
+            padding: 9px 0;
+            border-bottom: 1px solid #c8e6c9;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #e7f5e2;
+        }
+
+        .formula-box {
+            background: #f2f2f2;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .related-guides {
+            clear: both;
+            display: block;
+            width: 100%;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f1f8e9;
+            border-top: 3px solid #4CAF50;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .related-guides a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Plant Spacing Calculator</h1>
+
+    <div class="intro">
+        <strong>How many plants can fit in your garden?</strong>
+        Use this free plant spacing calculator to estimate the number of plants you can grow in a specific area based on your garden dimensions, plant spacing, row spacing, and planting pattern.
+    </div>
+
+
+    <div class="calculator">
+
+        <h2>Calculate Plant Quantity</h2>
+
+        <div class="row">
+
+            <div class="input-group">
+                <label for="length">Garden Length</label>
+                <input
+                    type="number"
+                    id="length"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="Example: 10"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="width">Garden Width</label>
+                <input
+                    type="number"
+                    id="width"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="Example: 8"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label for="dimensionUnit">
+                Garden Measurement Unit
+            </label>
+
+            <select id="dimensionUnit">
+                <option value="feet">Feet</option>
+                <option value="meters">Meters</option>
+            </select>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="input-group">
+
+                <label for="plantSpacing">
+                    Plant-to-Plant Spacing
+                </label>
+
+                <input
+                    type="number"
+                    id="plantSpacing"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="Example: 18"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="rowSpacing">
+                    Row-to-Row Spacing
+                </label>
+
+                <input
+                    type="number"
+                    id="rowSpacing"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="Example: 24"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label for="spacingUnit">
+                Spacing Unit
+            </label>
+
+            <select id="spacingUnit">
+
+                <option value="inches">
+                    Inches
+                </option>
+
+                <option value="feet">
+                    Feet
+                </option>
+
+                <option value="centimeters">
+                    Centimeters
+                </option>
+
+                <option value="meters">
+                    Meters
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label for="pattern">
+                Planting Pattern
+            </label>
+
+            <select id="pattern">
+
+                <option value="rectangular">
+                    Square / Rectangular
+                </option>
+
+                <option value="triangular">
+                    Triangular / Hexagonal
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button onclick="calculatePlants()">
+            Calculate Plant Quantity
+        </button>
+
+
+        <div class="result" id="result">
+
+            <div class="result-main">
+
+                You can plant approximately
+                <span id="plantCount">0</span>
+                plants.
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Garden Area:</strong>
+
+                <span id="gardenArea"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Estimated Rows:</strong>
+
+                <span id="rowCount"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Plants Per Row:</strong>
+
+                <span id="plantsPerRow"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Plant Spacing:</strong>
+
+                <span id="displayPlantSpacing"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Row Spacing:</strong>
+
+                <span id="displayRowSpacing"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Plants Per Square Foot:</strong>
+
+                <span id="plantsPerSqFt"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Plants Per Square Meter:</strong>
+
+                <span id="plantsPerSqMeter"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Estimated Plants Per Acre:</strong>
+
+                <span id="plantsPerAcre"></span>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <strong>Estimated Plants Per Hectare:</strong>
+
+                <span id="plantsPerHectare"></span>
+
+            </div>
+
+
+            <div class="note">
+
+                This result is an estimate. Real planting capacity can vary because of garden borders, paths, irregular garden shapes, mature plant size, and the recommended spacing for the specific plant.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>How to Use the Plant Spacing Calculator</h2>
+
+    <p>
+        Enter the length and width of your planting area, select the measurement unit, and then enter the distance you want between individual plants and between rows.
+    </p>
+
+    <p>
+        You can use this calculator for virtually any type of plant. Simply use the spacing recommended for the plant you are growing.
+    </p>
+
+    <p>
+        For example, if a plant should be placed 12 inches apart with rows 18 inches apart, enter 12 inches as the plant spacing and 18 inches as the row spacing.
+    </p>
+
+
+    <h2>What Is Plant Spacing?</h2>
+
+    <p>
+        Plant spacing is the distance between individual plants. Row spacing is the distance between rows of plants.
+    </p>
+
+    <p>
+        Both measurements are important because plants need enough room for their roots, foliage, mature size, sunlight exposure, and airflow.
+    </p>
+
+
+    <h2>Plant Spacing Formula</h2>
+
+    <div class="formula-box">
+
+        <strong>Rectangular planting:</strong>
+
+        <p>
+            Estimated plants = Garden area ÷ (plant spacing × row spacing)
+        </p>
+
+        <strong>Triangular planting:</strong>
+
+        <p>
+            Triangular planting uses an approximately 13.4% higher planting density than a rectangular grid when the same spacing is used.
+        </p>
+
+    </div>
+
+
+    <h2>Rectangular vs Triangular Plant Spacing</h2>
+
+    <p>
+        In rectangular planting, plants are arranged in straight rows with consistent distances between plants and rows.
+    </p>
+
+    <p>
+        In triangular or hexagonal planting, plants in alternating rows are offset. This can allow more plants to fit into the same area when appropriate spacing is maintained.
+    </p>
+
+
+    <h2>Why Proper Plant Spacing Matters</h2>
+
+    <p>
+        Correct spacing helps prevent plants from competing excessively for light, water, nutrients, and growing space. It can also improve airflow and make watering, harvesting, pruning, and other maintenance easier.
+    </p>
+
+    <p>
+        The ideal spacing depends on the plant. Always check the recommended mature spacing for the specific plant before planting.
+    </p>
+
+
+    <h2>Common Plant Spacing Examples</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Example Plant</th>
+                <th>Typical Plant Spacing</th>
+                <th>Typical Row Spacing</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Tomatoes</td>
+                <td>18–24 inches</td>
+                <td>24–36 inches</td>
+            </tr>
+
+            <tr>
+                <td>Peppers</td>
+                <td>18–24 inches</td>
+                <td>24–30 inches</td>
+            </tr>
+
+            <tr>
+                <td>Lettuce</td>
+                <td>6–12 inches</td>
+                <td>12–18 inches</td>
+            </tr>
+
+            <tr>
+                <td>Carrots</td>
+                <td>2–4 inches</td>
+                <td>12–18 inches</td>
+            </tr>
+
+            <tr>
+                <td>Cucumbers</td>
+                <td>12–24 inches</td>
+                <td>36–48 inches</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <h2>Frequently Asked Questions</h2>
+
+
+    <h3>How many plants can I fit in my garden?</h3>
+
+    <p>
+        Enter your garden's length and width along with the recommended plant and row spacing. The calculator will estimate how many plants can fit in the available area.
+    </p>
+
+
+    <h3>Can I use this calculator for any plant?</h3>
+
+    <p>
+        Yes. The calculator does not require a specific plant type. Enter the recommended spacing for whatever plant you are growing.
+    </p>
+
+
+    <h3>What if I don't know my plant spacing?</h3>
+
+    <p>
+        Check the growing instructions for your particular plant to find its recommended spacing. You can then enter that measurement into the calculator.
+    </p>
+
+
+    <h3>Can I calculate plants per acre?</h3>
+
+    <p>
+        Yes. The calculator provides an estimated plants-per-acre figure based on the spacing you enter.
+    </p>
+
+
+    <h3>Can I calculate plants per hectare?</h3>
+
+    <p>
+        Yes. The calculator also provides an estimated plants-per-hectare figure.
+    </p>
+
+
+    <h3>What is triangular plant spacing?</h3>
+
+    <p>
+        Triangular spacing offsets plants between neighboring rows rather than placing every plant directly beside another plant. This can increase planting density compared with a simple rectangular grid.
+    </p>
+
+
+    <div class="related-guides">
+
+        <h3>Explore Plant Care Guides</h3>
+
+        <ul>
+
+            <li>
+                <a href="/">
+                    Browse The Plant Matrix Plant Guides
+                </a>
+            </li>
+
+            <li>
+                <a href="/about">
+                    About The Plant Matrix
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <footer style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
+
+        <a
+            href="/about"
+            style="color:#555;text-decoration:none;margin-right:20px;"
+        >
+            About Us
+        </a>
+
+        |
+
+        <a
+            href="/privacy-policy"
+            style="color:#555;text-decoration:none;margin-left:20px;"
+        >
+            Privacy Policy
+        </a>
+
+    </footer>
+
+</div>
+
+
+<script>
+
+function convertToFeet(value, unit) {
+
+    if (unit === "inches") {
+        return value / 12;
+    }
+
+    if (unit === "centimeters") {
+        return value / 30.48;
+    }
+
+    if (unit === "meters") {
+        return value * 3.28084;
+    }
+
+    return value;
+}
+
+
+function calculatePlants() {
+
+    const length =
+        parseFloat(document.getElementById("length").value);
+
+    const width =
+        parseFloat(document.getElementById("width").value);
+
+    const dimensionUnit =
+        document.getElementById("dimensionUnit").value;
+
+    const plantSpacing =
+        parseFloat(document.getElementById("plantSpacing").value);
+
+    const rowSpacing =
+        parseFloat(document.getElementById("rowSpacing").value);
+
+    const spacingUnit =
+        document.getElementById("spacingUnit").value;
+
+    const pattern =
+        document.getElementById("pattern").value;
+
+
+    if (
+        !Number.isFinite(length) ||
+        !Number.isFinite(width) ||
+        !Number.isFinite(plantSpacing) ||
+        !Number.isFinite(rowSpacing) ||
+        length <= 0 ||
+        width <= 0 ||
+        plantSpacing <= 0 ||
+        rowSpacing <= 0
+    ) {
+
+        alert("Please enter valid values for all fields.");
+
+        return;
+
+    }
+
+
+    let lengthFeet = length;
+    let widthFeet = width;
+
+
+    if (dimensionUnit === "meters") {
+
+        lengthFeet =
+            length * 3.28084;
+
+        widthFeet =
+            width * 3.28084;
+
+    }
+
+
+    const spacingFeet =
+        convertToFeet(
+            plantSpacing,
+            spacingUnit
+        );
+
+
+    const rowSpacingFeet =
+        convertToFeet(
+            rowSpacing,
+            spacingUnit
+        );
+
+
+    const gardenArea =
+        lengthFeet * widthFeet;
+
+
+    let areaPerPlant =
+        spacingFeet * rowSpacingFeet;
+
+
+    /*
+     * Triangular spacing:
+     * Approximately 13.4% more plants can fit
+     * than a rectangular grid at the same spacing.
+     */
+
+    if (pattern === "triangular") {
+
+        areaPerPlant =
+            areaPerPlant * 0.8660254;
+
+    }
+
+
+    const estimatedPlants =
+        Math.floor(
+            gardenArea / areaPerPlant
+        );
+
+
+    const actualRows =
+        Math.floor(
+            widthFeet / rowSpacingFeet
+        );
+
+
+    const plantsPerRow =
+        Math.floor(
+            lengthFeet / spacingFeet
+        );
+
+
+    const plantsPerSqFt =
+        1 / areaPerPlant;
+
+
+    const plantsPerSqMeter =
+        plantsPerSqFt * 10.7639;
+
+
+    const plantsPerAcre =
+        plantsPerSqFt * 43560;
+
+
+    const plantsPerHectare =
+        plantsPerSqFt * 107639.104;
+
+
+    document.getElementById("plantCount").textContent =
+        Math.max(
+            0,
+            estimatedPlants
+        ).toLocaleString();
+
+
+    document.getElementById("gardenArea").textContent =
+        gardenArea.toFixed(2) +
+        " square feet";
+
+
+    document.getElementById("rowCount").textContent =
+        Math.max(
+            0,
+            actualRows
+        ).toLocaleString();
+
+
+    document.getElementById("plantsPerRow").textContent =
+        Math.max(
+            0,
+            plantsPerRow
+        ).toLocaleString();
+
+
+    document.getElementById("displayPlantSpacing").textContent =
+        plantSpacing +
+        " " +
+        spacingUnit;
+
+
+    document.getElementById("displayRowSpacing").textContent =
+        rowSpacing +
+        " " +
+        spacingUnit;
+
+
+    document.getElementById("plantsPerSqFt").textContent =
+        plantsPerSqFt.toFixed(4);
+
+
+    document.getElementById("plantsPerSqMeter").textContent =
+        plantsPerSqMeter.toFixed(2);
+
+
+    document.getElementById("plantsPerAcre").textContent =
+        Math.round(
+            plantsPerAcre
+        ).toLocaleString();
+
+
+    document.getElementById("plantsPerHectare").textContent =
+        Math.round(
+            plantsPerHectare
+        ).toLocaleString();
+
+
+    document.getElementById("result").style.display =
+        "block";
+
+}
+
+</script>
+
+</body>
+</html>
