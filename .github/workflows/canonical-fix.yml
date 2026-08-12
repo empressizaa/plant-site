@@ -11,9 +11,14 @@ on:
 jobs:
   patch-links:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Ensures the workflow has permission to push back to the repository
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Crucial for pulling/rebasing history safely
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -23,10 +28,22 @@ jobs:
       - name: Run Auto-Canonical Script
         run: python auto_canonical.py
 
-      - name: Commit Fixed Tags
+      - name: Commit Fixed Tags Safely
+        shell: bash
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@://github.com"
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage all modified HTML files
           git add *.html
-          # Adding [skip ci] inside the message tells GitHub NOT to trigger a loop!
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Safe patch changing example.com to real domains [skip ci]" && git push origin main) 
+          
+          # Check if changes exist to avoid empty commits
+          if ! git diff --cached --quiet; then
+            git commit -m "Safe patch changing example.com to real domains [skip ci]"
+            
+            # Fetch and rebase right before pushing to eliminate the non-fast-forward race condition
+            git pull origin main --rebase
+            git push origin main
+          else
+            echo "No canonical tag updates detected. Skipping push."
+          fi
