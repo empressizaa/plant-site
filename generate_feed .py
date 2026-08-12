@@ -36,7 +36,7 @@ def generate_feed():
                 url_text = loc_tag.text
                 
                 # Filter out the homepage or non-guide URLs if necessary
-                if url_text == "https://theplantmatrix.com" or url_text == "https://theplantmatrix.com/":
+                if url_text in ("https://theplantmatrix.com", "https://theplantmatrix.com/"):
                     continue
                 
                 # Generate clean presentation values from the URL path slug
@@ -58,8 +58,8 @@ def generate_feed():
     # 4. Write the output file with the XML declaration header byte prefix
     feed_tree = ET.ElementTree(rss_root)
     with open(feed_path, "wb") as f:
-        f.write(b'<?xml version="1.0" encoding="UTF-8" ?>
-')
+        # Fixed: Combined the byte string declaration onto a single line using standard escape sequences (\n)
+        f.write(b'<?xml version="1.0" encoding="UTF-8" ?>\n')
         feed_tree.write(f, encoding="utf-8", xml_declaration=False)
 
 if __name__ == "__main__":
