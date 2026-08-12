@@ -1,5 +1,7 @@
 name: Generate Sitemap and Update Homepage
-
+concurrency:
+  group: plant-matrix-site-updates
+  cancel-in-progress: false
 on:
   push:
     branches:
