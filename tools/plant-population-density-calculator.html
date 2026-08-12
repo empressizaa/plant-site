@@ -6,17 +6,17 @@
 
 <title>Plant Population & Density Calculator - Plants Per Acre & Hectare</title>
 
-<meta name="description" content="Use our free plant population and density calculator to calculate plants per acre, hectare, square foot, square meter, plants per row, total plant population, and land required for a target number of plants.">
+<meta name="description" content="Free plant population and density calculator. Calculate plants per acre, hectare, square foot, or square meter using plant spacing, row spacing, crop type, or plant category.">
 
-<link rel="canonical" href="https://theplantmatrix.com/tools/plant-population-calculator.html">
+<link rel="canonical" href="https://theplantmatrix.com/tools/plant-population-density-calculator">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Plant Population & Density Calculator",
-  "url": "https://theplantmatrix.com/tools/plant-population-calculator.html",
-  "description": "A free calculator for estimating plant population, planting density, plants per acre, plants per hectare, plants per square foot, plants per square meter, and land required for a target number of plants.",
+  "url": "https://theplantmatrix.com/tools/plant-population-density-calculator",
+  "description": "A free calculator for estimating plant population and planting density per acre, hectare, square foot, or square meter.",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Web",
   "offers": {
@@ -33,7 +33,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 20px;
-    background: #f9f9f9;
+    background-color: #f9f9f9;
     color: #333;
 }
 
@@ -58,7 +58,7 @@ h3 {
 }
 
 .intro {
-    background: #e7f5e2;
+    background-color: #e7f5e2;
     border: 1px solid #4CAF50;
     padding: 15px;
     margin-bottom: 25px;
@@ -71,13 +71,6 @@ h3 {
     padding: 20px;
     background: #fff;
     margin-bottom: 30px;
-}
-
-.mode-box {
-    background: #f1f8e9;
-    border-left: 4px solid #4CAF50;
-    padding: 15px;
-    margin-bottom: 20px;
 }
 
 .input-group {
@@ -123,15 +116,6 @@ button:hover {
     background: #388E3C;
 }
 
-.secondary-button {
-    background: #607d8b;
-    margin-top: 10px;
-}
-
-.secondary-button:hover {
-    background: #455a64;
-}
-
 .result {
     display: none;
     margin-top: 25px;
@@ -155,6 +139,13 @@ button:hover {
 
 .result-item:last-child {
     border-bottom: none;
+}
+
+.message {
+    font-size: 14px;
+    margin-top: 6px;
+    color: #2e7d32;
+    min-height: 20px;
 }
 
 .note {
@@ -194,7 +185,6 @@ th {
 
 .related-guides {
     clear: both;
-    display: block;
     width: 100%;
     margin-top: 40px;
     margin-bottom: 40px;
@@ -209,10 +199,6 @@ th {
     color: #2e7d32;
     text-decoration: none;
     font-weight: bold;
-}
-
-.hidden {
-    display: none;
 }
 
 @media (max-width: 600px) {
@@ -242,33 +228,77 @@ th {
 <h1>Plant Population & Density Calculator</h1>
 
 <div class="intro">
-    <strong>Calculate how many plants you can grow.</strong>
-    Use this free plant population and density calculator to estimate total plants, plants per acre, plants per hectare, plants per square foot, plants per square meter, plants per row, and the amount of land needed for a target number of plants.
+    <strong>How many plants can you grow in your area?</strong>
+    Use this free plant population and density calculator to estimate plant population per acre, hectare, square foot, or square meter based on your crop, plant category, spacing, and row spacing.
 </div>
+
 
 <div class="calculator">
 
 <h2>Calculate Plant Population</h2>
 
-<div class="mode-box">
-    <strong>Don't know your plant spacing?</strong>
-    Enter the plant name below and the calculator will use a recommended spacing when available.
+<div class="input-group">
+
+<label for="category">Plant Category</label>
+
+<select id="category">
+
+<option value="">Select a category</option>
+
+<option value="vegetables">Vegetables</option>
+<option value="leafy">Leafy Vegetables</option>
+<option value="root">Root Vegetables</option>
+<option value="bulb">Bulb Vegetables</option>
+<option value="legumes">Legumes</option>
+<option value="cereals">Cereals & Grains</option>
+<option value="tubers">Tubers</option>
+<option value="fruit_crops">Fruit Crops</option>
+<option value="herbs">Herbs</option>
+<option value="flowers">Flowers</option>
+<option value="ornamental">Ornamental Plants</option>
+<option value="fruit_trees">Fruit Trees</option>
+<option value="nut_trees">Nut Trees</option>
+<option value="vines">Vines & Climbers</option>
+<option value="succulents">Succulents</option>
+<option value="houseplants">Houseplants</option>
+<option value="cover_crops">Cover Crops</option>
+<option value="field_crops">Field Crops</option>
+
+</select>
+
 </div>
+
 
 <div class="input-group">
 
-<label for="plantName">Plant Name</label>
+<label for="plantType">Plant or Crop Type</label>
+
+<select id="plantType">
+
+<option value="">Select a plant or crop type</option>
+
+</select>
+
+<div id="categoryMessage" class="message"></div>
+
+</div>
+
+
+<div class="input-group">
+
+<label for="plantName">Specific Plant Name (Optional)</label>
 
 <input
     type="text"
     id="plantName"
-    placeholder="Example: Tomato, maize, lettuce, pepper"
-    oninput="lookupPlant()"
+    placeholder="Example: tomato, maize, lettuce"
+    autocomplete="off"
 >
 
-<div id="plantMessage" class="note"></div>
+<div id="plantMessage" class="message"></div>
 
 </div>
+
 
 <div class="row">
 
@@ -288,6 +318,7 @@ Plant Spacing
 
 </div>
 
+
 <div class="input-group">
 
 <label for="rowSpacing">
@@ -306,6 +337,7 @@ Row Spacing
 
 </div>
 
+
 <div class="input-group">
 
 <label for="spacingUnit">
@@ -322,6 +354,7 @@ Spacing Unit
 </select>
 
 </div>
+
 
 <div class="input-group">
 
@@ -343,25 +376,25 @@ Triangular / Hexagonal
 
 </div>
 
-<h3>Field or Garden Area</h3>
 
 <div class="row">
 
 <div class="input-group">
 
 <label for="area">
-Area
+Growing Area
 </label>
 
 <input
     type="number"
     id="area"
-    min="0.01"
+    min="0.0001"
     step="0.01"
     placeholder="Example: 1"
 >
 
 </div>
+
 
 <div class="input-group">
 
@@ -382,76 +415,64 @@ Area Unit
 
 </div>
 
+
 <button onclick="calculatePopulation()">
 Calculate Plant Population
 </button>
+
 
 <div class="result" id="populationResult">
 
 <div class="result-main">
 Estimated Plant Population:
-<span id="totalPlants">0</span>
-</div>
-
-<div class="result-item">
-<strong>Plant:</strong>
-<span id="resultPlant"></span>
-</div>
-
-<div class="result-item">
-<strong>Plant Density:</strong>
-<span id="density"></span>
+<span id="plantCount">0</span>
 </div>
 
 <div class="result-item">
 <strong>Plants Per Acre:</strong>
-<span id="perAcre"></span>
+<span id="plantsPerAcre"></span>
 </div>
 
 <div class="result-item">
 <strong>Plants Per Hectare:</strong>
-<span id="perHectare"></span>
+<span id="plantsPerHectare"></span>
 </div>
 
 <div class="result-item">
 <strong>Plants Per Square Foot:</strong>
-<span id="perSqFt"></span>
+<span id="plantsPerSqFt"></span>
 </div>
 
 <div class="result-item">
 <strong>Plants Per Square Meter:</strong>
-<span id="perSqMeter"></span>
+<span id="plantsPerSqMeter"></span>
 </div>
 
 <div class="result-item">
-<strong>Estimated Rows:</strong>
-<span id="estimatedRows"></span>
+<strong>Plant Spacing:</strong>
+<span id="displayPlantSpacing"></span>
 </div>
 
 <div class="result-item">
-<strong>Plants Per Row:</strong>
-<span id="plantsPerRow"></span>
-</div>
-
-<div class="result-item">
-<strong>Area Required Per Plant:</strong>
-<span id="areaPerPlant"></span>
+<strong>Row Spacing:</strong>
+<span id="displayRowSpacing"></span>
 </div>
 
 <div class="note">
-This is an estimated plant population. Actual planting capacity can vary because of field borders, paths, irregular shapes, cultivation practices, plant variety, and recommended mature spacing.
+This is an estimate. Actual plant population can vary because of field borders, paths, irregular areas, crop variety, mature plant size, growing conditions, and recommended farming practices.
 </div>
 
 </div>
 
 </div>
+
 
 <div class="calculator">
 
-<h2>Calculate Land Required for a Target Number of Plants</h2>
+<h2>Calculate Land Required for a Target Plant Population</h2>
 
 <p>
-Want to know how much land you need for a certain number of plants? Enter your target plant population and spacing below.
+Enter the number of plants you want to grow and the spacing you intend to use to estimate the amount of land required.
 </p>
 
 <div class="input-group">
@@ -470,17 +491,36 @@ Target Number of Plants
 
 </div>
 
+
+<div class="input-group">
+
+<label for="targetPlantName">
+Plant Name or Crop Type
+</label>
+
+<input
+    type="text"
+    id="targetPlantName"
+    placeholder="Example: tomato or maize"
+    autocomplete="off"
+>
+
+<div id="targetMessage" class="message"></div>
+
+</div>
+
+
 <div class="row">
 
 <div class="input-group">
 
-<label for="reversePlantSpacing">
+<label for="targetPlantSpacing">
 Plant Spacing
 </label>
 
 <input
     type="number"
-    id="reversePlantSpacing"
+    id="targetPlantSpacing"
     min="0.01"
     step="0.01"
     placeholder="Example: 18"
@@ -488,15 +528,16 @@ Plant Spacing
 
 </div>
 
+
 <div class="input-group">
 
-<label for="reverseRowSpacing">
+<label for="targetRowSpacing">
 Row Spacing
 </label>
 
 <input
     type="number"
-    id="reverseRowSpacing"
+    id="targetRowSpacing"
     min="0.01"
     step="0.01"
     placeholder="Example: 24"
@@ -506,13 +547,14 @@ Row Spacing
 
 </div>
 
+
 <div class="input-group">
 
-<label for="reverseSpacingUnit">
+<label for="targetSpacingUnit">
 Spacing Unit
 </label>
 
-<select id="reverseSpacingUnit">
+<select id="targetSpacingUnit">
 
 <option value="inches">Inches</option>
 <option value="feet">Feet</option>
@@ -523,13 +565,14 @@ Spacing Unit
 
 </div>
 
+
 <div class="input-group">
 
-<label for="reversePattern">
+<label for="targetPattern">
 Planting Pattern
 </label>
 
-<select id="reversePattern">
+<select id="targetPattern">
 
 <option value="rectangular">
 Square / Rectangular
@@ -543,25 +586,17 @@ Triangular / Hexagonal
 
 </div>
 
+
 <button onclick="calculateLandRequired()">
 Calculate Land Required
 </button>
+
 
 <div class="result" id="landResult">
 
 <div class="result-main">
 Land Required:
-<span id="requiredSqFt">0</span> sq ft
-</div>
-
-<div class="result-item">
-<strong>Square Meters:</strong>
-<span id="requiredSqMeter"></span>
-</div>
-
-<div class="result-item">
-<strong>Acres:</strong>
-<span id="requiredAcres"></span>
+<span id="requiredAcres">0</span> acres
 </div>
 
 <div class="result-item">
@@ -569,31 +604,41 @@ Land Required:
 <span id="requiredHectares"></span>
 </div>
 
-<div class="note">
-The result assumes the selected spacing is maintained throughout the planting area.
+<div class="result-item">
+<strong>Square Feet:</strong>
+<span id="requiredSqFt"></span>
+</div>
+
+<div class="result-item">
+<strong>Square Meters:</strong>
+<span id="requiredSqMeters"></span>
 </div>
 
 </div>
 
 </div>
+
 
 <h2>What Is Plant Population?</h2>
 
 <p>
-Plant population is the estimated number of individual plants growing within a defined area. It is commonly expressed as plants per acre, plants per hectare, plants per square foot, or plants per square meter.
+Plant population is the number of plants grown within a defined area. It is commonly expressed as plants per acre, plants per hectare, plants per square foot, or plants per square meter.
 </p>
+
 
 <h2>What Is Plant Density?</h2>
 
 <p>
-Plant density describes how closely plants are distributed within a growing area. Plant spacing and row spacing determine the amount of land allocated to each plant and therefore affect the overall population.
+Plant density describes how closely plants are distributed within a growing area. Plant spacing and row spacing determine how much space is allocated to each plant.
 </p>
+
 
 <h2>How to Calculate Plant Population</h2>
 
 <p>
-To estimate plant population, divide the total growing area by the area allocated to each plant. The amount of space allocated to each plant is determined by plant-to-plant spacing and row-to-row spacing.
+Plant population can be estimated by dividing the growing area by the amount of space allocated to each plant.
 </p>
+
 
 <div class="formula-box">
 
@@ -606,26 +651,26 @@ Plant population = Growing area ÷ (Plant spacing × Row spacing)
 <strong>Triangular planting:</strong>
 
 <p>
-Triangular or hexagonal planting can provide approximately 13.4% greater theoretical planting density than a rectangular arrangement using the same spacing.
+Triangular or hexagonal arrangements can provide approximately 13.4% greater theoretical density than a rectangular arrangement using the same spacing.
 </p>
 
 </div>
 
+
 <h2>Plants Per Acre and Plants Per Hectare</h2>
 
 <p>
-Plant population can be converted into different area measurements. This makes the calculator useful for comparing planting density across gardens, fields, farms, acres, and hectares.
+The same planting density can be expressed using different area measurements. This calculator converts your result into plants per acre, hectare, square foot, and square meter.
 </p>
+
 
 <table>
 
 <thead>
-
 <tr>
-<th>Measurement</th>
-<th>Equivalent Area</th>
+<th>Area</th>
+<th>Equivalent</th>
 </tr>
-
 </thead>
 
 <tbody>
@@ -649,61 +694,72 @@ Plant population can be converted into different area measurements. This makes t
 
 </table>
 
-<h2>Why Plant Population Matters</h2>
+
+<h2>Plant Categories Covered</h2>
 
 <p>
-Plant population affects how much growing space each plant receives. If plants are placed too closely together, they may compete for light, water, nutrients, and airflow. If they are spaced too far apart, available growing space may not be used efficiently.
+This calculator is designed for a broad range of plants and crops, including vegetables, leafy vegetables, root crops, legumes, cereals, grains, tubers, fruit crops, herbs, flowers, ornamental plants, fruit trees, nut trees, vines, succulents, houseplants, cover crops, and field crops.
 </p>
 
+
 <h2>Frequently Asked Questions</h2>
+
 
 <h3>How do I calculate plant population?</h3>
 
 <p>
-Enter the growing area, plant spacing, and row spacing. The calculator estimates how many plants can occupy the selected area.
+Select the appropriate plant category or crop type, enter your growing area, and provide the plant and row spacing. The calculator estimates the plant population.
 </p>
 
-<h3>How many plants are in an acre?</h3>
+
+<h3>How many plants can I grow per acre?</h3>
 
 <p>
-The number of plants in an acre depends on plant spacing and row spacing. Enter those measurements into the calculator to estimate plants per acre.
+The number of plants per acre depends on the plant spacing and row spacing. Enter those measurements to calculate the estimated population per acre.
 </p>
+
 
 <h3>How many plants can I grow per hectare?</h3>
 
 <p>
-Plant population per hectare depends on the spacing used. The calculator converts your spacing into an estimated plants-per-hectare value.
+Plants per hectare depend on the spacing used. Enter the plant and row spacing to calculate the estimated population per hectare.
 </p>
+
 
 <h3>What is a plant density calculator?</h3>
 
 <p>
-A plant density calculator estimates how many plants can occupy a defined area based on plant spacing and row spacing.
+A plant density calculator estimates how many plants can occupy a particular area based on the space allocated to each plant.
 </p>
 
-<h3>How much land do I need for 1,000 plants?</h3>
+
+<h3>Can I calculate the land needed for a certain number of plants?</h3>
 
 <p>
-Enter 1,000 as the target number of plants in the land requirement calculator, then enter your plant and row spacing. The calculator estimates the required area.
+Yes. Enter your target number of plants and the spacing you intend to use. The calculator estimates the required land in acres, hectares, square feet, and square meters.
 </p>
 
-<h3>Can I use this calculator for different plants?</h3>
+
+<h3>Can I use this calculator for different crops?</h3>
 
 <p>
-Yes. Enter the plant name to use an available recommended spacing, or enter your own spacing when you have a specific recommendation for the plant or variety.
+Yes. The calculator supports broad plant and crop categories and allows you to enter specific spacing when a particular crop or variety requires different spacing.
 </p>
 
-<h3>Can I calculate plants per acre?</h3>
+
+<h3>What if I don't know my plant spacing?</h3>
 
 <p>
-Yes. Select acre as the area unit and enter your plant and row spacing. The calculator will provide an estimated plant population per acre.
+Select the closest plant or crop type when an automatic recommendation is available. You can also enter a specific plant name or manually provide the recommended spacing for your crop.
 </p>
 
-<h3>Can I calculate plants per hectare?</h3>
+
+<h3>Does plant population depend on spacing?</h3>
 
 <p>
-Yes. Select hectare as the area unit and enter your spacing. The calculator will provide an estimated population per hectare.
+Yes. Smaller spacing generally allows more plants to occupy an area, while wider spacing generally results in fewer plants.
 </p>
+
 
 <div class="related-guides">
 
@@ -718,7 +774,7 @@ Browse The Plant Matrix Plant Guides
 </li>
 
 <li>
-<a href="/tools/plant-spacing-calculator.html">
+<a href="/tools/plant-spacing-calculator">
 Plant Spacing Calculator
 </a>
 </li>
@@ -733,21 +789,18 @@ About The Plant Matrix
 
 </div>
 
+
 <footer style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
 
-<a
-href="/about"
-style="color:#555;text-decoration:none;margin-right:20px;"
->
+<a href="/about"
+style="color:#555;text-decoration:none;margin-right:20px;">
 About Us
 </a>
 
 |
 
-<a
-href="/privacy-policy"
-style="color:#555;text-decoration:none;margin-left:20px;"
->
+<a href="/privacy-policy"
+style="color:#555;text-decoration:none;margin-left:20px;">
 Privacy Policy
 </a>
 
@@ -755,196 +808,850 @@ Privacy Policy
 
 </div>
 
+
 <script>
 
-/* ================================
-   PLANT SPACING DATABASE
-   ================================ */
+/*
+=========================================================
+BROAD PLANT / CROP DATABASE
+=========================================================
 
-const plantDatabase = {
+The database is organized as:
 
-    tomato: [18, 24],
-    tomatoes: [18, 24],
+CATEGORY
+   ↓
+CROP TYPE
+   ↓
+DEFAULT SPACING
 
-    pepper: [18, 24],
-    peppers: [18, 24],
+Specific plant names can also override the category
+recommendation when available.
 
-    lettuce: [8, 12],
-    carrot: [3, 12],
-    carrots: [3, 12],
+The values are starting recommendations only.
+Users can edit the spacing before calculating.
+=========================================================
+*/
 
-    cucumber: [18, 36],
-    cucumbers: [18, 36],
 
-    cabbage: [18, 24],
-    broccoli: [18, 24],
-    cauliflower: [18, 24],
+const cropDatabase = {
 
-    spinach: [6, 12],
-    kale: [12, 18],
+    vegetables: {
 
-    onion: [4, 12],
-    onions: [4, 12],
+        label: "Vegetables",
 
-    garlic: [6, 12],
+        crops: {
 
-    bean: [6, 18],
-    beans: [6, 18],
+            tomato: {
+                label: "Tomato",
+                spacing: 18,
+                rowSpacing: 24
+            },
 
-    pea: [3, 12],
-    peas: [3, 12],
+            pepper: {
+                label: "Pepper",
+                spacing: 18,
+                rowSpacing: 24
+            },
 
-    corn: [8, 30],
-    maize: [8, 30],
+            cucumber: {
+                label: "Cucumber",
+                spacing: 18,
+                rowSpacing: 36
+            },
 
-    radish: [3, 12],
-    beet: [4, 12],
-    beets: [4, 12],
+            eggplant: {
+                label: "Eggplant",
+                spacing: 24,
+                rowSpacing: 36
+            },
 
-    turnip: [4, 12],
-    parsnip: [3, 12],
+            okra: {
+                label: "Okra",
+                spacing: 12,
+                rowSpacing: 24
+            }
 
-    zucchini: [24, 36],
-    squash: [24, 48],
+        }
 
-    eggplant: [18, 30],
-    aubergine: [18, 30],
+    },
 
-    okra: [12, 24],
 
-    watermelon: [36, 72],
-    melon: [24, 48],
-    cantaloupe: [18, 36],
+    leafy: {
 
-    pumpkin: [36, 72],
+        label: "Leafy Vegetables",
 
-    strawberry: [12, 18],
-    strawberries: [12, 18],
+        crops: {
 
-    potato: [12, 30],
-    potatoes: [12, 30],
+            lettuce: {
+                label: "Lettuce",
+                spacing: 8,
+                rowSpacing: 12
+            },
 
-    sweetpotato: [12, 36],
+            spinach: {
+                label: "Spinach",
+                spacing: 6,
+                rowSpacing: 12
+            },
 
-    celery: [8, 12],
+            kale: {
+                label: "Kale",
+                spacing: 12,
+                rowSpacing: 18
+            },
 
-    brusselsprouts: [18, 24],
+            leafyGreens: {
+                label: "Leafy Greens",
+                spacing: 8,
+                rowSpacing: 12
+            }
 
-    asparagus: [12, 18],
+        }
 
-    basil: [8, 12],
-    parsley: [6, 12],
-    cilantro: [4, 8],
-    coriander: [4, 8],
+    },
 
-    mint: [12, 18],
-    oregano: [12, 18],
-    thyme: [12, 18],
-    rosemary: [18, 24],
 
-    lavender: [18, 24],
+    root: {
 
-    rose: [24, 36],
-    roses: [24, 36],
+        label: "Root Vegetables",
 
-    sunflower: [12, 24],
-    marigold: [8, 12],
-    zinnia: [9, 12],
+        crops: {
 
-    petunia: [8, 12],
-    pansy: [6, 9],
+            carrot: {
+                label: "Carrot",
+                spacing: 3,
+                rowSpacing: 12
+            },
 
-    coleus: [12, 18],
+            radish: {
+                label: "Radish",
+                spacing: 3,
+                rowSpacing: 12
+            },
 
-    hosta: [18, 36],
+            beetroot: {
+                label: "Beetroot",
+                spacing: 4,
+                rowSpacing: 12
+            },
 
-    hydrangea: [36, 60],
+            turnip: {
+                label: "Turnip",
+                spacing: 6,
+                rowSpacing: 12
+            }
 
-    boxwood: [24, 36],
+        }
 
-    lavenderplant: [18, 24],
+    },
 
-    monstera: [24, 36],
-    pothos: [12, 24],
-    philodendron: [18, 30],
 
-    snakeplant: [12, 24],
-    snakeplant: [12, 24],
+    bulb: {
 
-    peace lily: [18, 24],
-    peace_lily: [18, 24],
+        label: "Bulb Vegetables",
 
-    aloe: [12, 24],
-    succulent: [6, 12],
-    succulents: [6, 12],
+        crops: {
 
-    cactus: [12, 24],
-    cacti: [12, 24],
+            onion: {
+                label: "Onion",
+                spacing: 4,
+                rowSpacing: 12
+            },
 
-    cornflower: [8, 12],
+            garlic: {
+                label: "Garlic",
+                spacing: 4,
+                rowSpacing: 8
+            }
 
-    wheat: [4, 8],
-    barley: [4, 8],
-    oats: [4, 8],
+        }
 
-    cotton: [6, 12],
+    },
 
-    tobacco: [18, 30],
 
-    coffee: [72, 96],
-    cocoa: [120, 180],
+    legumes: {
 
-    banana: [96, 144],
-    papaya: [72, 120],
+        label: "Legumes",
 
-    mango: [240, 360],
-    avocado: [240, 360],
+        crops: {
 
-    orange: [240, 360],
-    lemon: [180, 300],
-    lime: [180, 240],
+            bean: {
+                label: "Beans",
+                spacing: 4,
+                rowSpacing: 18
+            },
 
-    apple: [180, 300],
-    pear: [180, 300],
-    peach: [180, 240],
+            pea: {
+                label: "Peas",
+                spacing: 3,
+                rowSpacing: 18
+            },
 
-    grape: [48, 96],
-    grapes: [48, 96],
+            groundnut: {
+                label: "Groundnut / Peanut",
+                spacing: 6,
+                rowSpacing: 24
+            }
 
-    blueberry: [48, 60],
-    raspberry: [24, 36],
+        }
 
-    blackberry: [36, 60]
+    },
+
+
+    cereals: {
+
+        label: "Cereals & Grains",
+
+        crops: {
+
+            maize: {
+                label: "Maize / Corn",
+                spacing: 10,
+                rowSpacing: 30
+            },
+
+            rice: {
+                label: "Rice",
+                spacing: 8,
+                rowSpacing: 8
+            },
+
+            wheat: {
+                label: "Wheat",
+                spacing: 2,
+                rowSpacing: 8
+            },
+
+            millet: {
+                label: "Millet",
+                spacing: 8,
+                rowSpacing: 24
+            },
+
+            sorghum: {
+                label: "Sorghum",
+                spacing: 8,
+                rowSpacing: 24
+            }
+
+        }
+
+    },
+
+
+    tubers: {
+
+        label: "Tubers",
+
+        crops: {
+
+            potato: {
+                label: "Potato",
+                spacing: 12,
+                rowSpacing: 30
+            },
+
+            sweetpotato: {
+                label: "Sweet Potato",
+                spacing: 12,
+                rowSpacing: 36
+            },
+
+            cassava: {
+                label: "Cassava",
+                spacing: 36,
+                rowSpacing: 36
+            },
+
+            yam: {
+                label: "Yam",
+                spacing: 36,
+                rowSpacing: 48
+            }
+
+        }
+
+    },
+
+
+    fruit_crops: {
+
+        label: "Fruit Crops",
+
+        crops: {
+
+            watermelon: {
+                label: "Watermelon",
+                spacing: 36,
+                rowSpacing: 72
+            },
+
+            melon: {
+                label: "Melon",
+                spacing: 24,
+                rowSpacing: 48
+            },
+
+            strawberry: {
+                label: "Strawberry",
+                spacing: 12,
+                rowSpacing: 18
+            },
+
+            pineapple: {
+                label: "Pineapple",
+                spacing: 12,
+                rowSpacing: 24
+            }
+
+        }
+
+    },
+
+
+    herbs: {
+
+        label: "Herbs",
+
+        crops: {
+
+            basil: {
+                label: "Basil",
+                spacing: 12,
+                rowSpacing: 18
+            },
+
+            mint: {
+                label: "Mint",
+                spacing: 12,
+                rowSpacing: 18
+            },
+
+            parsley: {
+                label: "Parsley",
+                spacing: 8,
+                rowSpacing: 12
+            },
+
+            coriander: {
+                label: "Coriander",
+                spacing: 4,
+                rowSpacing: 12
+            }
+
+        }
+
+    },
+
+
+    flowers: {
+
+        label: "Flowers",
+
+        crops: {
+
+            marigold: {
+                label: "Marigold",
+                spacing: 8,
+                rowSpacing: 12
+            },
+
+            sunflower: {
+                label: "Sunflower",
+                spacing: 12,
+                rowSpacing: 24
+            },
+
+            zinnia: {
+                label: "Zinnia",
+                spacing: 12,
+                rowSpacing: 18
+            }
+
+        }
+
+    },
+
+
+    ornamental: {
+
+        label: "Ornamental Plants",
+
+        crops: {
+
+            ornamentalShrub: {
+                label: "Ornamental Shrubs",
+                spacing: 36,
+                rowSpacing: 48
+            },
+
+            ornamentalPlant: {
+                label: "General Ornamental Plants",
+                spacing: 18,
+                rowSpacing: 24
+            }
+
+        }
+
+    },
+
+
+    fruit_trees: {
+
+        label: "Fruit Trees",
+
+        crops: {
+
+            mango: {
+                label: "Mango",
+                spacing: 240,
+                rowSpacing: 240
+            },
+
+            citrus: {
+                label: "Citrus",
+                spacing: 180,
+                rowSpacing: 180
+            },
+
+            avocado: {
+                label: "Avocado",
+                spacing: 240,
+                rowSpacing: 240
+            },
+
+            banana: {
+                label: "Banana",
+                spacing: 120,
+                rowSpacing: 120
+            },
+
+            papaya: {
+                label: "Papaya",
+                spacing: 120,
+                rowSpacing: 120
+            }
+
+        }
+
+    },
+
+
+    nut_trees: {
+
+        label: "Nut Trees",
+
+        crops: {
+
+            cashew: {
+                label: "Cashew",
+                spacing: 300,
+                rowSpacing: 300
+            },
+
+            almond: {
+                label: "Almond",
+                spacing: 240,
+                rowSpacing: 240
+            },
+
+            walnut: {
+                label: "Walnut",
+                spacing: 360,
+                rowSpacing: 360
+            }
+
+        }
+
+    },
+
+
+    vines: {
+
+        label: "Vines & Climbers",
+
+        crops: {
+
+            grape: {
+                label: "Grape",
+                spacing: 48,
+                rowSpacing: 96
+            },
+
+            passionfruit: {
+                label: "Passion Fruit",
+                spacing: 120,
+                rowSpacing: 120
+            },
+
+            climbingBean: {
+                label: "Climbing Beans",
+                spacing: 6,
+                rowSpacing: 24
+            }
+
+        }
+
+    },
+
+
+    succulents: {
+
+        label: "Succulents",
+
+        crops: {
+
+            smallSucculent: {
+                label: "Small Succulents",
+                spacing: 6,
+                rowSpacing: 8
+            },
+
+            largeSucculent: {
+                label: "Large Succulents",
+                spacing: 18,
+                rowSpacing: 24
+            }
+
+        }
+
+    },
+
+
+    houseplants: {
+
+        label: "Houseplants",
+
+        crops: {
+
+            smallHouseplant: {
+                label: "Small Houseplants",
+                spacing: 12,
+                rowSpacing: 18
+            },
+
+            mediumHouseplant: {
+                label: "Medium Houseplants",
+                spacing: 18,
+                rowSpacing: 24
+            },
+
+            largeHouseplant: {
+                label: "Large Houseplants",
+                spacing: 36,
+                rowSpacing: 48
+            }
+
+        }
+
+    },
+
+
+    cover_crops: {
+
+        label: "Cover Crops",
+
+        crops: {
+
+            coverCrop: {
+                label: "General Cover Crops",
+                spacing: 6,
+                rowSpacing: 12
+            },
+
+            clover: {
+                label: "Clover",
+                spacing: 4,
+                rowSpacing: 8
+            },
+
+            ryegrass: {
+                label: "Ryegrass",
+                spacing: 3,
+                rowSpacing: 8
+            }
+
+        }
+
+    },
+
+
+    field_crops: {
+
+        label: "Field Crops",
+
+        crops: {
+
+            cotton: {
+                label: "Cotton",
+                spacing: 6,
+                rowSpacing: 36
+            },
+
+            tobacco: {
+                label: "Tobacco",
+                spacing: 18,
+                rowSpacing: 36
+            },
+
+            sugarcane: {
+                label: "Sugarcane",
+                spacing: 24,
+                rowSpacing: 48
+            }
+
+        }
+
+    }
 
 };
 
 
-/* Normalize plant names */
+/*
+=========================================================
+SPECIFIC NAME ALIASES
+=========================================================
+*/
 
-function normalizePlantName(name) {
+const plantAliases = {
 
-    return name
+    tomato: ["tomato", "tomatoes"],
+
+    maize: ["maize", "corn", "sweetcorn", "sweet corn"],
+
+    pepper: ["pepper", "peppers", "bell pepper", "bell peppers"],
+
+    eggplant: ["eggplant", "aubergine", "aubergines"],
+
+    cucumber: ["cucumber", "cucumbers"],
+
+    carrot: ["carrot", "carrots"],
+
+    onion: ["onion", "onions"],
+
+    garlic: ["garlic"],
+
+    potato: ["potato", "potatoes"],
+
+    cassava: ["cassava"],
+
+    yam: ["yam", "yams"],
+
+    lettuce: ["lettuce"],
+
+    spinach: ["spinach"],
+
+    kale: ["kale"],
+
+    bean: ["bean", "beans"],
+
+    pea: ["pea", "peas"],
+
+    groundnut: ["groundnut", "peanut", "peanuts"],
+
+    mango: ["mango", "mangoes"],
+
+    banana: ["banana", "bananas"],
+
+    papaya: ["papaya", "papayas", "pawpaw"],
+
+    avocado: ["avocado", "avocados"],
+
+    pineapple: ["pineapple", "pineapples"],
+
+    watermelon: ["watermelon", "watermelons"],
+
+    strawberry: ["strawberry", "strawberries"],
+
+    basil: ["basil"],
+
+    mint: ["mint"],
+
+    parsley: ["parsley"],
+
+    coriander: ["coriander", "cilantro"],
+
+    sunflower: ["sunflower", "sunflowers"],
+
+    marigold: ["marigold", "marigolds"],
+
+    grape: ["grape", "grapes"],
+
+    cotton: ["cotton"],
+
+    tobacco: ["tobacco"],
+
+    sugarcane: ["sugarcane", "sugar cane"]
+
+};
+
+
+/*
+=========================================================
+NORMALIZE TEXT
+=========================================================
+*/
+
+function normalizeText(value) {
+
+    return value
         .toLowerCase()
         .trim()
-        .replace(/[^a-z0-9]/g, "");
+        .replace(/\s+/g, " ");
 
 }
 
 
-/* Automatic plant lookup */
+/*
+=========================================================
+FIND SPECIFIC PLANT
+=========================================================
+*/
 
-function lookupPlant() {
+function findPlant(name) {
 
     const input =
-        document.getElementById("plantName").value;
+        normalizeText(name);
 
-    const key =
-        normalizePlantName(input);
+    if (!input) {
+        return null;
+    }
+
+    for (const key in plantAliases) {
+
+        if (
+            plantAliases[key].some(
+                alias => normalizeText(alias) === input
+            )
+        ) {
+
+            for (const categoryKey in cropDatabase) {
+
+                const crops =
+                    cropDatabase[categoryKey].crops;
+
+                if (crops[key]) {
+
+                    return {
+                        category: categoryKey,
+                        crop: key,
+                        data: crops[key]
+                    };
+
+                }
+
+            }
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/*
+=========================================================
+POPULATE CROP DROPDOWN
+=========================================================
+*/
+
+document
+.getElementById("category")
+.addEventListener("change", function() {
+
+    const category =
+        this.value;
+
+    const cropSelect =
+        document.getElementById("plantType");
+
+    cropSelect.innerHTML =
+        '<option value="">Select a plant or crop type</option>';
+
+    document.getElementById("categoryMessage").textContent = "";
+
+    if (!category) {
+        return;
+    }
+
+    const crops =
+        cropDatabase[category].crops;
+
+    for (const key in crops) {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            key;
+
+        option.textContent =
+            crops[key].label;
+
+        cropSelect.appendChild(option);
+
+    }
+
+});
+
+
+/*
+=========================================================
+CATEGORY / CROP SELECTION
+=========================================================
+*/
+
+document
+.getElementById("plantType")
+.addEventListener("change", function() {
+
+    const category =
+        document.getElementById("category").value;
+
+    const crop =
+        this.value;
+
+    if (
+        !category ||
+        !crop
+    ) {
+        return;
+    }
+
+    const data =
+        cropDatabase[category].crops[crop];
+
+    document.getElementById("plantSpacing").value =
+        data.spacing;
+
+    document.getElementById("rowSpacing").value =
+        data.rowSpacing;
+
+    document.getElementById("plantMessage").textContent =
+        "Recommended spacing loaded. You can adjust it for your variety or growing method.";
+
+});
+
+
+/*
+=========================================================
+SPECIFIC PLANT NAME LOOKUP
+=========================================================
+*/
+
+document
+.getElementById("plantName")
+.addEventListener("input", function() {
+
+    const plant =
+        findPlant(this.value);
 
     const message =
         document.getElementById("plantMessage");
 
-    if (!key) {
+    if (!this.value.trim()) {
 
         message.textContent = "";
 
@@ -952,45 +1659,69 @@ function lookupPlant() {
 
     }
 
-    if (plantDatabase[key]) {
+    if (plant) {
 
-        const spacing =
-            plantDatabase[key];
+        document.getElementById("category").value =
+            plant.category;
+
+        const cropSelect =
+            document.getElementById("plantType");
+
+        cropSelect.innerHTML =
+            '<option value="">Select a plant or crop type</option>';
+
+        const crops =
+            cropDatabase[plant.category].crops;
+
+        for (const key in crops) {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                key;
+
+            option.textContent =
+                crops[key].label;
+
+            cropSelect.appendChild(option);
+
+        }
+
+        cropSelect.value =
+            plant.crop;
 
         document.getElementById("plantSpacing").value =
-            spacing[0];
+            plant.data.spacing;
 
         document.getElementById("rowSpacing").value =
-            spacing[1];
-
-        document.getElementById("spacingUnit").value =
-            "inches";
+            plant.data.rowSpacing;
 
         message.textContent =
-            "Recommended spacing loaded automatically for " +
-            input +
+            "Recommended spacing loaded for " +
+            plant.data.label +
             ".";
 
     } else {
 
         message.textContent =
-            "Plant not found in the automatic database. Enter the recommended plant and row spacing manually.";
+            "Specific plant not found. Select a category and crop type, or enter spacing manually.";
 
     }
 
-}
+});
 
 
-/* Convert spacing to feet */
+/*
+=========================================================
+UNIT CONVERSION
+=========================================================
+*/
 
 function convertToFeet(value, unit) {
 
     if (unit === "inches") {
         return value / 12;
-    }
-
-    if (unit === "feet") {
-        return value;
     }
 
     if (unit === "centimeters") {
@@ -1006,9 +1737,46 @@ function convertToFeet(value, unit) {
 }
 
 
-/* Calculate population */
+/*
+=========================================================
+AREA CONVERSION
+=========================================================
+*/
+
+function areaToSquareFeet(
+    area,
+    unit
+) {
+
+    if (unit === "acre") {
+        return area * 43560;
+    }
+
+    if (unit === "hectare") {
+        return area * 107639.104;
+    }
+
+    if (unit === "sqm") {
+        return area * 10.7639;
+    }
+
+    return area;
+
+}
+
+
+/*
+=========================================================
+PLANT POPULATION CALCULATION
+=========================================================
+*/
 
 function calculatePopulation() {
+
+    const area =
+        parseFloat(
+            document.getElementById("area").value
+        );
 
     const plantSpacing =
         parseFloat(
@@ -1023,37 +1791,36 @@ function calculatePopulation() {
     const spacingUnit =
         document.getElementById("spacingUnit").value;
 
-    const area =
-        parseFloat(
-            document.getElementById("area").value
-        );
-
     const areaUnit =
         document.getElementById("areaUnit").value;
 
     const pattern =
         document.getElementById("pattern").value;
 
-    const plantName =
-        document.getElementById("plantName").value.trim();
-
 
     if (
+        !Number.isFinite(area) ||
         !Number.isFinite(plantSpacing) ||
         !Number.isFinite(rowSpacing) ||
-        !Number.isFinite(area) ||
+        area <= 0 ||
         plantSpacing <= 0 ||
-        rowSpacing <= 0 ||
-        area <= 0
+        rowSpacing <= 0
     ) {
 
         alert(
-            "Please enter a plant name or spacing values, and enter a valid growing area."
+            "Please enter a valid growing area, plant spacing, and row spacing."
         );
 
         return;
 
     }
+
+
+    const areaSqFt =
+        areaToSquareFeet(
+            area,
+            areaUnit
+        );
 
 
     const spacingFeet =
@@ -1062,46 +1829,22 @@ function calculatePopulation() {
             spacingUnit
         );
 
-    const rowSpacingFeet =
+
+    const rowFeet =
         convertToFeet(
             rowSpacing,
             spacingUnit
         );
 
 
-    let areaSqFt;
-
-    if (areaUnit === "acre") {
-
-        areaSqFt =
-            area * 43560;
-
-    } else if (areaUnit === "hectare") {
-
-        areaSqFt =
-            area * 107639.104;
-
-    } else if (areaUnit === "sqm") {
-
-        areaSqFt =
-            area * 10.7639;
-
-    } else {
-
-        areaSqFt =
-            area;
-
-    }
-
-
     let areaPerPlant =
-        spacingFeet * rowSpacingFeet;
+        spacingFeet *
+        rowFeet;
 
 
     if (pattern === "triangular") {
 
-        areaPerPlant =
-            areaPerPlant * 0.8660254;
+        areaPerPlant *= 0.8660254;
 
     }
 
@@ -1109,66 +1852,63 @@ function calculatePopulation() {
     const plantsPerSqFt =
         1 / areaPerPlant;
 
-    const plantsPerSqMeter =
-        plantsPerSqFt * 10.7639;
-
-    const plantsPerAcre =
-        plantsPerSqFt * 43560;
-
-    const plantsPerHectare =
-        plantsPerSqFt * 107639.104;
 
     const totalPlants =
         Math.floor(
-            areaSqFt * plantsPerSqFt
+            areaSqFt *
+            plantsPerSqFt
         );
 
 
-    const estimatedRows =
-        Math.floor(
-            Math.sqrt(areaSqFt) /
-            rowSpacingFeet
-        );
+    const plantsPerAcre =
+        plantsPerSqFt *
+        43560;
 
 
-    const plantsPerRow =
-        Math.floor(
-            Math.sqrt(areaSqFt) /
-            spacingFeet
-        );
+    const plantsPerHectare =
+        plantsPerSqFt *
+        107639.104;
 
 
-    document.getElementById("totalPlants").textContent =
+    const plantsPerSqMeter =
+        plantsPerSqFt *
+        10.7639;
+
+
+    document.getElementById("plantCount").textContent =
         totalPlants.toLocaleString();
 
-    document.getElementById("resultPlant").textContent =
-        plantName || "Custom spacing";
 
-    document.getElementById("density").textContent =
-        plantsPerSqMeter.toFixed(2) +
-        " plants/m²";
+    document.getElementById("plantsPerAcre").textContent =
+        Math.round(
+            plantsPerAcre
+        ).toLocaleString();
 
-    document.getElementById("perAcre").textContent =
-        Math.round(plantsPerAcre).toLocaleString();
 
-    document.getElementById("perHectare").textContent =
-        Math.round(plantsPerHectare).toLocaleString();
+    document.getElementById("plantsPerHectare").textContent =
+        Math.round(
+            plantsPerHectare
+        ).toLocaleString();
 
-    document.getElementById("perSqFt").textContent =
+
+    document.getElementById("plantsPerSqFt").textContent =
         plantsPerSqFt.toFixed(4);
 
-    document.getElementById("perSqMeter").textContent =
+
+    document.getElementById("plantsPerSqMeter").textContent =
         plantsPerSqMeter.toFixed(2);
 
-    document.getElementById("estimatedRows").textContent =
-        Math.max(0, estimatedRows).toLocaleString();
 
-    document.getElementById("plantsPerRow").textContent =
-        Math.max(0, plantsPerRow).toLocaleString();
+    document.getElementById("displayPlantSpacing").textContent =
+        plantSpacing +
+        " " +
+        spacingUnit;
 
-    document.getElementById("areaPerPlant").textContent =
-        areaPerPlant.toFixed(4) +
-        " square feet";
+
+    document.getElementById("displayRowSpacing").textContent =
+        rowSpacing +
+        " " +
+        spacingUnit;
 
 
     document.getElementById("populationResult").style.display =
@@ -1177,7 +1917,58 @@ function calculatePopulation() {
 }
 
 
-/* Calculate land required */
+/*
+=========================================================
+TARGET PLANT POPULATION
+=========================================================
+*/
+
+document
+.getElementById("targetPlantName")
+.addEventListener("input", function() {
+
+    const plant =
+        findPlant(this.value);
+
+    const message =
+        document.getElementById("targetMessage");
+
+    if (!this.value.trim()) {
+
+        message.textContent = "";
+
+        return;
+
+    }
+
+    if (plant) {
+
+        document.getElementById("targetPlantSpacing").value =
+            plant.data.spacing;
+
+        document.getElementById("targetRowSpacing").value =
+            plant.data.rowSpacing;
+
+        message.textContent =
+            "Recommended spacing loaded for " +
+            plant.data.label +
+            ".";
+
+    } else {
+
+        message.textContent =
+            "Plant not found automatically. Enter your spacing manually.";
+
+    }
+
+});
+
+
+/*
+=========================================================
+LAND REQUIRED
+=========================================================
+*/
 
 function calculateLandRequired() {
 
@@ -1188,19 +1979,19 @@ function calculateLandRequired() {
 
     const plantSpacing =
         parseFloat(
-            document.getElementById("reversePlantSpacing").value
+            document.getElementById("targetPlantSpacing").value
         );
 
     const rowSpacing =
         parseFloat(
-            document.getElementById("reverseRowSpacing").value
+            document.getElementById("targetRowSpacing").value
         );
 
     const spacingUnit =
-        document.getElementById("reverseSpacingUnit").value;
+        document.getElementById("targetSpacingUnit").value;
 
     const pattern =
-        document.getElementById("reversePattern").value;
+        document.getElementById("targetPattern").value;
 
 
     if (
@@ -1213,7 +2004,7 @@ function calculateLandRequired() {
     ) {
 
         alert(
-            "Please enter a valid target plant population and spacing."
+            "Please enter a valid target population and spacing."
         );
 
         return;
@@ -1227,7 +2018,7 @@ function calculateLandRequired() {
             spacingUnit
         );
 
-    const rowSpacingFeet =
+    const rowFeet =
         convertToFeet(
             rowSpacing,
             spacingUnit
@@ -1235,41 +2026,61 @@ function calculateLandRequired() {
 
 
     let areaPerPlant =
-        spacingFeet * rowSpacingFeet;
+        spacingFeet *
+        rowFeet;
 
 
     if (pattern === "triangular") {
 
-        areaPerPlant =
-            areaPerPlant * 0.8660254;
+        areaPerPlant *= 0.8660254;
 
     }
 
 
     const requiredSqFt =
-        targetPlants * areaPerPlant;
+        targetPlants *
+        areaPerPlant;
 
-    const requiredSqMeter =
-        requiredSqFt / 10.7639;
 
-    const requiredAcres =
-        requiredSqFt / 43560;
+    const acres =
+        requiredSqFt /
+        43560;
 
-    const requiredHectares =
-        requiredSqFt / 107639.104;
+
+    const hectares =
+        requiredSqFt /
+        107639.104;
+
+
+    const squareMeters =
+        requiredSqFt *
+        0.092903;
+
+
+    document.getElementById("requiredAcres").textContent =
+        acres.toFixed(4);
+
+
+    document.getElementById("requiredHectares").textContent =
+        hectares.toFixed(4);
 
 
     document.getElementById("requiredSqFt").textContent =
-        requiredSqFt.toFixed(2).toLocaleString();
+        requiredSqFt.toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits: 2
+            }
+        );
 
-    document.getElementById("requiredSqMeter").textContent =
-        requiredSqMeter.toFixed(2);
 
-    document.getElementById("requiredAcres").textContent =
-        requiredAcres.toFixed(4);
-
-    document.getElementById("requiredHectares").textContent =
-        requiredHectares.toFixed(4);
+    document.getElementById("requiredSqMeters").textContent =
+        squareMeters.toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits: 2
+            }
+        );
 
 
     document.getElementById("landResult").style.display =
