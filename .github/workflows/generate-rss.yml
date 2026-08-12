@@ -1,5 +1,7 @@
 name: Auto Generate RSS Feed
-
+concurrency:
+  group: plant-matrix-site-updates
+  cancel-in-progress: false
 on:
   push:
     branches:
