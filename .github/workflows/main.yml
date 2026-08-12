@@ -57,9 +57,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          ADSENSE_CODE = '''<script async
-               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
-               crossorigin="anonymous"></script>'''
+          ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185" crossorigin="anonymous"></script>'
 
           PUBLISHER_ID = "ca-pub-6258569726732185"
 
@@ -70,6 +68,7 @@ jobs:
               content = file.read_text(encoding="utf-8")
 
               if PUBLISHER_ID in content:
+                  print(f"AdSense already present: {file}")
                   continue
 
               if "<head>" not in content:
