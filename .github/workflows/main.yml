@@ -27,6 +27,41 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Add Google AdSense code to HTML pages
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          ADSENSE_CODE = '''<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
+               crossorigin="anonymous"></script>'''
+
+          PUBLISHER_ID = "ca-pub-6258569726732185"
+
+          for file in Path(".").rglob("*.html"):
+              if ".git" in file.parts:
+                  continue
+
+              content = file.read_text(encoding="utf-8")
+
+              # Do not add the AdSense code if it is already present.
+              if PUBLISHER_ID in content:
+                  continue
+
+              if "<head>" not in content:
+                  print(f"Skipped: {file} — no <head> tag found")
+                  continue
+
+              content = content.replace(
+                  "<head>",
+                  "<head>\n    " + ADSENSE_CODE,
+                  1
+              )
+
+              file.write_text(content, encoding="utf-8")
+              print(f"Added AdSense code: {file}")
+          PY
+
       - name: Generate sitemap and homepage
         shell: bash
         run: |
@@ -129,5 +164,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Auto-update sitemap, homepage, internal links, and schema markup"
+          git commit -m "Auto-update sitemap, homepage, internal links, schema markup, and AdSense"
           git push origin main
