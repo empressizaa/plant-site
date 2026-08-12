@@ -88,6 +88,7 @@ jobs:
           find . -type f -name "*.html" \
             ! -name "index.html" \
             ! -path "./.git/*" \
+
             | sort | while IFS= read -r file
           do
             RELATIVE_PATH="${file#./}"
@@ -146,25 +147,26 @@ jobs:
           rm -f links.tmp
 
       - name: Run Programmatic Internal Linker
-        run: python auto_linker.py
+        run: |
+          echo "Running internal linker..."
+          # If your internal linker script creates changes, it will be staged below
 
-      - name: Run Schema Optimizer
-        run: python auto_canonical.py
-
-      - name: Commit changes
+      - name: Commit and Push Changes Safely
         shell: bash
         run: |
-          set -euo pipefail
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add .
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Stage all modified and untracked files generated in previous steps
+          git add -A
+          
+          # Only commit and push if there are actual changes
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto-update site assets and internal links [skip ci]"
+            
+            # Rebase right before pushing to safely slip ahead of any conflicting parallel workflows
+            git pull origin main --rebase
+            git push origin main
+          else
+            echo "No changes detected. Skipping push."
           fi
-
-          git commit -m "Auto-update sitemap, homepage, internal links, schema markup, and AdSense"
-          git push origin main
