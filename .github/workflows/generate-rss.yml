@@ -16,6 +16,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Needed to allow rebasing history safely
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -25,10 +27,22 @@ jobs:
     - name: Run Feed Builder
       run: python generate_feed.py
 
-    - name: Commit and Push Updated Feed
+    - name: Commit and Push Updated Feed Safely
+      shell: bash
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Stage the generated file
         git add feed.xml
-        git commit -m "Automated update to feed.xml" || exit 0
-        git push
+        
+        # Check if feed.xml actually changed to prevent empty commits
+        if ! git diff --cached --quiet; then
+          git commit -m "Automated update to feed.xml [skip ci]"
+          
+          # Rebase right before pushing to slide seamlessly past parallel workflow runs
+          git pull origin main --rebase
+          git push origin main
+        else
+          echo "No changes detected in feed.xml. Skipping push."
+        fi
