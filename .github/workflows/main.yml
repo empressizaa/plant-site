@@ -57,7 +57,8 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          ADSENSE_CODE = '''<script async src="https://googlesyndication.com"
+          ADSENSE_CODE = '''<script async
+               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
                crossorigin="anonymous"></script>'''
 
           PUBLISHER_ID = "ca-pub-6258569726732185"
@@ -95,9 +96,9 @@ jobs:
 
           {
             printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>'
-            printf '%s\n' '<urlset xmlns="http://sitemaps.org">'
+            printf '%s\n' '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             printf '%s\n' '  <url>'
-            printf '%s\n' '    <loc>https://theplantmatrix.com</loc>'
+            printf '%s\n' '    <loc>https://theplantmatrix.com/</loc>'
             printf '    <lastmod>%s</lastmod>\n' "$TODAY"
             printf '%s\n' '    <changefreq>daily</changefreq>'
             printf '%s\n' '    <priority>1.0</priority>'
@@ -109,9 +110,7 @@ jobs:
 
           find . -type f -name "*.html" \
             ! -name "index.html" \
-            ! -path "./.git/*" \
-
-            | sort | while IFS= read -r file
+            ! -path "./.git/*" | sort | while IFS= read -r file
           do
             RELATIVE_PATH="${file#./}"
             URL_PATH="${RELATIVE_PATH%.html}"
@@ -119,7 +118,7 @@ jobs:
 
             {
               printf '%s\n' '  <url>'
-              printf '    <loc>https://theplantmatrix.com%s</loc>\n' "$URL_PATH"
+              printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "$URL_PATH"
               printf '    <lastmod>%s</lastmod>\n' "$LASTMOD"
               printf '%s\n' '    <changefreq>monthly</changefreq>'
               printf '%s\n' '    <priority>0.8</priority>'
@@ -128,13 +127,16 @@ jobs:
 
             if [[ "$RELATIVE_PATH" != */* ]]; then
               FILE="$(basename "$file")"
+
               TITLE="$(
                 echo "$FILE" \
                   | sed 's/\.html$//' \
                   | sed 's/-/ /g' \
                   | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1'
               )"
-              printf '    <li><a href="/%s">%s</a></li>\n' "${FILE%.html}" "$TITLE" >> links.tmp
+
+              printf '    <li><a href="/%s">%s</a></li>\n' \
+                "${FILE%.html}" "$TITLE" >> links.tmp
             fi
           done
 
@@ -149,11 +151,13 @@ jobs:
               skip=1
               next
           }
+
           /<!-- END_ARTICLE_LIST -->/ {
               skip=0
               print
               next
           }
+
           !skip
           ' index.html > index.new
 
@@ -177,9 +181,9 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           git add -A
-          
+
           if ! git diff --cached --quiet; then
             git commit -m "Automated build: updates to sitemap, homepage, links, and rss feed [skip ci]"
             git pull origin main --rebase
