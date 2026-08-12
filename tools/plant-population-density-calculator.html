@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Plant Population & Density Calculator - Plants Per Acre & Hectare</title>
+
+<meta name="description" content="Use our free plant population and density calculator to calculate plants per acre, hectare, square foot, square meter, plants per row, total plant population, and land required for a target number of plants.">
+
+<link rel="canonical" href="https://theplantmatrix.com/tools/plant-population-calculator.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Plant Population & Density Calculator",
+  "url": "https://theplantmatrix.com/tools/plant-population-calculator.html",
+  "description": "A free calculator for estimating plant population, planting density, plants per acre, plants per hectare, plants per square foot, plants per square meter, and land required for a target number of plants.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #4CAF50;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h2,
+h3 {
+    color: #4CAF50;
+}
+
+.intro {
+    background: #e7f5e2;
+    border: 1px solid #4CAF50;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+}
+
+.calculator {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 30px;
+}
+
+.mode-box {
+    background: #f1f8e9;
+    border-left: 4px solid #4CAF50;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: white;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #388E3C;
+}
+
+.secondary-button {
+    background: #607d8b;
+    margin-top: 10px;
+}
+
+.secondary-button:hover {
+    background: #455a64;
+}
+
+.result {
+    display: none;
+    margin-top: 25px;
+    padding: 20px;
+    background: #e7f5e2;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+}
+
+.result-main {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.result-item {
+    padding: 9px 0;
+    border-bottom: 1px solid #c8e6c9;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.note {
+    font-size: 14px;
+    color: #666;
+    margin-top: 15px;
+}
+
+.formula-box {
+    background: #f2f2f2;
+    border-left: 4px solid #4CAF50;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #e7f5e2;
+}
+
+.related-guides {
+    clear: both;
+    display: block;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 25px;
+    background: #f1f8e9;
+    border-top: 3px solid #4CAF50;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.related-guides a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Plant Population & Density Calculator</h1>
+
+<div class="intro">
+    <strong>Calculate how many plants you can grow.</strong>
+    Use this free plant population and density calculator to estimate total plants, plants per acre, plants per hectare, plants per square foot, plants per square meter, plants per row, and the amount of land needed for a target number of plants.
+</div>
+
+<div class="calculator">
+
+<h2>Calculate Plant Population</h2>
+
+<div class="mode-box">
+    <strong>Don't know your plant spacing?</strong>
+    Enter the plant name below and the calculator will use a recommended spacing when available.
+</div>
+
+<div class="input-group">
+
+<label for="plantName">Plant Name</label>
+
+<input
+    type="text"
+    id="plantName"
+    placeholder="Example: Tomato, maize, lettuce, pepper"
+    oninput="lookupPlant()"
+>
+
+<div id="plantMessage" class="note"></div>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="plantSpacing">
+Plant Spacing
+</label>
+
+<input
+    type="number"
+    id="plantSpacing"
+    min="0.01"
+    step="0.01"
+    placeholder="Example: 18"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="rowSpacing">
+Row Spacing
+</label>
+
+<input
+    type="number"
+    id="rowSpacing"
+    min="0.01"
+    step="0.01"
+    placeholder="Example: 24"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="spacingUnit">
+Spacing Unit
+</label>
+
+<select id="spacingUnit">
+
+<option value="inches">Inches</option>
+<option value="feet">Feet</option>
+<option value="centimeters">Centimeters</option>
+<option value="meters">Meters</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="pattern">
+Planting Pattern
+</label>
+
+<select id="pattern">
+
+<option value="rectangular">
+Square / Rectangular
+</option>
+
+<option value="triangular">
+Triangular / Hexagonal
+</option>
+
+</select>
+
+</div>
+
+<h3>Field or Garden Area</h3>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="area">
+Area
+</label>
+
+<input
+    type="number"
+    id="area"
+    min="0.01"
+    step="0.01"
+    placeholder="Example: 1"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="areaUnit">
+Area Unit
+</label>
+
+<select id="areaUnit">
+
+<option value="acre">Acre</option>
+<option value="hectare">Hectare</option>
+<option value="sqft">Square Feet</option>
+<option value="sqm">Square Meters</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button onclick="calculatePopulation()">
+Calculate Plant Population
+</button>
+
+<div class="result" id="populationResult">
+
+<div class="result-main">
+Estimated Plant Population:
+<span id="totalPlants">0</span>
+</div>
+
+<div class="result-item">
+<strong>Plant:</strong>
+<span id="resultPlant"></span>
+</div>
+
+<div class="result-item">
+<strong>Plant Density:</strong>
+<span id="density"></span>
+</div>
+
+<div class="result-item">
+<strong>Plants Per Acre:</strong>
+<span id="perAcre"></span>
+</div>
+
+<div class="result-item">
+<strong>Plants Per Hectare:</strong>
+<span id="perHectare"></span>
+</div>
+
+<div class="result-item">
+<strong>Plants Per Square Foot:</strong>
+<span id="perSqFt"></span>
+</div>
+
+<div class="result-item">
+<strong>Plants Per Square Meter:</strong>
+<span id="perSqMeter"></span>
+</div>
+
+<div class="result-item">
+<strong>Estimated Rows:</strong>
+<span id="estimatedRows"></span>
+</div>
+
+<div class="result-item">
+<strong>Plants Per Row:</strong>
+<span id="plantsPerRow"></span>
+</div>
+
+<div class="result-item">
+<strong>Area Required Per Plant:</strong>
+<span id="areaPerPlant"></span>
+</div>
+
+<div class="note">
+This is an estimated plant population. Actual planting capacity can vary because of field borders, paths, irregular shapes, cultivation practices, plant variety, and recommended mature spacing.
+</div>
+
+</div>
+
+</div>
+
+<div class="calculator">
+
+<h2>Calculate Land Required for a Target Number of Plants</h2>
+
+<p>
+Want to know how much land you need for a certain number of plants? Enter your target plant population and spacing below.
+</p>
+
+<div class="input-group">
+
+<label for="targetPlants">
+Target Number of Plants
+</label>
+
+<input
+    type="number"
+    id="targetPlants"
+    min="1"
+    step="1"
+    placeholder="Example: 1000"
+>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="reversePlantSpacing">
+Plant Spacing
+</label>
+
+<input
+    type="number"
+    id="reversePlantSpacing"
+    min="0.01"
+    step="0.01"
+    placeholder="Example: 18"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="reverseRowSpacing">
+Row Spacing
+</label>
+
+<input
+    type="number"
+    id="reverseRowSpacing"
+    min="0.01"
+    step="0.01"
+    placeholder="Example: 24"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="reverseSpacingUnit">
+Spacing Unit
+</label>
+
+<select id="reverseSpacingUnit">
+
+<option value="inches">Inches</option>
+<option value="feet">Feet</option>
+<option value="centimeters">Centimeters</option>
+<option value="meters">Meters</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="reversePattern">
+Planting Pattern
+</label>
+
+<select id="reversePattern">
+
+<option value="rectangular">
+Square / Rectangular
+</option>
+
+<option value="triangular">
+Triangular / Hexagonal
+</option>
+
+</select>
+
+</div>
+
+<button onclick="calculateLandRequired()">
+Calculate Land Required
+</button>
+
+<div class="result" id="landResult">
+
+<div class="result-main">
+Land Required:
+<span id="requiredSqFt">0</span> sq ft
+</div>
+
+<div class="result-item">
+<strong>Square Meters:</strong>
+<span id="requiredSqMeter"></span>
+</div>
+
+<div class="result-item">
+<strong>Acres:</strong>
+<span id="requiredAcres"></span>
+</div>
+
+<div class="result-item">
+<strong>Hectares:</strong>
+<span id="requiredHectares"></span>
+</div>
+
+<div class="note">
+The result assumes the selected spacing is maintained throughout the planting area.
+</div>
+
+</div>
+
+</div>
+
+<h2>What Is Plant Population?</h2>
+
+<p>
+Plant population is the estimated number of individual plants growing within a defined area. It is commonly expressed as plants per acre, plants per hectare, plants per square foot, or plants per square meter.
+</p>
+
+<h2>What Is Plant Density?</h2>
+
+<p>
+Plant density describes how closely plants are distributed within a growing area. Plant spacing and row spacing determine the amount of land allocated to each plant and therefore affect the overall population.
+</p>
+
+<h2>How to Calculate Plant Population</h2>
+
+<p>
+To estimate plant population, divide the total growing area by the area allocated to each plant. The amount of space allocated to each plant is determined by plant-to-plant spacing and row-to-row spacing.
+</p>
+
+<div class="formula-box">
+
+<strong>Rectangular planting:</strong>
+
+<p>
+Plant population = Growing area ÷ (Plant spacing × Row spacing)
+</p>
+
+<strong>Triangular planting:</strong>
+
+<p>
+Triangular or hexagonal planting can provide approximately 13.4% greater theoretical planting density than a rectangular arrangement using the same spacing.
+</p>
+
+</div>
+
+<h2>Plants Per Acre and Plants Per Hectare</h2>
+
+<p>
+Plant population can be converted into different area measurements. This makes the calculator useful for comparing planting density across gardens, fields, farms, acres, and hectares.
+</p>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Measurement</th>
+<th>Equivalent Area</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>1 Acre</td>
+<td>43,560 square feet</td>
+</tr>
+
+<tr>
+<td>1 Hectare</td>
+<td>10,000 square meters</td>
+</tr>
+
+<tr>
+<td>1 Hectare</td>
+<td>Approximately 2.471 acres</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<h2>Why Plant Population Matters</h2>
+
+<p>
+Plant population affects how much growing space each plant receives. If plants are placed too closely together, they may compete for light, water, nutrients, and airflow. If they are spaced too far apart, available growing space may not be used efficiently.
+</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>How do I calculate plant population?</h3>
+
+<p>
+Enter the growing area, plant spacing, and row spacing. The calculator estimates how many plants can occupy the selected area.
+</p>
+
+<h3>How many plants are in an acre?</h3>
+
+<p>
+The number of plants in an acre depends on plant spacing and row spacing. Enter those measurements into the calculator to estimate plants per acre.
+</p>
+
+<h3>How many plants can I grow per hectare?</h3>
+
+<p>
+Plant population per hectare depends on the spacing used. The calculator converts your spacing into an estimated plants-per-hectare value.
+</p>
+
+<h3>What is a plant density calculator?</h3>
+
+<p>
+A plant density calculator estimates how many plants can occupy a defined area based on plant spacing and row spacing.
+</p>
+
+<h3>How much land do I need for 1,000 plants?</h3>
+
+<p>
+Enter 1,000 as the target number of plants in the land requirement calculator, then enter your plant and row spacing. The calculator estimates the required area.
+</p>
+
+<h3>Can I use this calculator for different plants?</h3>
+
+<p>
+Yes. Enter the plant name to use an available recommended spacing, or enter your own spacing when you have a specific recommendation for the plant or variety.
+</p>
+
+<h3>Can I calculate plants per acre?</h3>
+
+<p>
+Yes. Select acre as the area unit and enter your plant and row spacing. The calculator will provide an estimated plant population per acre.
+</p>
+
+<h3>Can I calculate plants per hectare?</h3>
+
+<p>
+Yes. Select hectare as the area unit and enter your spacing. The calculator will provide an estimated population per hectare.
+</p>
+
+<div class="related-guides">
+
+<h3>Explore Plant Matrix</h3>
+
+<ul>
+
+<li>
+<a href="/">
+Browse The Plant Matrix Plant Guides
+</a>
+</li>
+
+<li>
+<a href="/tools/plant-spacing-calculator.html">
+Plant Spacing Calculator
+</a>
+</li>
+
+<li>
+<a href="/about">
+About The Plant Matrix
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<footer style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
+
+<a
+href="/about"
+style="color:#555;text-decoration:none;margin-right:20px;"
+>
+About Us
+</a>
+
+|
+
+<a
+href="/privacy-policy"
+style="color:#555;text-decoration:none;margin-left:20px;"
+>
+Privacy Policy
+</a>
+
+</footer>
+
+</div>
+
+<script>
+
+/* ================================
+   PLANT SPACING DATABASE
+   ================================ */
+
+const plantDatabase = {
+
+    tomato: [18, 24],
+    tomatoes: [18, 24],
+
+    pepper: [18, 24],
+    peppers: [18, 24],
+
+    lettuce: [8, 12],
+    carrot: [3, 12],
+    carrots: [3, 12],
+
+    cucumber: [18, 36],
+    cucumbers: [18, 36],
+
+    cabbage: [18, 24],
+    broccoli: [18, 24],
+    cauliflower: [18, 24],
+
+    spinach: [6, 12],
+    kale: [12, 18],
+
+    onion: [4, 12],
+    onions: [4, 12],
+
+    garlic: [6, 12],
+
+    bean: [6, 18],
+    beans: [6, 18],
+
+    pea: [3, 12],
+    peas: [3, 12],
+
+    corn: [8, 30],
+    maize: [8, 30],
+
+    radish: [3, 12],
+    beet: [4, 12],
+    beets: [4, 12],
+
+    turnip: [4, 12],
+    parsnip: [3, 12],
+
+    zucchini: [24, 36],
+    squash: [24, 48],
+
+    eggplant: [18, 30],
+    aubergine: [18, 30],
+
+    okra: [12, 24],
+
+    watermelon: [36, 72],
+    melon: [24, 48],
+    cantaloupe: [18, 36],
+
+    pumpkin: [36, 72],
+
+    strawberry: [12, 18],
+    strawberries: [12, 18],
+
+    potato: [12, 30],
+    potatoes: [12, 30],
+
+    sweetpotato: [12, 36],
+
+    celery: [8, 12],
+
+    brusselsprouts: [18, 24],
+
+    asparagus: [12, 18],
+
+    basil: [8, 12],
+    parsley: [6, 12],
+    cilantro: [4, 8],
+    coriander: [4, 8],
+
+    mint: [12, 18],
+    oregano: [12, 18],
+    thyme: [12, 18],
+    rosemary: [18, 24],
+
+    lavender: [18, 24],
+
+    rose: [24, 36],
+    roses: [24, 36],
+
+    sunflower: [12, 24],
+    marigold: [8, 12],
+    zinnia: [9, 12],
+
+    petunia: [8, 12],
+    pansy: [6, 9],
+
+    coleus: [12, 18],
+
+    hosta: [18, 36],
+
+    hydrangea: [36, 60],
+
+    boxwood: [24, 36],
+
+    lavenderplant: [18, 24],
+
+    monstera: [24, 36],
+    pothos: [12, 24],
+    philodendron: [18, 30],
+
+    snakeplant: [12, 24],
+    snakeplant: [12, 24],
+
+    peace lily: [18, 24],
+    peace_lily: [18, 24],
+
+    aloe: [12, 24],
+    succulent: [6, 12],
+    succulents: [6, 12],
+
+    cactus: [12, 24],
+    cacti: [12, 24],
+
+    cornflower: [8, 12],
+
+    wheat: [4, 8],
+    barley: [4, 8],
+    oats: [4, 8],
+
+    cotton: [6, 12],
+
+    tobacco: [18, 30],
+
+    coffee: [72, 96],
+    cocoa: [120, 180],
+
+    banana: [96, 144],
+    papaya: [72, 120],
+
+    mango: [240, 360],
+    avocado: [240, 360],
+
+    orange: [240, 360],
+    lemon: [180, 300],
+    lime: [180, 240],
+
+    apple: [180, 300],
+    pear: [180, 300],
+    peach: [180, 240],
+
+    grape: [48, 96],
+    grapes: [48, 96],
+
+    blueberry: [48, 60],
+    raspberry: [24, 36],
+
+    blackberry: [36, 60]
+
+};
+
+
+/* Normalize plant names */
+
+function normalizePlantName(name) {
+
+    return name
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]/g, "");
+
+}
+
+
+/* Automatic plant lookup */
+
+function lookupPlant() {
+
+    const input =
+        document.getElementById("plantName").value;
+
+    const key =
+        normalizePlantName(input);
+
+    const message =
+        document.getElementById("plantMessage");
+
+    if (!key) {
+
+        message.textContent = "";
+
+        return;
+
+    }
+
+    if (plantDatabase[key]) {
+
+        const spacing =
+            plantDatabase[key];
+
+        document.getElementById("plantSpacing").value =
+            spacing[0];
+
+        document.getElementById("rowSpacing").value =
+            spacing[1];
+
+        document.getElementById("spacingUnit").value =
+            "inches";
+
+        message.textContent =
+            "Recommended spacing loaded automatically for " +
+            input +
+            ".";
+
+    } else {
+
+        message.textContent =
+            "Plant not found in the automatic database. Enter the recommended plant and row spacing manually.";
+
+    }
+
+}
+
+
+/* Convert spacing to feet */
+
+function convertToFeet(value, unit) {
+
+    if (unit === "inches") {
+        return value / 12;
+    }
+
+    if (unit === "feet") {
+        return value;
+    }
+
+    if (unit === "centimeters") {
+        return value / 30.48;
+    }
+
+    if (unit === "meters") {
+        return value * 3.28084;
+    }
+
+    return value;
+
+}
+
+
+/* Calculate population */
+
+function calculatePopulation() {
+
+    const plantSpacing =
+        parseFloat(
+            document.getElementById("plantSpacing").value
+        );
+
+    const rowSpacing =
+        parseFloat(
+            document.getElementById("rowSpacing").value
+        );
+
+    const spacingUnit =
+        document.getElementById("spacingUnit").value;
+
+    const area =
+        parseFloat(
+            document.getElementById("area").value
+        );
+
+    const areaUnit =
+        document.getElementById("areaUnit").value;
+
+    const pattern =
+        document.getElementById("pattern").value;
+
+    const plantName =
+        document.getElementById("plantName").value.trim();
+
+
+    if (
+        !Number.isFinite(plantSpacing) ||
+        !Number.isFinite(rowSpacing) ||
+        !Number.isFinite(area) ||
+        plantSpacing <= 0 ||
+        rowSpacing <= 0 ||
+        area <= 0
+    ) {
+
+        alert(
+            "Please enter a plant name or spacing values, and enter a valid growing area."
+        );
+
+        return;
+
+    }
+
+
+    const spacingFeet =
+        convertToFeet(
+            plantSpacing,
+            spacingUnit
+        );
+
+    const rowSpacingFeet =
+        convertToFeet(
+            rowSpacing,
+            spacingUnit
+        );
+
+
+    let areaSqFt;
+
+    if (areaUnit === "acre") {
+
+        areaSqFt =
+            area * 43560;
+
+    } else if (areaUnit === "hectare") {
+
+        areaSqFt =
+            area * 107639.104;
+
+    } else if (areaUnit === "sqm") {
+
+        areaSqFt =
+            area * 10.7639;
+
+    } else {
+
+        areaSqFt =
+            area;
+
+    }
+
+
+    let areaPerPlant =
+        spacingFeet * rowSpacingFeet;
+
+
+    if (pattern === "triangular") {
+
+        areaPerPlant =
+            areaPerPlant * 0.8660254;
+
+    }
+
+
+    const plantsPerSqFt =
+        1 / areaPerPlant;
+
+    const plantsPerSqMeter =
+        plantsPerSqFt * 10.7639;
+
+    const plantsPerAcre =
+        plantsPerSqFt * 43560;
+
+    const plantsPerHectare =
+        plantsPerSqFt * 107639.104;
+
+    const totalPlants =
+        Math.floor(
+            areaSqFt * plantsPerSqFt
+        );
+
+
+    const estimatedRows =
+        Math.floor(
+            Math.sqrt(areaSqFt) /
+            rowSpacingFeet
+        );
+
+
+    const plantsPerRow =
+        Math.floor(
+            Math.sqrt(areaSqFt) /
+            spacingFeet
+        );
+
+
+    document.getElementById("totalPlants").textContent =
+        totalPlants.toLocaleString();
+
+    document.getElementById("resultPlant").textContent =
+        plantName || "Custom spacing";
+
+    document.getElementById("density").textContent =
+        plantsPerSqMeter.toFixed(2) +
+        " plants/m²";
+
+    document.getElementById("perAcre").textContent =
+        Math.round(plantsPerAcre).toLocaleString();
+
+    document.getElementById("perHectare").textContent =
+        Math.round(plantsPerHectare).toLocaleString();
+
+    document.getElementById("perSqFt").textContent =
+        plantsPerSqFt.toFixed(4);
+
+    document.getElementById("perSqMeter").textContent =
+        plantsPerSqMeter.toFixed(2);
+
+    document.getElementById("estimatedRows").textContent =
+        Math.max(0, estimatedRows).toLocaleString();
+
+    document.getElementById("plantsPerRow").textContent =
+        Math.max(0, plantsPerRow).toLocaleString();
+
+    document.getElementById("areaPerPlant").textContent =
+        areaPerPlant.toFixed(4) +
+        " square feet";
+
+
+    document.getElementById("populationResult").style.display =
+        "block";
+
+}
+
+
+/* Calculate land required */
+
+function calculateLandRequired() {
+
+    const targetPlants =
+        parseFloat(
+            document.getElementById("targetPlants").value
+        );
+
+    const plantSpacing =
+        parseFloat(
+            document.getElementById("reversePlantSpacing").value
+        );
+
+    const rowSpacing =
+        parseFloat(
+            document.getElementById("reverseRowSpacing").value
+        );
+
+    const spacingUnit =
+        document.getElementById("reverseSpacingUnit").value;
+
+    const pattern =
+        document.getElementById("reversePattern").value;
+
+
+    if (
+        !Number.isFinite(targetPlants) ||
+        !Number.isFinite(plantSpacing) ||
+        !Number.isFinite(rowSpacing) ||
+        targetPlants <= 0 ||
+        plantSpacing <= 0 ||
+        rowSpacing <= 0
+    ) {
+
+        alert(
+            "Please enter a valid target plant population and spacing."
+        );
+
+        return;
+
+    }
+
+
+    const spacingFeet =
+        convertToFeet(
+            plantSpacing,
+            spacingUnit
+        );
+
+    const rowSpacingFeet =
+        convertToFeet(
+            rowSpacing,
+            spacingUnit
+        );
+
+
+    let areaPerPlant =
+        spacingFeet * rowSpacingFeet;
+
+
+    if (pattern === "triangular") {
+
+        areaPerPlant =
+            areaPerPlant * 0.8660254;
+
+    }
+
+
+    const requiredSqFt =
+        targetPlants * areaPerPlant;
+
+    const requiredSqMeter =
+        requiredSqFt / 10.7639;
+
+    const requiredAcres =
+        requiredSqFt / 43560;
+
+    const requiredHectares =
+        requiredSqFt / 107639.104;
+
+
+    document.getElementById("requiredSqFt").textContent =
+        requiredSqFt.toFixed(2).toLocaleString();
+
+    document.getElementById("requiredSqMeter").textContent =
+        requiredSqMeter.toFixed(2);
+
+    document.getElementById("requiredAcres").textContent =
+        requiredAcres.toFixed(4);
+
+    document.getElementById("requiredHectares").textContent =
+        requiredHectares.toFixed(4);
+
+
+    document.getElementById("landResult").style.display =
+        "block";
+
+}
+
+</script>
+
+</body>
+</html>
