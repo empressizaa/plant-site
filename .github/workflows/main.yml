@@ -5,7 +5,7 @@ concurrency:
 on:
   push:
     branches:
-      - mainx
+      - main
     paths-ignore:
       - sitemap.xml
       - index.html
