@@ -57,7 +57,8 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185" crossorigin="anonymous"></script>' PUBLISHER_ID = "ca-pub-6258569726732185"
+          ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185" crossorigin="anonymous"></script>'
+          PUBLISHER_ID = "ca-pub-6258569726732185"
 
           for file in Path(".").rglob("*.html"):
               if ".git" in file.parts:
