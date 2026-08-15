@@ -10,7 +10,7 @@
       "@type": "WebApplication",
       "name": "Raised Bed Garden Soil Calculator",
       "url": "https://theplantmatrix.com/tools/raised-bed-garden-soil-calculator",
-      "description": "Free raised bed garden soil calculator. Calculate how much soil you need based on your raised bed length, width, and depth, with results in cubic feet, cubic yards, liters, and soil bags.",
+      "description": "Free raised bed garden soil calculator. Calculate how much soil you need for raised beds and get results in cubic feet, cubic yards, liters, and soil bags.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "All",
       "offers": {
@@ -31,7 +31,7 @@
           "name": "How much soil do I need for a raised bed?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The amount of soil needed depends on the raised bed's length, width, and soil depth. Multiply length by width by depth to calculate the soil volume."
+            "text": "Multiply the raised bed length by its width and soil depth to calculate the volume of soil needed. This calculator also allows for multiple identical beds and extra soil for settling."
           }
         },
         {
@@ -39,7 +39,7 @@
           "name": "How much soil does a 4x8 raised bed need?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A 4-foot by 8-foot raised bed filled to a depth of 12 inches requires 32 cubic feet of soil before adding any extra allowance for settling."
+            "text": "A 4 by 8 foot raised bed filled to a depth of 12 inches requires 32 cubic feet of soil before adding an allowance for settling."
           }
         },
         {
@@ -47,7 +47,7 @@
           "name": "How many bags of soil do I need for a raised bed?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The number of bags depends on the total soil volume and the size of each bag. Enter your dimensions and bag size into the calculator to estimate the number of bags required."
+            "text": "The number of bags depends on the total soil volume and the size of each bag. The calculator estimates the number of whole bags needed based on the selected bag size."
           }
         },
         {
@@ -55,7 +55,7 @@
           "name": "Should I add extra soil for settling?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Adding extra soil can help account for settling after a raised bed is filled. A 10 percent allowance is commonly useful, but the calculator lets you choose the amount."
+            "text": "Adding extra soil can help account for settling after a raised bed is filled. This calculator lets you choose an additional percentage for settling."
           }
         },
         {
@@ -71,15 +71,18 @@
     </script>
 
     <script async
-         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
-         crossorigin="anonymous"></script>
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
+        crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Raised Bed Garden Soil Calculator</title>
 
-    <meta name="description" content="Free raised bed garden soil calculator. Calculate how much soil you need based on your raised bed’s length, width, and depth, with results in cubic feet, cubic yards, liters, and soil bags.">
+    <meta name="description"
+          content="Free raised bed garden soil calculator. Calculate how much soil you need based on your raised bed length, width, and depth, with results in cubic feet, cubic yards, liters, and soil bags.">
 
     <style>
 
@@ -98,7 +101,8 @@
             margin-bottom: 15px;
         }
 
-        h2, h3 {
+        h2,
+        h3 {
             color: #3e8e41;
         }
 
@@ -108,7 +112,7 @@
             padding: 20px;
             background-color: #ffffff;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .quick-answer {
@@ -145,6 +149,12 @@
             margin-bottom: 18px;
         }
 
+        .mix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
         .input-group {
             margin-bottom: 12px;
         }
@@ -174,7 +184,7 @@
 
         .unit-row {
             display: grid;
-            grid-template-columns: 1fr 100px;
+            grid-template-columns: 1fr 90px;
             gap: 8px;
         }
 
@@ -202,7 +212,7 @@
 
         .calculate-button {
             background: #3e8e41;
-            color: #fff;
+            color: white;
             flex: 1;
         }
 
@@ -277,30 +287,14 @@
             border-top: 1px solid #ddd;
         }
 
-        .mix-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
         .mix-total {
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
-        .mix-warning {
-            color: #c62828;
-            font-weight: bold;
-        }
-
-        .mix-success {
-            color: #2e7d32;
-            font-weight: bold;
-        }
-
-        .mix-neutral {
+        .mix-note {
+            font-size: 14px;
             color: #666;
-            font-weight: normal;
         }
 
         .error-message {
@@ -322,13 +316,22 @@
             font-weight: bold;
         }
 
+        .tip-box {
+            background: #fff8e1;
+            border-left: 5px solid #e0a800;
+            padding: 12px;
+            margin: 20px 0;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid #ccc;
             padding: 10px;
             text-align: center;
@@ -346,11 +349,31 @@
             margin-bottom: 5px;
         }
 
-        .tip-box {
-            background: #fff8e1;
-            border-left: 5px solid #e0a800;
-            padding: 12px;
-            margin: 20px 0;
+        .related-guides {
+            clear: both;
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #f1f8e9;
+            border-top: 3px solid #4CAF50;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        .related-guides h3 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            color: #2e7d32;
+            font-size: 20px;
+        }
+
+        .related-guides a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         @media (max-width: 700px) {
@@ -368,11 +391,11 @@
                 grid-template-columns: 1fr;
             }
 
-            .result-grid {
+            .mix-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .mix-grid {
+            .result-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -400,17 +423,16 @@
 
     <div class="quick-answer">
         <strong>Free raised bed garden soil calculator.</strong>
-        Calculate how much soil you need based on your raised bed’s length,
-        width, and depth, with results in cubic feet, cubic yards, liters,
-        and soil bags.
+        Calculate how much soil you need for raised beds based on length,
+        width, depth, number of beds, and extra soil for settling.
+        Get results in cubic feet, cubic yards, liters, and soil bags.
     </div>
 
 
-    <!-- CALCULATOR START -->
-
     <div class="calculator">
 
-        <h2>Calculate Your Raised Bed Soil</h2>
+        <h2>Raised Bed Garden Soil Calculator</h2>
+
 
         <h3>Raised Bed Dimensions</h3>
 
@@ -432,10 +454,23 @@
                         placeholder="e.g. 8">
 
                     <select id="lengthUnit">
-                        <option value="feet">ft</option>
-                        <option value="inches">in</option>
-                        <option value="meters">m</option>
-                        <option value="centimeters">cm</option>
+
+                        <option value="feet">
+                            ft
+                        </option>
+
+                        <option value="inches">
+                            in
+                        </option>
+
+                        <option value="meters">
+                            m
+                        </option>
+
+                        <option value="centimeters">
+                            cm
+                        </option>
+
                     </select>
 
                 </div>
@@ -459,10 +494,23 @@
                         placeholder="e.g. 4">
 
                     <select id="widthUnit">
-                        <option value="feet">ft</option>
-                        <option value="inches">in</option>
-                        <option value="meters">m</option>
-                        <option value="centimeters">cm</option>
+
+                        <option value="feet">
+                            ft
+                        </option>
+
+                        <option value="inches">
+                            in
+                        </option>
+
+                        <option value="meters">
+                            m
+                        </option>
+
+                        <option value="centimeters">
+                            cm
+                        </option>
+
                     </select>
 
                 </div>
@@ -486,10 +534,23 @@
                         placeholder="e.g. 12">
 
                     <select id="depthUnit">
-                        <option value="inches" selected>in</option>
-                        <option value="feet">ft</option>
-                        <option value="centimeters">cm</option>
-                        <option value="meters">m</option>
+
+                        <option value="inches" selected>
+                            in
+                        </option>
+
+                        <option value="feet">
+                            ft
+                        </option>
+
+                        <option value="centimeters">
+                            cm
+                        </option>
+
+                        <option value="meters">
+                            m
+                        </option>
+
                     </select>
 
                 </div>
@@ -618,22 +679,19 @@
         </div>
 
 
-        <!-- OPTIONAL SOIL MIX -->
-
         <div class="mix-section">
 
             <h3>Optional Soil Mix</h3>
 
             <p>
-                You do not need to enter a soil mix to calculate your total
-                soil requirement. Leave all percentages at 0% if you only
-                want the total amount of soil.
+                If you are making your own raised bed soil mix, enter the
+                percentage of each material. This section is optional.
             </p>
 
-            <p>
-                If you are making your own raised bed soil mix, enter the
-                percentage of each material. When using the mix feature,
-                the percentages must total 100%.
+            <p class="mix-note">
+                The percentages do not have to total 100%. The calculator
+                will still calculate your total soil requirement and will
+                show the amount represented by each percentage you enter.
             </p>
 
 
@@ -651,7 +709,7 @@
                         min="0"
                         max="100"
                         value="0"
-                        placeholder="0">
+                        step="any">
 
                 </div>
 
@@ -668,7 +726,7 @@
                         min="0"
                         max="100"
                         value="0"
-                        placeholder="0">
+                        step="any">
 
                 </div>
 
@@ -685,7 +743,7 @@
                         min="0"
                         max="100"
                         value="0"
-                        placeholder="0">
+                        step="any">
 
                 </div>
 
@@ -702,7 +760,7 @@
                         min="0"
                         max="100"
                         value="0"
-                        placeholder="0">
+                        step="any">
 
                 </div>
 
@@ -711,8 +769,8 @@
 
             <div
                 id="mixTotal"
-                class="mix-total mix-neutral">
-                Soil mix not being used
+                class="mix-total">
+                Mix percentage entered: 0%
             </div>
 
         </div>
@@ -724,7 +782,9 @@
                 type="button"
                 class="calculate-button"
                 onclick="calculateSoil()">
+
                 Calculate Soil Needed
+
             </button>
 
 
@@ -732,7 +792,9 @@
                 type="button"
                 class="reset-button"
                 onclick="resetCalculator()">
+
                 Reset
+
             </button>
 
         </div>
@@ -743,8 +805,6 @@
             class="error-message">
         </div>
 
-
-        <!-- RESULTS -->
 
         <div id="results" class="results">
 
@@ -818,8 +878,6 @@
             </div>
 
 
-            <!-- MIX RESULTS ONLY APPEAR WHEN A MIX IS USED -->
-
             <div
                 id="mixResults"
                 class="mix-section"
@@ -884,6 +942,11 @@
 
                 </div>
 
+                <p
+                    id="mixResultNote"
+                    class="mix-note">
+                </p>
+
             </div>
 
 
@@ -900,8 +963,6 @@
 
     </div>
 
-    <!-- CALCULATOR END -->
-
 
     <h2>
         How to Calculate Soil for a Raised Garden Bed
@@ -909,19 +970,14 @@
 
     <p>
         To calculate the amount of soil needed for a raised garden bed,
-        multiply the bed's length by its width and then multiply the result
-        by the soil depth.
+        multiply the length by the width and then multiply by the soil depth.
+        The calculator automatically converts different units so you can use
+        feet, inches, meters, or centimeters.
     </p>
 
     <div class="formula">
         Soil Volume = Length × Width × Soil Depth
     </div>
-
-    <p>
-        The dimensions must be converted to the same unit before calculating
-        the volume. This calculator automatically handles conversions between
-        feet, inches, meters, and centimeters.
-    </p>
 
 
     <h2>
@@ -929,13 +985,12 @@
     </h2>
 
     <p>
-        A 4 × 8 foot raised bed filled with 12 inches of soil has a base
-        volume of 32 cubic feet.
+        A 4 × 8 foot raised bed filled to a depth of 12 inches requires
+        32 cubic feet of soil before adding extra soil for settling.
     </p>
 
     <p>
-        If you add a 10% settling allowance, the estimated amount becomes
-        35.2 cubic feet.
+        With a 10% settling allowance, the amount becomes 35.2 cubic feet.
     </p>
 
 
@@ -944,9 +999,9 @@
     </h2>
 
     <p>
-        The number of bags depends on the total soil volume and the amount
-        of soil contained in each bag. The calculator rounds the result up
-        because you generally need to purchase whole bags.
+        The number of bags depends on the total soil volume and the size
+        of each bag. The calculator rounds up to the next whole bag because
+        soil is normally purchased in complete bags.
     </p>
 
 
@@ -955,34 +1010,27 @@
     </h2>
 
     <p>
-        Many vegetables can grow well with around 12 inches of soil, while
-        plants with deeper root systems may benefit from greater soil depth.
-        The ideal depth also depends on whether the raised bed is open to
-        the ground underneath or has a solid bottom.
+        Many vegetables can grow successfully with around 12 inches of soil,
+        while crops with deeper root systems may benefit from additional
+        depth. The ideal depth also depends on whether the bed is open to
+        the ground or has a solid bottom.
     </p>
 
 
     <h2>
-        What Soil Should You Use in a Raised Bed?
+        Raised Bed Soil Mix
     </h2>
 
     <p>
-        Raised beds can be filled with quality topsoil combined with organic
-        matter such as compost. Some gardeners also use peat moss or coco
-        coir depending on their preferred soil structure and moisture
-        characteristics.
+        A raised bed can be filled with different combinations of topsoil,
+        compost, peat moss, coco coir, and other materials. Because gardeners
+        use many different recipes, the soil mix section of this calculator
+        is optional and flexible.
     </p>
 
-
-    <h2>
-        Should You Add Extra Soil for Settling?
-    </h2>
-
     <p>
-        Soil can settle after a raised bed is filled. Organic materials can
-        also break down over time. Adding extra soil can help compensate for
-        this. The calculator lets you choose no extra soil or an additional
-        5%, 10%, 15%, or 20%.
+        You can enter only the materials you want to calculate. The
+        calculator does not require the percentages to total 100%.
     </p>
 
 
@@ -995,9 +1043,19 @@
         <thead>
 
             <tr>
-                <th>Raised Bed Size</th>
-                <th>Soil Depth</th>
-                <th>Base Soil Volume</th>
+
+                <th>
+                    Raised Bed Size
+                </th>
+
+                <th>
+                    Soil Depth
+                </th>
+
+                <th>
+                    Base Soil Volume
+                </th>
+
             </tr>
 
         </thead>
@@ -1005,27 +1063,67 @@
         <tbody>
 
             <tr>
-                <td>4 × 4 ft</td>
-                <td>12 in</td>
-                <td>16 cubic feet</td>
+
+                <td>
+                    4 × 4 ft
+                </td>
+
+                <td>
+                    12 in
+                </td>
+
+                <td>
+                    16 cubic feet
+                </td>
+
             </tr>
 
             <tr>
-                <td>4 × 8 ft</td>
-                <td>12 in</td>
-                <td>32 cubic feet</td>
+
+                <td>
+                    4 × 8 ft
+                </td>
+
+                <td>
+                    12 in
+                </td>
+
+                <td>
+                    32 cubic feet
+                </td>
+
             </tr>
 
             <tr>
-                <td>4 × 12 ft</td>
-                <td>12 in</td>
-                <td>48 cubic feet</td>
+
+                <td>
+                    4 × 12 ft
+                </td>
+
+                <td>
+                    12 in
+                </td>
+
+                <td>
+                    48 cubic feet
+                </td>
+
             </tr>
 
             <tr>
-                <td>3 × 6 ft</td>
-                <td>12 in</td>
-                <td>18 cubic feet</td>
+
+                <td>
+                    3 × 6 ft
+                </td>
+
+                <td>
+                    12 in
+                </td>
+
+                <td>
+                    18 cubic feet
+                </td>
+
             </tr>
 
         </tbody>
@@ -1047,18 +1145,7 @@
         <p>
             The amount depends on the raised bed's length, width, and soil
             depth. Multiply the three dimensions after converting them to
-            the same unit. This calculator handles the conversion for you.
-        </p>
-
-
-        <h3>
-            How many bags of soil do I need for a raised bed?
-        </h3>
-
-        <p>
-            The number of bags depends on the total soil volume and the
-            volume contained in each bag. Enter your bag size to calculate
-            the number of bags required.
+            the same unit.
         </p>
 
 
@@ -1073,12 +1160,13 @@
 
 
         <h3>
-            How many cubic yards of soil do I need?
+            How many bags of soil do I need?
         </h3>
 
         <p>
-            One cubic yard equals 27 cubic feet. Divide the required cubic
-            feet by 27 to convert the amount to cubic yards.
+            Enter your raised bed dimensions and select the size of the
+            soil bags you plan to purchase. The calculator will estimate
+            the number of whole bags required.
         </p>
 
 
@@ -1087,9 +1175,41 @@
         </h3>
 
         <p>
-            Adding extra soil can help compensate for settling. You can
-            select the amount of extra soil you want to include in the
-            calculator.
+            Soil can settle after a raised bed is filled. Adding around
+            10% extra can provide material to compensate for settling and
+            topping up the bed.
+        </p>
+
+
+        <h3>
+            Can I calculate soil without using a soil mix?
+        </h3>
+
+        <p>
+            Yes. The soil mix section is completely optional. You can leave
+            all percentages at 0% and calculate the total amount of soil
+            needed.
+        </p>
+
+
+        <h3>
+            Do the soil mix percentages have to equal 100%?
+        </h3>
+
+        <p>
+            No. This calculator does not require the percentages to equal
+            100%. It calculates the amount represented by each percentage
+            you enter and still provides the total soil requirement.
+        </p>
+
+
+        <h3>
+            Can I use different units for each dimension?
+        </h3>
+
+        <p>
+            Yes. For example, you can enter the length and width in feet
+            and the soil depth in inches.
         </p>
 
 
@@ -1098,31 +1218,8 @@
         </h3>
 
         <p>
-            Yes. Enter the dimensions of one raised bed and the number of
-            identical beds you are filling. The calculator multiplies the
-            soil requirement accordingly.
-        </p>
-
-
-        <h3>
-            Can I calculate raised bed soil without a soil mix?
-        </h3>
-
-        <p>
-            Yes. The soil mix section is completely optional. You can leave
-            all mix percentages at 0% and calculate only the total amount of
-            soil needed.
-        </p>
-
-
-        <h3>
-            Can I use inches for soil depth and feet for the bed dimensions?
-        </h3>
-
-        <p>
-            Yes. Each dimension has its own unit selector. For example, you
-            can enter 8 feet for length, 4 feet for width, and 12 inches for
-            soil depth.
+            Yes. Enter the dimensions of one bed and the number of identical
+            beds you are filling.
         </p>
 
     </div>
@@ -1132,32 +1229,28 @@
 
 <!-- RELATED GUIDES START -->
 
-<div class="related-guides"
-     style="clear:both;display:block;width:100%;max-width:900px;margin:40px auto;padding:25px;background:#f1f8e9;border-top:3px solid #4CAF50;border-radius:8px;box-sizing:border-box;font-family:sans-serif;">
+<div class="related-guides">
 
-    <h3 style="margin-top:0;margin-bottom:18px;color:#2e7d32;font-size:20px;">
+    <h3>
         Recommended Plant Guides
     </h3>
 
     <ul style="padding-left:20px;margin-bottom:0;line-height:1.5;">
 
         <li style="margin-bottom:12px;">
-            <a href="/tools/plant-spacing-calculator"
-               style="color:#2e7d32;text-decoration:none;font-weight:bold;">
+            <a href="/tools/plant-spacing-calculator">
                 Plant Spacing Calculator
             </a>
         </li>
 
         <li style="margin-bottom:12px;">
-            <a href="/how-often-to-water-cosmos.html"
-               style="color:#2e7d32;text-decoration:none;font-weight:bold;">
+            <a href="/how-often-to-water-cosmos.html">
                 How Often to Water Cosmos
             </a>
         </li>
 
         <li style="margin-bottom:12px;">
-            <a href="/how-often-to-water-new-flower-garden.html"
-               style="color:#2e7d32;text-decoration:none;font-weight:bold;">
+            <a href="/how-often-to-water-new-flower-garden.html">
                 How Often to Water a New Flower Garden
             </a>
         </li>
@@ -1185,22 +1278,29 @@
         document.getElementById("bagSize");
 
 
-    bagSizeSelect.addEventListener("change", function() {
+    bagSizeSelect.addEventListener(
+        "change",
+        function() {
 
-        const customContainer =
-            document.getElementById("customBagContainer");
+            const customContainer =
+                document.getElementById(
+                    "customBagContainer"
+                );
 
-        if (this.value === "custom") {
+            if (this.value === "custom") {
 
-            customContainer.style.display = "block";
+                customContainer.style.display =
+                    "block";
 
-        } else {
+            } else {
 
-            customContainer.style.display = "none";
+                customContainer.style.display =
+                    "none";
+
+            }
 
         }
-
-    });
+    );
 
 
     const mixInputs = [
@@ -1214,7 +1314,10 @@
     mixInputs.forEach(function(id) {
 
         document.getElementById(id)
-            .addEventListener("input", updateMixTotal);
+            .addEventListener(
+                "input",
+                updateMixTotal
+            );
 
     });
 
@@ -1222,16 +1325,25 @@
     function updateMixTotal() {
 
         const topsoil =
-            Number(document.getElementById("topsoil").value) || 0;
+            Number(
+                document.getElementById("topsoil").value
+            ) || 0;
 
         const compost =
-            Number(document.getElementById("compost").value) || 0;
+            Number(
+                document.getElementById("compost").value
+            ) || 0;
 
         const peat =
-            Number(document.getElementById("peat").value) || 0;
+            Number(
+                document.getElementById("peat").value
+            ) || 0;
 
         const other =
-            Number(document.getElementById("other").value) || 0;
+            Number(
+                document.getElementById("other").value
+            ) || 0;
+
 
         const total =
             topsoil +
@@ -1239,43 +1351,12 @@
             peat +
             other;
 
-        const totalElement =
-            document.getElementById("mixTotal");
 
-
-        /*
-         * If all fields are zero, the user is not using
-         * the optional soil mix feature.
-         */
-
-        if (total === 0) {
-
-            totalElement.textContent =
-                "Soil mix not being used";
-
-            totalElement.className =
-                "mix-total mix-neutral";
-
-            return;
-
-        }
-
-
-        totalElement.textContent =
-            "Total: " + total + "%";
-
-
-        if (total === 100) {
-
-            totalElement.className =
-                "mix-total mix-success";
-
-        } else {
-
-            totalElement.className =
-                "mix-total mix-warning";
-
-        }
+        document.getElementById("mixTotal")
+            .textContent =
+            "Mix percentage entered: " +
+            total +
+            "%";
 
     }
 
@@ -1336,22 +1417,41 @@
     function calculateSoil() {
 
         const error =
-            document.getElementById("errorMessage");
+            document.getElementById(
+                "errorMessage"
+            );
 
-        error.style.display = "none";
+        error.style.display =
+            "none";
 
 
         const length =
-            Number(document.getElementById("length").value);
+            Number(
+                document.getElementById(
+                    "length"
+                ).value
+            );
 
         const width =
-            Number(document.getElementById("width").value);
+            Number(
+                document.getElementById(
+                    "width"
+                ).value
+            );
 
         const depth =
-            Number(document.getElementById("depth").value);
+            Number(
+                document.getElementById(
+                    "depth"
+                ).value
+            );
 
         const beds =
-            Number(document.getElementById("beds").value);
+            Number(
+                document.getElementById(
+                    "beds"
+                ).value
+            );
 
 
         if (
@@ -1375,13 +1475,19 @@
 
 
         const lengthUnit =
-            document.getElementById("lengthUnit").value;
+            document.getElementById(
+                "lengthUnit"
+            ).value;
 
         const widthUnit =
-            document.getElementById("widthUnit").value;
+            document.getElementById(
+                "widthUnit"
+            ).value;
 
         const depthUnit =
-            document.getElementById("depthUnit").value;
+            document.getElementById(
+                "depthUnit"
+            ).value;
 
 
         const lengthFeet =
@@ -1404,8 +1510,7 @@
 
 
         /*
-         * Base volume:
-         * Length × Width × Depth × Number of Beds
+         * Base soil volume
          */
 
         const baseVolume =
@@ -1417,7 +1522,9 @@
 
         const settling =
             Number(
-                document.getElementById("settling").value
+                document.getElementById(
+                    "settling"
+                ).value
             );
 
 
@@ -1431,20 +1538,28 @@
 
 
         const liters =
-            totalVolume * 28.316846592;
+            totalVolume *
+            28.316846592;
 
+
+        /*
+         * Soil bag calculation
+         */
 
         let bagSize;
 
 
         if (
-            document.getElementById("bagSize").value ===
-            "custom"
+            document.getElementById(
+                "bagSize"
+            ).value === "custom"
         ) {
 
             bagSize =
                 Number(
-                    document.getElementById("customBag").value
+                    document.getElementById(
+                        "customBag"
+                    ).value
                 );
 
 
@@ -1465,7 +1580,9 @@
 
             bagSize =
                 Number(
-                    document.getElementById("bagSize").value
+                    document.getElementById(
+                        "bagSize"
+                    ).value
                 );
 
         }
@@ -1478,29 +1595,79 @@
 
 
         /*
-         * OPTIONAL SOIL MIX
+         * Optional soil mix
          */
 
         const topsoil =
             Number(
-                document.getElementById("topsoil").value
+                document.getElementById(
+                    "topsoil"
+                ).value
             ) || 0;
 
         const compost =
             Number(
-                document.getElementById("compost").value
+                document.getElementById(
+                    "compost"
+                ).value
             ) || 0;
 
         const peat =
             Number(
-                document.getElementById("peat").value
+                document.getElementById(
+                    "peat"
+                ).value
             ) || 0;
 
         const other =
             Number(
-                document.getElementById("other").value
+                document.getElementById(
+                    "other"
+                ).value
             ) || 0;
 
+
+        /*
+         * Main results
+         */
+
+        document.getElementById(
+            "mainResult"
+        ).textContent =
+            formatNumber(totalVolume) +
+            " cubic feet";
+
+
+        document.getElementById(
+            "cubicFeet"
+        ).textContent =
+            formatNumber(totalVolume);
+
+
+        document.getElementById(
+            "cubicYards"
+        ).textContent =
+            formatNumber(cubicYards);
+
+
+        document.getElementById(
+            "liters"
+        ).textContent =
+            formatNumber(liters);
+
+
+        document.getElementById(
+            "soilBags"
+        ).textContent =
+            bags;
+
+
+        /*
+         * Soil mix results.
+         *
+         * Any percentages entered are calculated.
+         * They do NOT need to equal 100%.
+         */
 
         const mixTotal =
             topsoil +
@@ -1509,91 +1676,64 @@
             other;
 
 
-        /*
-         * If all percentages are zero,
-         * the mix feature is simply ignored.
-         */
-
-        if (mixTotal > 0 && mixTotal !== 100) {
-
-            showError(
-                "If you use the optional soil mix, the percentages must total exactly 100%. Current total: " +
-                mixTotal +
-                "%."
+        const mixResults =
+            document.getElementById(
+                "mixResults"
             );
 
-            return;
 
-        }
+        if (mixTotal > 0) {
 
-
-        document.getElementById("mainResult")
-            .textContent =
-            formatNumber(totalVolume) +
-            " cubic feet";
-
-
-        document.getElementById("cubicFeet")
-            .textContent =
-            formatNumber(totalVolume);
-
-
-        document.getElementById("cubicYards")
-            .textContent =
-            formatNumber(cubicYards);
-
-
-        document.getElementById("liters")
-            .textContent =
-            formatNumber(liters);
-
-
-        document.getElementById("soilBags")
-            .textContent =
-            bags;
-
-
-        /*
-         * Show soil mix results only when
-         * the user actually uses the mix feature.
-         */
-
-        const mixResults =
-            document.getElementById("mixResults");
-
-
-        if (mixTotal === 100) {
-
-            document.getElementById("topsoilResult")
-                .textContent =
+            document.getElementById(
+                "topsoilResult"
+            ).textContent =
                 formatNumber(
-                    totalVolume * topsoil / 100
+                    totalVolume *
+                    topsoil /
+                    100
                 ) +
                 " cu ft";
 
 
-            document.getElementById("compostResult")
-                .textContent =
+            document.getElementById(
+                "compostResult"
+            ).textContent =
                 formatNumber(
-                    totalVolume * compost / 100
+                    totalVolume *
+                    compost /
+                    100
                 ) +
                 " cu ft";
 
 
-            document.getElementById("peatResult")
-                .textContent =
+            document.getElementById(
+                "peatResult"
+            ).textContent =
                 formatNumber(
-                    totalVolume * peat / 100
+                    totalVolume *
+                    peat /
+                    100
                 ) +
                 " cu ft";
 
 
-            document.getElementById("otherResult")
-                .textContent =
+            document.getElementById(
+                "otherResult"
+            ).textContent =
                 formatNumber(
-                    totalVolume * other / 100
+                    totalVolume *
+                    other /
+                    100
                 ) +
                 " cu ft";
+
+
+            document.getElementById(
+                "mixResultNote"
+            ).textContent =
+                "You entered a total of " +
+                mixTotal +
+                "% of the soil volume. Any remaining percentage is not allocated to a material.";
 
 
             mixResults.style.display =
@@ -1607,16 +1747,18 @@
         }
 
 
-        document.getElementById("results")
-            .style.display =
+        document.getElementById(
+            "results"
+        ).style.display =
             "block";
 
 
-        document.getElementById("results")
-            .scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+        document.getElementById(
+            "results"
+        ).scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
 
     }
 
@@ -1624,7 +1766,9 @@
     function showError(message) {
 
         const error =
-            document.getElementById("errorMessage");
+            document.getElementById(
+                "errorMessage"
+            );
 
         error.textContent =
             message;
@@ -1637,69 +1781,95 @@
 
     function resetCalculator() {
 
-        document.getElementById("length").value = "";
+        document.getElementById(
+            "length"
+        ).value = "";
 
-        document.getElementById("width").value = "";
+        document.getElementById(
+            "width"
+        ).value = "";
 
-        document.getElementById("depth").value = "";
+        document.getElementById(
+            "depth"
+        ).value = "";
 
 
-        document.getElementById("lengthUnit").value =
+        document.getElementById(
+            "lengthUnit"
+        ).value =
             "feet";
 
-        document.getElementById("widthUnit").value =
+        document.getElementById(
+            "widthUnit"
+        ).value =
             "feet";
 
-        document.getElementById("depthUnit").value =
+        document.getElementById(
+            "depthUnit"
+        ).value =
             "inches";
 
 
-        document.getElementById("beds").value =
+        document.getElementById(
+            "beds"
+        ).value =
             "1";
 
 
-        document.getElementById("settling").value =
+        document.getElementById(
+            "settling"
+        ).value =
             "10";
 
 
-        document.getElementById("bagSize").value =
+        document.getElementById(
+            "bagSize"
+        ).value =
             "2";
 
 
-        document.getElementById("customBag").value =
+        document.getElementById(
+            "customBag"
+        ).value =
             "";
 
 
-        document.getElementById("customBagContainer")
-            .style.display =
+        document.getElementById(
+            "customBagContainer"
+        ).style.display =
             "none";
 
 
-        /*
-         * Soil mix is optional,
-         * so reset all mix values to zero.
-         */
-
-        document.getElementById("topsoil").value =
+        document.getElementById(
+            "topsoil"
+        ).value =
             "0";
 
-        document.getElementById("compost").value =
+        document.getElementById(
+            "compost"
+        ).value =
             "0";
 
-        document.getElementById("peat").value =
+        document.getElementById(
+            "peat"
+        ).value =
             "0";
 
-        document.getElementById("other").value =
+        document.getElementById(
+            "other"
+        ).value =
             "0";
 
 
-        document.getElementById("results")
-            .style.display =
+        document.getElementById(
+            "results"
+        ).style.display =
             "none";
 
 
-        document.getElementById("errorMessage")
-            .style.display =
+        document.getElementById(
+            "errorMessage"
+        ).style.display =
             "none";
 
 
