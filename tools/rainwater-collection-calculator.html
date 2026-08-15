@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="canonical" href="https://theplantmatrix.com/tools/rainwater-collection-calculator">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much rainwater can I collect from my roof?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The amount of rainwater you can collect depends mainly on your roof catchment area, rainfall amount, and runoff coefficient. This calculator estimates the collectible water using those factors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a rainwater catchment calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A rainwater catchment calculator estimates how much rainwater can be collected from a roof or other catchment surface based on its area, rainfall, and collection efficiency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a runoff coefficient?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A runoff coefficient represents the fraction of rainfall that becomes collectable runoff after losses such as evaporation, absorption, splash, and collection-system losses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can this calculator estimate rainwater collected from one storm?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Enter the rainfall amount for the storm and the calculator will estimate the amount of water that could be collected."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use annual rainfall with this calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Enter your average annual rainfall to estimate the potential annual rainwater yield from your catchment area."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What roof area should I use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a basic rainwater harvesting estimate, use the horizontal roof footprint or plan area rather than the sloped surface area."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
+        crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Free Rainwater Collection Calculator</title>
+
+    <meta name="description" content="Use this free rainwater collection calculator to estimate rainwater harvested from your roof. Calculate rainwater catchment, rain capture, liters, gallons, tank capacity, and water supply.">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            color: #3e8e41;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        h2, h3 {
+            color: #3e8e41;
+        }
+
+        article {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-answer {
+            background-color: #e7f7e5;
+            border-left: 6px solid #3e8e41;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .calculator {
+            background: #f7fbf6;
+            border: 1px solid #d7e8d5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        small {
+            display: block;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .calculate-btn {
+            background-color: #3e8e41;
+            color: white;
+        }
+
+        .reset-btn {
+            background-color: #777;
+            color: white;
+        }
+
+        .results {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #ffffff;
+            border: 2px solid #3e8e41;
+            border-radius: 8px;
+        }
+
+        .result-main {
+            background: #e7f7e5;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .result-main strong {
+            font-size: 26px;
+            color: #2e7d32;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .result-box {
+            background: #f5f5f5;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .result-box strong {
+            display: block;
+            font-size: 20px;
+            color: #3e8e41;
+            margin-top: 4px;
+        }
+
+        .tip {
+            margin-top: 20px;
+            background: #fff8e1;
+            border-left: 5px solid #d9a400;
+            padding: 12px;
+        }
+
+        .error {
+            display: none;
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+            color: #b71c1c;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .faqs {
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            article {
+                padding: 15px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<article>
+
+    <h1>Free Rainwater Collection Calculator</h1>
+
+    <div class="quick-answer">
+        Estimate how much rainwater you can collect from a roof or other catchment area.
+        This free calculator can estimate water captured from a single rainfall event,
+        monthly rainfall, or annual rainfall and display the result in liters, US gallons,
+        Imperial gallons, and cubic meters.
+    </div>
+
+    <div class="calculator">
+
+        <h2>Rainwater Collection Calculator</h2>
+
+        <h3>Catchment Area</h3>
+
+        <div class="input-group">
+            <label for="length">Roof / Catchment Length</label>
+            <input type="number" id="length" min="0" step="any" placeholder="Example: 50">
+        </div>
+
+        <div class="input-group">
+            <label for="lengthUnit">Length Unit</label>
+            <select id="lengthUnit">
+                <option value="ft">Feet</option>
+                <option value="m">Meters</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="width">Roof / Catchment Width</label>
+            <input type="number" id="width" min="0" step="any" placeholder="Example: 30">
+        </div>
+
+        <div class="input-group">
+            <label for="widthUnit">Width Unit</label>
+            <select id="widthUnit">
+                <option value="ft">Feet</option>
+                <option value="m">Meters</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="sections">Number of Identical Catchment Areas</label>
+            <input type="number" id="sections" min="1" step="1" value="1">
+            <small>Use this when multiple roof sections have the same dimensions.</small>
+        </div>
+
+        <h3>Rainfall</h3>
+
+        <div class="input-group">
+            <label for="rainfall">Rainfall Amount</label>
+            <input type="number" id="rainfall" min="0" step="any" placeholder="Example: 25">
+            <small>Enter the rainfall for one storm, month, season, or year.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="rainfallUnit">Rainfall Unit</label>
+            <select id="rainfallUnit">
+                <option value="mm">Millimeters (mm)</option>
+                <option value="in">Inches</option>
+            </select>
+        </div>
+
+        <h3>Roof / Catchment Surface</h3>
+
+        <div class="input-group">
+            <label for="roofType">Roof / Surface Type</label>
+
+            <select id="roofType" onchange="updateCoefficient()">
+                <option value="0.90">Metal / Corrugated Metal — 0.90</option>
+                <option value="0.85" selected>Concrete / Tile — 0.85</option>
+                <option value="0.80">Asphalt Shingle — 0.80</option>
+                <option value="0.70">Clay / Terracotta Tile — 0.70</option>
+                <option value="0.50">Green / Vegetated Roof — 0.50</option>
+                <option value="custom">Custom</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="coefficient">Runoff / Collection Coefficient</label>
+            <input type="number" id="coefficient" min="0" max="1" step="0.01" value="0.85">
+            <small>
+                Enter a value from 0 to 1. A value of 0.85 means approximately
+                85% of the rainfall becomes collectible runoff.
+            </small>
+        </div>
+
+        <h3>Collection Efficiency</h3>
+
+        <div class="input-group">
+            <label for="efficiency">System Efficiency (%)</label>
+            <input type="number" id="efficiency" min="0" max="100" step="any" value="100">
+            <small>
+                Optional. Use this to account for additional gutter, filter,
+                first-flush, or system losses beyond the runoff coefficient.
+            </small>
+        </div>
+
+        <h3>Optional Storage Tank</h3>
+
+        <div class="input-group">
+            <label for="tankSize">Storage Tank Capacity</label>
+            <input type="number" id="tankSize" min="0" step="any" placeholder="Example: 5000">
+        </div>
+
+        <div class="input-group">
+            <label for="tankUnit">Tank Capacity Unit</label>
+            <select id="tankUnit">
+                <option value="L">Liters</option>
+                <option value="gal">US Gallons</option>
+                <option value="m3">Cubic Meters</option>
+            </select>
+        </div>
+
+        <h3>Optional Water Usage</h3>
+
+        <div class="input-group">
+            <label for="dailyUse">Daily Water Use</label>
+            <input type="number" id="dailyUse" min="0" step="any" placeholder="Example: 100">
+            <small>Enter your estimated daily rainwater use.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="dailyUnit">Water Use Unit</label>
+            <select id="dailyUnit">
+                <option value="L">Liters per day</option>
+                <option value="gal">US gallons per day</option>
+            </select>
+        </div>
+
+        <div class="button-row">
+
+            <button class="calculate-btn" onclick="calculateRainwater()">
+                Calculate Rainwater
+            </button>
+
+            <button class="reset-btn" onclick="resetCalculator()">
+                Reset
+            </button>
+
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div id="results" class="results">
+
+            <h2>Rainwater Collection Results</h2>
+
+            <div class="result-main">
+
+                <div>Estimated Collectable Rainwater</div>
+
+                <strong id="litersResult">0 L</strong>
+
+            </div>
+
+            <div class="result-grid">
+
+                <div class="result-box">
+                    <span>Catchment Area</span>
+                    <strong id="areaResult">0 m²</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Gross Rainfall Water</span>
+                    <strong id="grossResult">0 L</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>US Gallons</span>
+                    <strong id="usGallonsResult">0 gal</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Imperial Gallons</span>
+                    <strong id="imperialGallonsResult">0 gal</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Cubic Meters</span>
+                    <strong id="cubicMetersResult">0 m³</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Liters per mm of Rain</span>
+                    <strong id="litersPerMmResult">0 L</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Runoff Coefficient</span>
+                    <strong id="coefficientResult">0</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Collection Efficiency</span>
+                    <strong id="efficiencyResult">0%</strong>
+                </div>
+
+                <div class="result-box" id="tankResultBox">
+                    <span>Tank Capacity</span>
+                    <strong id="tankResult">—</strong>
+                </div>
+
+                <div class="result-box" id="tankFillBox">
+                    <span>Potential Tank Fill</span>
+                    <strong id="tankFillResult">—</strong>
+                </div>
+
+                <div class="result-box" id="daysSupplyBox">
+                    <span>Days of Water Supply</span>
+                    <strong id="daysSupplyResult">—</strong>
+                </div>
+
+            </div>
+
+            <div class="tip">
+
+                <strong>Tip:</strong>
+
+                The result is an estimate of potential collectible rainwater.
+                Actual collection can vary because of rainfall distribution,
+                roof condition, gutters, filters, first-flush diversion,
+                overflow, and other system losses.
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h2>How to Use the Rainwater Collection Calculator</h2>
+
+    <p>
+        Enter the length and width of the roof or other catchment area.
+        You can enter the dimensions in feet or meters.
+    </p>
+
+    <p>
+        Enter the amount of rainfall you want to analyze. You can use rainfall
+        from a single storm, month, season, or year depending on what you want
+        to estimate.
+    </p>
+
+    <p>
+        Select the roof material to use a typical runoff coefficient, or choose
+        a custom coefficient if you have a more appropriate value for your
+        particular collection system.
+    </p>
+
+    <p>
+        The basic rainwater harvesting calculation is based on catchment area,
+        rainfall depth, and a runoff coefficient. In metric units, 1 mm of rain
+        falling on 1 square meter represents 1 liter before collection losses. [oai_citation:1‡Calculator Academy](https://calculator.academy/rainwater-harvesting-calculator/?utm_source=chatgpt.com)
+    </p>
+
+    <h2>Rainwater Collection Formula</h2>
+
+    <p>
+        The calculator estimates collectible water using:
+    </p>
+
+    <div class="quick-answer">
+        <strong>Collectable Rainwater = Catchment Area × Rainfall × Runoff Coefficient × System Efficiency</strong>
+    </div>
+
+    <p>
+        The runoff coefficient accounts for the portion of rainfall that
+        actually becomes runoff available to the collection system. Roof
+        material, surface characteristics, evaporation, splash, absorption,
+        and other losses can affect the coefficient. [oai_citation:2‡ScienceDirect](https://www.sciencedirect.com/topics/earth-and-planetary-sciences/rainwater-harvesting?utm_source=chatgpt.com)
+    </p>
+
+    <h2>Rainwater Collection Units</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Result</th>
+                <th>What It Shows</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Liters</td>
+                <td>Total estimated collectible rainwater</td>
+            </tr>
+
+            <tr>
+                <td>US Gallons</td>
+                <td>Volume in US gallons</td>
+            </tr>
+
+            <tr>
+                <td>Imperial Gallons</td>
+                <td>Volume in Imperial gallons</td>
+            </tr>
+
+            <tr>
+                <td>Cubic Meters</td>
+                <td>Volume in cubic meters</td>
+            </tr>
+
+            <tr>
+                <td>Liters per mm</td>
+                <td>Approximate collectible water from each additional mm of rain</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <h2>What Roof Area Should You Use?</h2>
+
+    <p>
+        For a basic roof catchment calculation, use the roof's horizontal
+        footprint or plan area. This represents the area covered by the roof
+        when viewed from above. Rain falls vertically, so the horizontal
+        catchment area is generally the appropriate starting point for
+        estimating rainfall captured. [oai_citation:3‡Calculator Academy](https://calculator.academy/rainwater-harvesting-calculator/?utm_source=chatgpt.com)
+    </p>
+
+    <h2>Choosing a Runoff Coefficient</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Surface</th>
+                <th>Example Coefficient</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Metal / Corrugated Metal</td>
+                <td>0.90</td>
+            </tr>
+
+            <tr>
+                <td>Concrete / Tile</td>
+                <td>0.85</td>
+            </tr>
+
+            <tr>
+                <td>Asphalt Shingle</td>
+                <td>0.80</td>
+            </tr>
+
+            <tr>
+                <td>Clay / Terracotta Tile</td>
+                <td>0.70</td>
+            </tr>
+
+            <tr>
+                <td>Green / Vegetated Roof</td>
+                <td>0.50</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <p>
+        These are simplified planning values rather than guarantees for a
+        particular roof. Actual coefficients vary with roof material,
+        construction, condition, and collection-system losses.
+    </p>
+
+    <h2>Can a Rainwater Tank Hold All the Water?</h2>
+
+    <p>
+        Not necessarily. If the estimated rainfall collection exceeds the
+        tank's capacity, some water may overflow unless additional storage is
+        available. Enter your tank capacity to compare the estimated collection
+        with the storage available.
+    </p>
+
+    <p>
+        Tank sizing should consider rainfall patterns and water demand rather
+        than relying only on one rainfall event. The U.S. Department of Energy
+        notes that rainfall variation and demand are important when determining
+        appropriate storage capacity. [oai_citation:4‡The Department of Energy's Energy.gov](https://www.energy.gov/cmei/femp/rainwater-harvesting-systems-technology-review?utm_source=chatgpt.com)
+    </p>
+
+    <div class="faqs">
+
+        <h2>Frequently Asked Questions About Rainwater Collection</h2>
+
+        <h3>How much rainwater can I collect from my roof?</h3>
+
+        <p>
+            It depends on the roof catchment area, rainfall amount, and runoff
+            coefficient. Larger roofs and higher rainfall generally produce
+            more potential collected water.
+        </p>
+
+        <h3>What is a rainwater catchment calculator?</h3>
+
+        <p>
+            A rainwater catchment calculator estimates how much rainfall can
+            be collected from a roof or other catchment surface.
+        </p>
+
+        <h3>What is a rain harvest calculator?</h3>
+
+        <p>
+            A rain harvest calculator is another way of describing a tool that
+            estimates the amount of rainwater that can be harvested or collected.
+        </p>
+
+        <h3>Can I calculate rainwater collected from one storm?</h3>
+
+        <p>
+            Yes. Enter the rainfall depth for the storm and the calculator will
+            estimate the potential collectible water.
+        </p>
+
+        <h3>Can I use annual rainfall?</h3>
+
+        <p>
+            Yes. Annual rainfall can be entered to estimate potential yearly
+            rainwater collection.
+        </p>
+
+        <h3>Can I use this as a rain capture calculator?</h3>
+
+        <p>
+            Yes. Rain capture, rainwater capture, rainwater collection,
+            rainwater catchment, and rain harvesting all describe closely
+            related calculations based on the amount of precipitation falling
+            on a catchment area.
+        </p>
+
+        <h3>Can rainwater be used for drinking?</h3>
+
+        <p>
+            This calculator only estimates quantity. Water intended for
+            drinking requires appropriate collection, filtration, disinfection,
+            storage, and water-quality assessment. Do not assume collected
+            rainwater is safe to drink simply because it has been calculated
+            or filtered.
+        </p>
+
+    </div>
+
+</article>
+
+
+<!-- RELATED TOOLS START -->
+
+<div class="related-guides"
+     style="clear:both;display:block;width:100%;max-width:900px;margin:40px auto;padding:25px;background:#f1f8e9;border-top:3px solid #4CAF50;border-radius:8px;box-sizing:border-box;font-family:sans-serif;">
+
+    <h3 style="margin-top:0;margin-bottom:18px;color:#2e7d32;font-size:20px;">
+        Recommended Plant Tools
+    </h3>
+
+    <ul style="padding-left:20px;margin-bottom:0;line-height:1.5;">
+
+        <li style="margin-bottom:12px;">
+            <a href="/tools/plant-spacing-calculator"
+               style="color:#2e7d32;text-decoration:none;font-weight:bold;">
+                Plant Spacing Calculator
+            </a>
+        </li>
+
+        <li style="margin-bottom:12px;">
+            <a href="/tools/raised-bed-garden-soil-calculator"
+               style="color:#2e7d32;text-decoration:none;font-weight:bold;">
+                Raised Bed Garden Soil Calculator
+            </a>
+        </li>
+
+        <li style="margin-bottom:12px;">
+            <a href="/tools/lawn-fertilizer-calculator"
+               style="color:#2e7d32;text-decoration:none;font-weight:bold;">
+                Lawn Fertilizer Calculator
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+<!-- RELATED TOOLS END -->
+
+
+<footer style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
+
+    <a href="/privacy-policy"
+       style="color:#555;text-decoration:none;">
+        Privacy Policy
+    </a>
+
+</footer>
+
+
+<script>
+
+function updateCoefficient() {
+
+    const roofType = document.getElementById("roofType").value;
+    const coefficient = document.getElementById("coefficient");
+
+    if (roofType !== "custom") {
+        coefficient.value = roofType;
+    }
+}
+
+
+function calculateRainwater() {
+
+    const length = parseFloat(document.getElementById("length").value);
+    const width = parseFloat(document.getElementById("width").value);
+
+    const sections =
+        parseFloat(document.getElementById("sections").value) || 1;
+
+    const rainfall =
+        parseFloat(document.getElementById("rainfall").value);
+
+    const coefficient =
+        parseFloat(document.getElementById("coefficient").value);
+
+    const efficiency =
+        parseFloat(document.getElementById("efficiency").value);
+
+    const tankSize =
+        parseFloat(document.getElementById("tankSize").value);
+
+    const dailyUse =
+        parseFloat(document.getElementById("dailyUse").value);
+
+    const lengthUnit =
+        document.getElementById("lengthUnit").value;
+
+    const widthUnit =
+        document.getElementById("widthUnit").value;
+
+    const rainfallUnit =
+        document.getElementById("rainfallUnit").value;
+
+    const tankUnit =
+        document.getElementById("tankUnit").value;
+
+    const dailyUnit =
+        document.getElementById("dailyUnit").value;
+
+
+    const error =
+        document.getElementById("error");
+
+    const results =
+        document.getElementById("results");
+
+
+    error.style.display = "none";
+    results.style.display = "none";
+
+
+    if (!length || length <= 0 ||
+        !width || width <= 0) {
+
+        showError(
+            "Please enter a valid catchment length and width."
+        );
+
+        return;
+    }
+
+
+    if (!rainfall ||
+        rainfall < 0) {
+
+        showError(
+            "Please enter a valid rainfall amount."
+        );
+
+        return;
+    }
+
+
+    if (sections < 1) {
+
+        showError(
+            "The number of catchment areas must be at least 1."
+        );
+
+        return;
+    }
+
+
+    if (coefficient < 0 ||
+        coefficient > 1 ||
+        isNaN(coefficient)) {
+
+        showError(
+            "The runoff coefficient must be between 0 and 1."
+        );
+
+        return;
+    }
+
+
+    if (efficiency < 0 ||
+        efficiency > 100 ||
+        isNaN(efficiency)) {
+
+        showError(
+            "System efficiency must be between 0% and 100%."
+        );
+
+        return;
+    }
+
+
+    /*
+     * Convert dimensions to meters.
+     */
+
+    let lengthM;
+
+    let widthM;
+
+
+    if (lengthUnit === "ft") {
+
+        lengthM =
+            length * 0.3048;
+
+    } else {
+
+        lengthM =
+            length;
+    }
+
+
+    if (widthUnit === "ft") {
+
+        widthM =
+            width * 0.3048;
+
+    } else {
+
+        widthM =
+            width;
+    }
+
+
+    /*
+     * Horizontal catchment area.
+     */
+
+    const areaM2 =
+        lengthM *
+        widthM *
+        sections;
+
+
+    /*
+     * Convert rainfall to millimeters.
+     */
+
+    let rainfallMm;
+
+
+    if (rainfallUnit === "in") {
+
+        rainfallMm =
+            rainfall * 25.4;
+
+    } else {
+
+        rainfallMm =
+            rainfall;
+    }
+
+
+    /*
+     * Gross rainfall volume.
+     *
+     * 1 mm of rainfall on 1 m² = 1 liter.
+     */
+
+    const grossLiters =
+        areaM2 *
+        rainfallMm;
+
+
+    /*
+     * Apply runoff coefficient
+     * and additional collection efficiency.
+     */
+
+    const collectableLiters =
+        grossLiters *
+        coefficient *
+        (efficiency / 100);
+
+
+    /*
+     * Unit conversions.
+     */
+
+    const usGallons =
+        collectableLiters *
+        0.264172052;
+
+    const imperialGallons =
+        collectableLiters *
+        0.219969157;
+
+    const cubicMeters =
+        collectableLiters /
+        1000;
+
+
+    /*
+     * Liters captured per 1 mm
+     * of additional rainfall.
+     */
+
+    const litersPerMm =
+        areaM2 *
+        coefficient *
+        (efficiency / 100);
+
+
+    /*
+     * Display main results.
+     */
+
+    document.getElementById("litersResult").textContent =
+        formatNumber(collectableLiters, 2) +
+        " L";
+
+
+    document.getElementById("areaResult").textContent =
+        formatNumber(areaM2, 2) +
+        " m²";
+
+
+    document.getElementById("grossResult").textContent =
+        formatNumber(grossLiters, 2) +
+        " L";
+
+
+    document.getElementById("usGallonsResult").textContent =
+        formatNumber(usGallons, 2) +
+        " gal";
+
+
+    document.getElementById("imperialGallonsResult").textContent =
+        formatNumber(imperialGallons, 2) +
+        " gal";
+
+
+    document.getElementById("cubicMetersResult").textContent =
+        formatNumber(cubicMeters, 3) +
+        " m³";
+
+
+    document.getElementById("litersPerMmResult").textContent =
+        formatNumber(litersPerMm, 2) +
+        " L";
+
+
+    document.getElementById("coefficientResult").textContent =
+        formatNumber(coefficient, 2);
+
+
+    document.getElementById("efficiencyResult").textContent =
+        formatNumber(efficiency, 1) +
+        "%";
+
+
+    /*
+     * Tank calculation.
+     */
+
+    const tankResultBox =
+        document.getElementById("tankResultBox");
+
+    const tankFillBox =
+        document.getElementById("tankFillBox");
+
+
+    if (tankSize &&
+        tankSize > 0) {
+
+        let tankLiters;
+
+
+        if (tankUnit === "gal") {
+
+            tankLiters =
+                tankSize *
+                3.785411784;
+
+        } else if (tankUnit === "m3") {
+
+            tankLiters =
+                tankSize *
+                1000;
+
+        } else {
+
+            tankLiters =
+                tankSize;
+        }
+
+
+        const tankFillPercentage =
+            (collectableLiters /
+            tankLiters) *
+            100;
+
+
+        document.getElementById("tankResult").textContent =
+            formatNumber(tankLiters, 0) +
+            " L";
+
+
+        document.getElementById("tankFillResult").textContent =
+            formatNumber(
+                tankFillPercentage,
+                1
+            ) +
+            "%";
+
+
+        tankResultBox.style.display =
+            "block";
+
+        tankFillBox.style.display =
+            "block";
+
+    } else {
+
+        document.getElementById("tankResult").textContent =
+            "—";
+
+        document.getElementById("tankFillResult").textContent =
+            "—";
+    }
+
+
+    /*
+     * Daily water supply calculation.
+     */
+
+    const daysSupplyBox =
+        document.getElementById("daysSupplyBox");
+
+
+    if (dailyUse &&
+        dailyUse > 0) {
+
+        let dailyLiters;
+
+
+        if (dailyUnit === "gal") {
+
+            dailyLiters =
+                dailyUse *
+                3.785411784;
+
+        } else {
+
+            dailyLiters =
+                dailyUse;
+        }
+
+
+        const daysSupply =
+            collectableLiters /
+            dailyLiters;
+
+
+        document.getElementById("daysSupplyResult").textContent =
+            formatNumber(daysSupply, 1) +
+            " days";
+
+
+        daysSupplyBox.style.display =
+            "block";
+
+    } else {
+
+        document.getElementById("daysSupplyResult").textContent =
+            "—";
+    }
+
+
+    results.style.display =
+        "block";
+}
+
+
+function showError(message) {
+
+    const error =
+        document.getElementById("error");
+
+    error.textContent =
+        message;
+
+    error.style.display =
+        "block";
+
+    document.getElementById("results").style.display =
+        "none";
+}
+
+
+function resetCalculator() {
+
+    document.getElementById("length").value = "";
+
+    document.getElementById("width").value = "";
+
+    document.getElementById("sections").value = "1";
+
+    document.getElementById("rainfall").value = "";
+
+    document.getElementById("rainfallUnit").value = "mm";
+
+    document.getElementById("lengthUnit").value = "ft";
+
+    document.getElementById("widthUnit").value = "ft";
+
+    document.getElementById("roofType").value = "0.85";
+
+    document.getElementById("coefficient").value = "0.85";
+
+    document.getElementById("efficiency").value = "100";
+
+    document.getElementById("tankSize").value = "";
+
+    document.getElementById("tankUnit").value = "L";
+
+    document.getElementById("dailyUse").value = "";
+
+    document.getElementById("dailyUnit").value = "L";
+
+    document.getElementById("error").style.display =
+        "none";
+
+    document.getElementById("results").style.display =
+        "none";
+}
+
+
+function formatNumber(number, decimals) {
+
+    return Number(number).toLocaleString(
+        undefined,
+        {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals
+        }
+    );
+}
+
+</script>
+
+</body>
+</html>
