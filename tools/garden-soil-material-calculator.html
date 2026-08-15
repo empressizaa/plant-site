@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
+crossorigin="anonymous"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Raised Bed Soil Calculator – Compost, Potting Mix & Garden Soil</title>
+
+<meta name="description" content="Calculate how much soil, compost, potting mix, peat moss, or garden material you need for raised beds, garden beds, pots, and landscaping. Free calculator.">
+
+<link rel="canonical" href="https://theplantmatrix.com/tools/garden-soil-material-calculator.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Garden Soil & Material Calculator",
+  "url": "https://theplantmatrix.com/tools/garden-soil-material-calculator.html",
+  "description": "Calculate how much soil, compost, potting mix, peat moss, or garden material you need for raised beds, garden beds, pots, and landscaping. Free calculator.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #4CAF50;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h2,
+h3 {
+    color: #4CAF50;
+}
+
+.intro {
+    background-color: #e7f5e2;
+    border: 1px solid #4CAF50;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+}
+
+.calculator {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: white;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.mode-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.mode-button {
+    background: #f1f8e9;
+    color: #2e7d32;
+    border: 1px solid #4CAF50;
+}
+
+.mode-button.active {
+    background: #4CAF50;
+    color: white;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #388E3C;
+}
+
+.secondary-button {
+    margin-top: 10px;
+    background: #777;
+}
+
+.mode-section {
+    display: none;
+}
+
+.mode-section.active {
+    display: block;
+}
+
+.result {
+    display: none;
+    margin-top: 25px;
+    padding: 20px;
+    background: #e7f5e2;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+}
+
+.result-main {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.result-item {
+    padding: 9px 0;
+    border-bottom: 1px solid #c8e6c9;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.note {
+    font-size: 14px;
+    color: #666;
+    margin-top: 15px;
+}
+
+.formula-box {
+    background: #f2f2f2;
+    border-left: 4px solid #4CAF50;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.material-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.material-button {
+    background: #f1f8e9;
+    color: #2e7d32;
+    border: 1px solid #4CAF50;
+}
+
+.material-button.active {
+    background: #4CAF50;
+    color: white;
+}
+
+.material-section {
+    display: none;
+}
+
+.material-section.active {
+    display: block;
+}
+
+.info-box {
+    padding: 14px;
+    background: #f1f8e9;
+    border-left: 4px solid #4CAF50;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.result-card {
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #c8e6c9;
+    border-radius: 6px;
+}
+
+.result-card strong {
+    display: block;
+    color: #2e7d32;
+    margin-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #e7f5e2;
+}
+
+.related-guides {
+    clear: both;
+    display: block;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 25px;
+    background: #f1f8e9;
+    border-top: 3px solid #4CAF50;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.related-guides a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (max-width: 650px) {
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .mode-buttons,
+    .material-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Garden Soil & Material Calculator</h1>
+
+<div class="intro">
+
+<strong>Calculate how much soil, compost, potting mix, peat moss, or garden material you need.</strong>
+
+<p>
+Use this free calculator for raised beds, garden beds, pots, containers and landscaping projects.
+</p>
+
+<p>
+Choose the material you want to calculate and enter your project dimensions. The calculator estimates the required volume in cubic feet, cubic yards and liters, along with estimated bags when a bag size is provided.
+</p>
+
+</div>
+
+
+<div class="calculator">
+
+<h2>Garden Soil & Material Calculator</h2>
+
+
+<div class="material-buttons">
+
+<button
+type="button"
+class="material-button active"
+id="raisedBedButton"
+onclick="setMaterial('raisedBed')"
+>
+Raised Bed Soil
+</button>
+
+<button
+type="button"
+class="material-button"
+id="gardenBedButton"
+onclick="setMaterial('gardenBed')"
+>
+Garden Bed Soil
+</button>
+
+<button
+type="button"
+class="material-button"
+id="pottingButton"
+onclick="setMaterial('potting')"
+>
+Potting Soil
+</button>
+
+<button
+type="button"
+class="material-button"
+id="compostButton"
+onclick="setMaterial('compost')"
+>
+Compost
+</button>
+
+<button
+type="button"
+class="material-button"
+id="mixButton"
+onclick="setMaterial('mix')"
+>
+Soil Mix
+</button>
+
+<button
+type="button"
+class="material-button"
+id="peatButton"
+onclick="setMaterial('peat')"
+>
+Peat Moss
+</button>
+
+<button
+type="button"
+class="material-button"
+id="rockButton"
+onclick="setMaterial('rock')"
+>
+Landscape Rock
+</button>
+
+</div>
+
+
+<!-- RAISED BED -->
+
+<div
+id="raisedBedSection"
+class="material-section active"
+>
+
+<h3>Raised Bed Soil Calculator</h3>
+
+<div class="info-box">
+
+Calculate how much soil you need to fill a raised garden bed or raised bed planter.
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="raisedLength">
+Bed Length
+</label>
+
+<input
+type="number"
+id="raisedLength"
+min="0.01"
+step="0.01"
+placeholder="Example: 8"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="raisedWidth">
+Bed Width
+</label>
+
+<input
+type="number"
+id="raisedWidth"
+min="0.01"
+step="0.01"
+placeholder="Example: 4"
+>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="raisedDepth">
+Soil Depth
+</label>
+
+<input
+type="number"
+id="raisedDepth"
+min="0.01"
+step="0.01"
+placeholder="Example: 12"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="raisedBeds">
+Number of Beds
+</label>
+
+<input
+type="number"
+id="raisedBeds"
+min="1"
+step="1"
+value="1"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="raisedUnit">
+Measurement Unit
+</label>
+
+<select id="raisedUnit">
+
+<option value="feet">Feet</option>
+<option value="inches">Inches</option>
+<option value="meters">Meters</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="raisedBagSize">
+Soil Bag Size
+</label>
+
+<select id="raisedBagSize">
+
+<option value="0">Do Not Calculate Bags</option>
+<option value="0.75">0.75 cubic feet</option>
+<option value="1">1 cubic foot</option>
+<option value="1.5">1.5 cubic feet</option>
+<option value="2">2 cubic feet</option>
+<option value="3">3 cubic feet</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- GARDEN BED -->
+
+<div
+id="gardenBedSection"
+class="material-section"
+>
+
+<h3>Garden Bed Soil Calculator</h3>
+
+<div class="info-box">
+
+Calculate the amount of soil or dirt needed for a garden bed using its length, width and soil depth.
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="gardenLength">
+Garden Bed Length
+</label>
+
+<input
+type="number"
+id="gardenLength"
+min="0.01"
+step="0.01"
+placeholder="Example: 20"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="gardenWidth">
+Garden Bed Width
+</label>
+
+<input
+type="number"
+id="gardenWidth"
+min="0.01"
+step="0.01"
+placeholder="Example: 10"
+>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="gardenDepth">
+Soil Depth
+</label>
+
+<input
+type="number"
+id="gardenDepth"
+min="0.01"
+step="0.01"
+placeholder="Example: 6"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="gardenBeds">
+Number of Beds
+</label>
+
+<input
+type="number"
+id="gardenBeds"
+min="1"
+step="1"
+value="1"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="gardenUnit">
+Measurement Unit
+</label>
+
+<select id="gardenUnit">
+
+<option value="feet">Feet</option>
+<option value="inches">Inches</option>
+<option value="meters">Meters</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="gardenBagSize">
+Soil Bag Size
+</label>
+
+<select id="gardenBagSize">
+
+<option value="0">Do Not Calculate Bags</option>
+<option value="0.75">0.75 cubic feet</option>
+<option value="1">1 cubic foot</option>
+<option value="1.5">1.5 cubic feet</option>
+<option value="2">2 cubic feet</option>
+<option value="3">3 cubic feet</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- POTTING SOIL -->
+
+<div
+id="pottingSection"
+class="material-section"
+>
+
+<h3>Potting Soil & Potting Mix Calculator</h3>
+
+<div class="info-box">
+
+Estimate how much potting soil or potting mix you need for one or more containers.
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="potLength">
+Container Length
+</label>
+
+<input
+type="number"
+id="potLength"
+min="0.01"
+step="0.01"
+placeholder="Example: 12"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="potWidth">
+Container Width
+</label>
+
+<input
+type="number"
+id="potWidth"
+min="0.01"
+step="0.01"
+placeholder="Example: 12"
+>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="potDepth">
+Container Depth
+</label>
+
+<input
+type="number"
+id="potDepth"
+min="0.01"
+step="0.01"
+placeholder="Example: 10"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="potCount">
+Number of Containers
+</label>
+
+<input
+type="number"
+id="potCount"
+min="1"
+step="1"
+value="1"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="potUnit">
+Measurement Unit
+</label>
+
+<select id="potUnit">
+
+<option value="inches">Inches</option>
+<option value="feet">Feet</option>
+<option value="centimeters">Centimeters</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="potBagSize">
+Potting Mix Bag Size
+</label>
+
+<select id="potBagSize">
+
+<option value="0">Do Not Calculate Bags</option>
+<option value="0.5">0.5 cubic feet</option>
+<option value="1">1 cubic foot</option>
+<option value="1.5">1.5 cubic feet</option>
+<option value="2">2 cubic feet</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- COMPOST -->
+
+<div
+id="compostSection"
+class="material-section"
+>
+
+<h3>Compost Calculator</h3>
+
+<div class="info-box">
+
+Calculate how much compost you need for a garden bed or raised bed.
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="compostLength">
+Area Length
+</label>
+
+<input
+type="number"
+id="compostLength"
+min="0.01"
+step="0.01"
+placeholder="Example: 20"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="compostWidth">
+Area Width
+</label>
+
+<input
+type="number"
+id="compostWidth"
+min="0.01"
+step="0.01"
+placeholder="Example: 10"
+>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="compostDepth">
+Compost Depth
+</label>
+
+<input
+type="number"
+id="compostDepth"
+min="0.01"
+step="0.01"
+placeholder="Example: 2"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="compostAreas">
+Number of Areas
+</label>
+
+<input
+type="number"
+id="compostAreas"
+min="1"
+step="1"
+value="1"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="compostUnit">
+Measurement Unit
+</label>
+
+<select id="compostUnit">
+
+<option value="inches">Inches</option>
+<option value="feet">Feet</option>
+<option value="meters">Meters</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="compostBagSize">
+Compost Bag Size
+</label>
+
+<select id="compostBagSize">
+
+<option value="0">Do Not Calculate Bags</option>
+<option value="0.5">0.5 cubic feet</option>
+<option value="1">1 cubic foot</option>
+<option value="1.5">1.5 cubic feet</option>
+<option value="2">2 cubic feet</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- SOIL MIX -->
+
+<div
+id="mixSection"
+class="material-section"
+>
+
+<h3>Soil Mix Calculator</h3>
+
+<div class="info-box">
+
+Calculate a custom growing mix using soil, compost and peat moss percentages.
+
+</div>
+
+<div class="input-group">
+
+<label for="mixVolume">
+Total Mix Volume
+</label>
+
+<input
+type="number"
+id="mixVolume"
+min="0.01"
+step="0.01"
+placeholder="Example: 10"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="mixUnit">
+Volume Unit
+</label>
+
+<select id="mixUnit">
+
+<option value="cubicfeet">Cubic Feet</option>
+<option value="liters">Liters</option>
+<option value="cubicyards">Cubic Yards</option>
+
+</select>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="soilPercent">
+Soil %
+</label>
+
+<input
+type="number"
+id="soilPercent"
+min="0"
+max="100"
+step="1"
+value="50"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="compostPercent">
+Compost %
+</label>
+
+<input
+type="number"
+id="compostPercent"
+min="0"
+max="100"
+step="1"
+value="30"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="peatPercent">
+Peat Moss %
+</label>
+
+<input
+type="number"
+id="peatPercent"
+min="0"
+max="100"
+step="1"
+value="20"
+>
+
+</div>
+
+</div>
+
+
+<!-- PEAT -->
+
+<div
+id="peatSection"
+class="material-section"
+>
+
+<h3>Peat Moss Calculator</h3>
+
+<div class="info-box">
+
+Calculate how much peat moss you need when using it as part of a custom soil mix.
+
+</div>
+
+<div class="input-group">
+
+<label for="peatVolume">
+Total Mix Volume
+</label>
+
+<input
+type="number"
+id="peatVolume"
+min="0.01"
+step="0.01"
+placeholder="Example: 10"
+>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="peatVolumeUnit">
+Volume Unit
+</label>
+
+<select id="peatVolumeUnit">
+
+<option value="cubicfeet">Cubic Feet</option>
+<option value="liters">Liters</option>
+<option value="cubicyards">Cubic Yards</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="peatPercentage">
+Peat Moss %
+</label>
+
+<input
+type="number"
+id="peatPercentage"
+min="0"
+max="100"
+step="1"
+value="20"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="peatBagSize">
+Peat Moss Bag Size
+</label>
+
+<select id="peatBagSize">
+
+<option value="0">Do Not Calculate Bags</option>
+<option value="0.5">0.5 cubic feet</option>
+<option value="1">1 cubic foot</option>
+<option value="1.5">1.5 cubic feet</option>
+<option value="2">2 cubic feet</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- ROCK -->
+
+<div
+id="rockSection"
+class="material-section"
+>
+
+<h3>Landscape Rock Calculator</h3>
+
+<div class="info-box">
+
+Calculate how much rock you need for landscaping, pathways, garden borders and decorative rock areas.
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="rockLength">
+Area Length
+</label>
+
+<input
+type="number"
+id="rockLength"
+min="0.01"
+step="0.01"
+placeholder="Example: 20"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="rockWidth">
+Area Width
+</label>
+
+<input
+type="number"
+id="rockWidth"
+min="0.01"
+step="0.01"
+placeholder="Example: 10"
+>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label for="rockDepth">
+Rock Depth
+</label>
+
+<input
+type="number"
+id="rockDepth"
+min="0.01"
+step="0.01"
+placeholder="Example: 2"
+>
+
+</div>
+
+<div class="input-group">
+
+<label for="rockAreas">
+Number of Areas
+</label>
+
+<input
+type="number"
+id="rockAreas"
+min="1"
+step="1"
+value="1"
+>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label for="rockUnit">
+Measurement Unit
+</label>
+
+<select id="rockUnit">
+
+<option value="inches">Inches</option>
+<option value="feet">Feet</option>
+<option value="meters">Meters</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label for="rockBagSize">
+Rock Bag Size
+</label>
+
+<select id="rockBagSize">
+
+<option value="0.5">0.5 cubic feet</option>
+<option value="1">1 cubic foot</option>
+<option value="1.5">1.5 cubic feet</option>
+<option value="2">2 cubic feet</option>
+<option value="3">3 cubic feet</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button
+type="button"
+onclick="calculate()"
+>
+Calculate
+</button>
+
+<button
+type="button"
+class="secondary-button"
+onclick="clearCalculator()"
+>
+Clear Calculator
+</button>
+
+
+<div
+class="result"
+id="result"
+>
+
+<div class="result-main">
+<span id="mainResult"></span>
+</div>
+
+<div class="result-grid">
+
+<div class="result-card">
+
+<strong>Cubic Feet</strong>
+<span id="resultCubicFeet"></span>
+
+</div>
+
+<div class="result-card">
+
+<strong>Cubic Yards</strong>
+<span id="resultCubicYards"></span>
+
+</div>
+
+<div class="result-card">
+
+<strong>Liters</strong>
+<span id="resultLiters"></span>
+
+</div>
+
+<div class="result-card">
+
+<strong>Estimated Bags</strong>
+<span id="resultBags"></span>
+
+</div>
+
+</div>
+
+<div class="note">
+
+These are volume estimates. Actual material quantities may vary because soil, compost and other materials can settle, and product bags may contain slightly different stated volumes.
+
+</div>
+
+</div>
+
+</div>
+
+
+<h2>How to Use the Garden Soil & Material Calculator</h2>
+
+<p>
+Choose the type of material you want to calculate. For a raised garden bed or garden bed, enter the length, width and soil depth.
+</p>
+
+<p>
+The calculator estimates the required volume and converts it into cubic feet, cubic yards and liters. You can also select a bag size to estimate how many bags you may need.
+</p>
+
+<p>
+For potting soil or potting mix, enter the approximate dimensions of your container and the number of containers.
+</p>
+
+<p>
+For compost, enter the area dimensions and the depth of compost you want to apply. You can use this for an existing garden bed or raised bed.
+</p>
+
+<p>
+The soil mix calculator can divide a total volume into soil, compost and peat moss according to your selected percentages.
+</p>
+
+
+<h2>What Can This Calculator Calculate?</h2>
+
+<ul>
+
+<li>Raised bed soil</li>
+
+<li>Raised garden bed soil</li>
+
+<li>Garden bed soil</li>
+
+<li>Raised bed dirt</li>
+
+<li>Garden bed dirt</li>
+
+<li>Garden soil</li>
+
+<li>Potting soil</li>
+
+<li>Potting mix</li>
+
+<li>Compost</li>
+
+<li>Compost for raised beds</li>
+
+<li>Peat moss</li>
+
+<li>Soil mix ratios</li>
+
+<li>Landscape rock</li>
+
+<li>Rock for landscaping</li>
+
+<li>Estimated soil and material bags</li>
+
+<li>Cubic feet and cubic yards of material</li>
+
+</ul>
+
+
+<h2>Raised Bed Soil Calculator</h2>
+
+<p>
+A raised bed soil calculator helps you determine how much growing medium is needed to fill a raised garden bed. Enter the inside length and width of the bed along with the desired soil depth.
+</p>
+
+<p>
+If you have multiple beds with the same dimensions, enter the number of beds. The calculator multiplies the volume of one bed by the number of beds.
+</p>
+
+
+<h2>Garden Bed Soil Calculator</h2>
+
+<p>
+A garden bed soil calculator can be used for both raised and ground-level beds. The basic calculation uses the area of the bed multiplied by the depth of material required.
+</p>
+
+<div class="formula-box">
+
+<strong>Soil Volume:</strong>
+
+<p>
+Length × Width × Depth = Soil Volume
+</p>
+
+<p>
+For rectangular beds, all three measurements should use the same unit before calculating volume.
+</p>
+
+</div>
+
+
+<h2>Potting Soil & Potting Mix Calculator</h2>
+
+<p>
+A potting soil calculator estimates how much potting mix is required to fill containers.
+</p>
+
+<p>
+Container shapes are often irregular or tapered, so the result should be treated as an estimate rather than an exact product quantity.
+</p>
+
+<p>
+For multiple containers, the calculator multiplies the estimated volume of one container by the number of containers.
+</p>
+
+
+<h2>Compost Calculator</h2>
+
+<p>
+A compost calculator helps estimate the amount of compost needed for a garden bed or raised bed. The amount depends on the surface area and the depth of compost you want to add.
+</p>
+
+<p>
+A shallow compost layer requires much less material than filling an entire raised bed with compost.
+</p>
+
+
+<h2>Compost Calculator for Raised Beds</h2>
+
+<p>
+If you are adding compost to an existing raised garden bed, measure the inside length and width of the bed and decide how deep the compost layer should be. Enter those values in the compost calculator.
+</p>
+
+
+<h2>Peat Moss Calculator</h2>
+
+<p>
+A peat moss calculator can be used when peat moss is one component of a custom growing mix. Enter the total mix volume and the percentage of peat moss you want to use.
+</p>
+
+<p>
+The calculator then estimates the peat moss volume and the number of bags based on the selected bag size.
+</p>
+
+
+<h2>Landscape Rock Calculator</h2>
+
+<p>
+A landscape rock calculator estimates the amount of rock needed to cover a defined area at a chosen depth. It can be useful for decorative rock, garden paths, borders and other landscaping projects.
+</p>
+
+<div class="formula-box">
+
+<strong>Landscape Rock Volume:</strong>
+
+<p>
+Length × Width × Rock Depth = Rock Volume
+</p>
+
+<p>
+The result is converted into cubic feet and cubic yards so you can compare it with landscaping material sold by the bag or by the cubic yard.
+</p>
+
+</div>
+
+
+<h2>Common Soil & Material Conversions</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Measurement</th>
+<th>Equivalent</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>1 cubic yard</td>
+<td>27 cubic feet</td>
+
+</tr>
+
+<tr>
+
+<td>1 cubic foot</td>
+<td>Approximately 28.32 liters</td>
+
+</tr>
+
+<tr>
+
+<td>1 cubic yard</td>
+<td>Approximately 764.55 liters</td>
+
+</tr>
+
+<tr>
+
+<td>1 square foot at 1 inch deep</td>
+<td>Approximately 0.0833 cubic feet</td>
+
+</tr>
+
+<tr>
+
+<td>1 acre</td>
+<td>43,560 square feet</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+<h2>How Much Soil Do I Need for a Raised Garden Bed?</h2>
+
+<p>
+The amount of soil depends on the inside length, inside width and soil depth of the raised bed. A deeper bed requires more soil than a shallow bed with the same surface area.
+</p>
+
+<p>
+If the bed has an irregular shape, divide it into simpler rectangular sections and calculate each section separately before adding the volumes together.
+</p>
+
+
+<h2>Should I Buy Extra Soil?</h2>
+
+<p>
+It is often practical to allow a small amount of extra material because soil and compost can settle after installation. Product bags can also vary slightly in their stated volume.
+</p>
+
+<p>
+For a precise project, use the calculator result as the base quantity and compare it with the manufacturer's stated bag volume or bulk-material specifications.
+</p>
+
+
+<h2>Frequently Asked Questions</h2>
+
+
+<h3>How much soil do I need for a raised bed?</h3>
+
+<p>
+Enter the inside length, width and soil depth of your raised bed. The calculator estimates the total soil volume and gives the result in cubic feet, cubic yards and liters.
+</p>
+
+
+<h3>What is a raised bed soil calculator?</h3>
+
+<p>
+A raised bed soil calculator estimates the volume of growing material required to fill a raised garden bed based on its dimensions and desired soil depth.
+</p>
+
+
+<h3>Can I use this as a raised garden bed soil calculator?</h3>
+
+<p>
+Yes. Enter the inside dimensions of your raised garden bed and the desired depth. You can also enter multiple beds if they have the same dimensions.
+</p>
+
+
+<h3>Can I use this as a raised bed dirt calculator?</h3>
+
+<p>
+Yes. Soil and dirt volume can be estimated from the same basic length, width and depth measurements. For gardening, however, the quality and composition of the material are also important.
+</p>
+
+
+<h3>Can I calculate garden bed soil?</h3>
+
+<p>
+Yes. Use the raised bed soil or garden bed soil calculator and enter the dimensions and desired soil depth.
+</p>
+
+
+<h3>How does the potting soil calculator work?</h3>
+
+<p>
+The calculator estimates container volume from length, width and depth, then multiplies the result by the number of containers.
+</p>
+
+
+<h3>What is the difference between potting soil and potting mix?</h3>
+
+<p>
+The terms are often used interchangeably in gardening. Products can contain different combinations of organic matter, mineral material, peat, coconut coir, perlite, vermiculite and other ingredients, so always check the product label.
+</p>
+
+
+<h3>How do I calculate compost for a raised bed?</h3>
+
+<p>
+Measure the bed length and width and choose the compost depth you want to add. Multiply the bed area by the compost depth to estimate the compost volume.
+</p>
+
+
+<h3>How do I calculate peat moss?</h3>
+
+<p>
+Enter the total volume of your growing mix and the percentage of peat moss you want. The calculator determines the approximate peat moss volume.
+</p>
+
+
+<h3>How do I calculate rock for landscaping?</h3>
+
+<p>
+Measure the length and width of the area and decide how deep you want the rock layer. The calculator multiplies those measurements and converts the result to cubic feet and cubic yards.
+</p>
+
+
+<h3>How many bags of soil do I need?</h3>
+
+<p>
+Enter your project dimensions and select the bag size that matches the product you intend to buy. The calculator estimates the number of bags by dividing the required volume by the volume of one bag.
+</p>
+
+
+<h3>Does this calculator account for soil settling?</h3>
+
+<p>
+The calculated volume represents the geometric volume of the project. Soil, compost and other organic materials can settle over time, so the actual amount purchased may need to be slightly higher depending on the material and project.
+</p>
+
+
+<div class="related-guides">
+
+<h3>Explore The Plant Matrix</h3>
+
+<ul>
+
+<li>
+<a href="/">
+Browse The Plant Matrix Plant Guides
+</a>
+</li>
+
+<li>
+<a href="/tools/plant-spacing-calculator.html">
+Use the Plant Spacing Calculator
+</a>
+</li>
+
+<li>
+<a href="/about">
+About The Plant Matrix
+</a>
+</li>
+
+</ul>
+
+</div>
+
+
+<footer style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
+
+<a
+href="/about"
+style="color:#555;text-decoration:none;margin-right:20px;"
+>
+About Us
+</a>
+
+|
+
+<a
+href="/privacy-policy"
+style="color:#555;text-decoration:none;margin-left:20px;"
+>
+Privacy Policy
+</a>
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   MATERIAL SWITCHING
+===================================================== */
+
+function setMaterial(material) {
+
+    const sections = [
+        "raisedBedSection",
+        "gardenBedSection",
+        "pottingSection",
+        "compostSection",
+        "mixSection",
+        "peatSection",
+        "rockSection"
+    ];
+
+    const buttons = [
+        "raisedBedButton",
+        "gardenBedButton",
+        "pottingButton",
+        "compostButton",
+        "mixButton",
+        "peatButton",
+        "rockButton"
+    ];
+
+    sections.forEach(function(id) {
+
+        document
+            .getElementById(id)
+            .classList.remove("active");
+
+    });
+
+    buttons.forEach(function(id) {
+
+        document
+            .getElementById(id)
+            .classList.remove("active");
+
+    });
+
+
+    document
+        .getElementById(material + "Section")
+        .classList.add("active");
+
+    document
+        .getElementById(material + "Button")
+        .classList.add("active");
+
+
+    document
+        .getElementById("result")
+        .style.display = "none";
+
+}
+
+
+/* =====================================================
+   CONVERT LENGTH TO FEET
+===================================================== */
+
+function convertToFeet(value, unit) {
+
+    if (unit === "inches") {
+
+        return value / 12;
+
+    }
+
+    if (unit === "meters") {
+
+        return value * 3.28084;
+
+    }
+
+    if (unit === "centimeters") {
+
+        return value / 30.48;
+
+    }
+
+    return value;
+
+}
+
+
+/* =====================================================
+   CONVERT CUBIC FEET TO OTHER UNITS
+===================================================== */
+
+function showVolumeResults(
+    cubicFeet,
+    bagSize,
+    materialName
+) {
+
+    const cubicYards =
+        cubicFeet / 27;
+
+    const liters =
+        cubicFeet * 28.3168466;
+
+
+    document.getElementById(
+        "resultCubicFeet"
+    ).textContent =
+        cubicFeet.toFixed(2);
+
+
+    document.getElementById(
+        "resultCubicYards"
+    ).textContent =
+        cubicYards.toFixed(2);
+
+
+    document.getElementById(
+        "resultLiters"
+    ).textContent =
+        liters.toFixed(2);
+
+
+    let bagsText =
+        "Not calculated";
+
+
+    if (
+        Number.isFinite(bagSize) &&
+        bagSize > 0
+    ) {
+
+        const bags =
+            Math.ceil(
+                cubicFeet / bagSize
+            );
+
+        bagsText =
+            bags.toLocaleString() +
+            " bags";
+
+    }
+
+
+    document.getElementById(
+        "resultBags"
+    ).textContent =
+        bagsText;
+
+
+    document.getElementById(
+        "mainResult"
+    ).textContent =
+        "You need approximately " +
+        cubicFeet.toFixed(2) +
+        " cubic feet of " +
+        materialName +
+        ".";
+
+
+    document.getElementById(
+        "result"
+    ).style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   STANDARD RECTANGULAR VOLUME
+===================================================== */
+
+function calculateRectangularVolume(
+    length,
+    width,
+    depth,
+    unit,
+    multiplier
+) {
+
+    const lengthFeet =
+        convertToFeet(
+            length,
+            unit
+        );
+
+    const widthFeet =
+        convertToFeet(
+            width,
+            unit
+        );
+
+    const depthFeet =
+        convertToFeet(
+            depth,
+            unit
+        );
+
+
+    return (
+        lengthFeet *
+        widthFeet *
+        depthFeet *
+        multiplier
+    );
+
+}
+
+
+/* =====================================================
+   MAIN CALCULATOR
+===================================================== */
+
+function calculate() {
+
+    const activeSection =
+        document.querySelector(
+            ".material-section.active"
+        );
+
+
+    if (!activeSection) {
+
+        return;
+
+    }
+
+
+    const id =
+        activeSection.id;
+
+
+    /* =================================================
+       RAISED BED
+    ================================================= */
+
+    if (id === "raisedBedSection") {
+
+        const length =
+            parseFloat(
+                document.getElementById(
+                    "raisedLength"
+                ).value
+            );
+
+        const width =
+            parseFloat(
+                document.getElementById(
+                    "raisedWidth"
+                ).value
+            );
+
+        const depth =
+            parseFloat(
+                document.getElementById(
+                    "raisedDepth"
+                ).value
+            );
+
+        const beds =
+            parseInt(
+                document.getElementById(
+                    "raisedBeds"
+                ).value,
+                10
+            );
+
+        const unit =
+            document.getElementById(
+                "raisedUnit"
+            ).value;
+
+        const bagSize =
+            parseFloat(
+                document.getElementById(
+                    "raisedBagSize"
+                ).value
+            );
+
+
+        if (
+            !validPositive(
+                length,
+                width,
+                depth,
+                beds
+            )
+        ) {
+
+            alert(
+                "Please enter valid raised bed dimensions."
+            );
+
+            return;
+
+        }
+
+
+        const volume =
+            calculateRectangularVolume(
+                length,
+                width,
+                depth,
+                unit,
+                beds
+            );
+
+
+        showVolumeResults(
+            volume,
+            bagSize,
+            "soil"
+        );
+
+    }
+
+
+    /* =================================================
+       GARDEN BED
+    ================================================= */
+
+    if (id === "gardenBedSection") {
+
+        const length =
+            parseFloat(
+                document.getElementById(
+                    "gardenLength"
+                ).value
+            );
+
+        const width =
+            parseFloat(
+                document.getElementById(
+                    "gardenWidth"
+                ).value
+            );
+
+        const depth =
+            parseFloat(
+                document.getElementById(
+                    "gardenDepth"
+                ).value
+            );
+
+        const beds =
+            parseInt(
+                document.getElementById(
+                    "gardenBeds"
+                ).value,
+                10
+            );
+
+        const unit =
+            document.getElementById(
+                "gardenUnit"
+            ).value;
+
+        const bagSize =
+            parseFloat(
+                document.getElementById(
+                    "gardenBagSize"
+                ).value
+            );
+
+
+        if (
+            !validPositive(
+                length,
+                width,
+                depth,
+                beds
+            )
+        ) {
+
+            alert(
+                "Please enter valid garden bed dimensions."
+            );
+
+            return;
+
+        }
+
+
+        const volume =
+            calculateRectangularVolume(
+                length,
+                width,
+                depth,
+                unit,
+                beds
+            );
+
+
+        showVolumeResults(
+            volume,
+            bagSize,
+            "garden soil"
+        );
+
+    }
+
+
+    /* =================================================
+       POTTING SOIL
+    ================================================= */
+
+    if (id === "pottingSection") {
+
+        const length =
+            parseFloat(
+                document.getElementById(
+                    "potLength"
+                ).value
+            );
+
+        const width =
+            parseFloat(
+                document.getElementById(
+                    "potWidth"
+                ).value
+            );
+
+        const depth =
+            parseFloat(
+                document.getElementById(
+                    "potDepth"
+                ).value
+            );
+
+        const count =
+            parseInt(
+                document.getElementById(
+                    "potCount"
+                ).value,
+                10
+            );
+
+        const unit =
+            document.getElementById(
+                "potUnit"
+            ).value;
+
+        const bagSize =
+            parseFloat(
+                document.getElementById(
+                    "potBagSize"
+                ).value
+            );
+
+
+        if (
+            !validPositive(
+                length,
+                width,
+                depth,
+                count
+            )
+        ) {
+
+            alert(
+                "Please enter valid container dimensions."
+            );
+
+            return;
+
+        }
+
+
+        const volume =
+            calculateRectangularVolume(
+                length,
+                width,
+                depth,
+                unit,
+                count
+            );
+
+
+        showVolumeResults(
+            volume,
+            bagSize,
+            "potting mix"
+        );
+
+    }
+
+
+    /* =================================================
+       COMPOST
+    ================================================= */
+
+    if (id === "compostSection") {
+
+        const length =
+            parseFloat(
+                document.getElementById(
+                    "compostLength"
+                ).value
+            );
+
+        const width =
+            parseFloat(
+                document.getElementById(
+                    "compostWidth"
+                ).value
+            );
+
+        const depth =
+            parseFloat(
+                document.getElementById(
+                    "compostDepth"
+                ).value
+            );
+
+        const areas =
+            parseInt(
+                document.getElementById(
+                    "compostAreas"
+                ).value,
+                10
+            );
+
+        const unit =
+            document.getElementById(
+                "compostUnit"
+            ).value;
+
+        const bagSize =
+            parseFloat(
+                document.getElementById(
+                    "compostBagSize"
+                ).value
+            );
+
+
+        if (
+            !validPositive(
+                length,
+                width,
+                depth,
+                areas
+            )
+        ) {
+
+            alert(
+                "Please enter valid compost dimensions."
+            );
+
+            return;
+
+        }
+
+
+        const volume =
+            calculateRectangularVolume(
+                length,
+                width,
+                depth,
+                unit,
+                areas
+            );
+
+
+        showVolumeResults(
+            volume,
+            bagSize,
+            "compost"
+        );
+
+    }
+
+
+    /* =================================================
+       SOIL MIX
+    ================================================= */
+
+    if (id === "mixSection") {
+
+        const totalVolume =
+            parseFloat(
+                document.getElementById(
+                    "mixVolume"
+                ).value
+            );
+
+        const unit =
+            document.getElementById(
+                "mixUnit"
+            ).value;
+
+        const soil =
+            parseFloat(
+                document.getElementById(
+                    "soilPercent"
+                ).value
+            );
+
+        const compost =
+            parseFloat(
+                document.getElementById(
+                    "compostPercent"
+                ).value
+            );
+
+        const peat =
+            parseFloat(
+                document.getElementById(
+                    "peatPercent"
+                ).value
+            );
+
+
+        if (
+            !Number.isFinite(totalVolume) ||
+            totalVolume <= 0
+        ) {
+
+            alert(
+                "Please enter a valid total mix volume."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !Number.isFinite(soil) ||
+            !Number.isFinite(compost) ||
+            !Number.isFinite(peat)
+        ) {
+
+            alert(
+                "Please enter valid percentages."
+            );
+
+            return;
+
+        }
+
+
+        const totalPercent =
+            soil +
+            compost +
+            peat;
+
+
+        if (totalPercent !== 100) {
+
+            alert(
+                "Soil, compost and peat moss percentages must add up to 100%."
+            );
+
+            return;
+
+        }
+
+
+        let totalCubicFeet =
+            totalVolume;
+
+
+        if (unit === "liters") {
+
+            totalCubicFeet =
+                totalVolume /
+                28.3168466;
+
+        }
+
+        if (unit === "cubicyards") {
+
+            totalCubicFeet =
+                totalVolume *
+                27;
+
+        }
+
+
+        const soilVolume =
+            totalCubicFeet *
+            (soil / 100);
+
+        const compostVolume =
+            totalCubicFeet *
+            (compost / 100);
+
+        const peatVolume =
+            totalCubicFeet *
+            (peat / 100);
+
+
+        document.getElementById(
+            "mainResult"
+        ).textContent =
+            "Your custom soil mix requires approximately " +
+            totalCubicFeet.toFixed(2) +
+            " cubic feet of material.";
+
+
+        document.getElementById(
+            "resultCubicFeet"
+        ).textContent =
+            totalCubicFeet.toFixed(2);
+
+
+        document.getElementById(
+            "resultCubicYards"
+        ).textContent =
+            (totalCubicFeet / 27).toFixed(2);
+
+
+        document.getElementById(
+            "resultLiters"
+        ).textContent =
+            (totalCubicFeet * 28.3168466).toFixed(2);
+
+
+        document.getElementById(
+            "resultBags"
+        ).textContent =
+            "Soil: " +
+            soilVolume.toFixed(2) +
+            " ft³ | Compost: " +
+            compostVolume.toFixed(2) +
+            " ft³ | Peat: " +
+            peatVolume.toFixed(2) +
+            " ft³";
+
+
+        document.getElementById(
+            "result"
+        ).style.display =
+            "block";
+
+    }
+
+
+    /* =================================================
+       PEAT MOSS
+    ================================================= */
+
+    if (id === "peatSection") {
+
+        const volume =
+            parseFloat(
+                document.getElementById(
+                    "peatVolume"
+                ).value
+            );
+
+        const unit =
+            document.getElementById(
+                "peatVolumeUnit"
+            ).value;
+
+        const percentage =
+            parseFloat(
+                document.getElementById(
+                    "peatPercentage"
+                ).value
+            );
+
+        const bagSize =
+            parseFloat(
+                document.getElementById(
+                    "peatBagSize"
+                ).value
+            );
+
+
+        if (
+            !Number.isFinite(volume) ||
+            volume <= 0 ||
+            !Number.isFinite(percentage) ||
+            percentage < 0 ||
+            percentage > 100
+        ) {
+
+            alert(
+                "Please enter a valid mix volume and peat moss percentage."
+            );
+
+            return;
+
+        }
+
+
+        let totalCubicFeet =
+            volume;
+
+
+        if (unit === "liters") {
+
+            totalCubicFeet =
+                volume /
+                28.3168466;
+
+        }
+
+        if (unit === "cubicyards") {
+
+            totalCubicFeet =
+                volume *
+                27;
+
+        }
+
+
+        const peatVolume =
+            totalCubicFeet *
+            (percentage / 100);
+
+
+        let bags =
+            "Not calculated";
+
+
+        if (
+            Number.isFinite(bagSize) &&
+            bagSize > 0
+        ) {
+
+            bags =
+                Math.ceil(
+                    peatVolume /
+                    bagSize
+                ) +
+                " bags";
+
+        }
+
+
+        document.getElementById(
+            "mainResult"
+        ).textContent =
+            "You need approximately " +
+            peatVolume.toFixed(2) +
+            " cubic feet of peat moss.";
+
+
+        document.getElementById(
+            "resultCubicFeet"
+        ).textContent =
+            peatVolume.toFixed(2);
+
+
+        document.getElementById(
+            "resultCubicYards"
+        ).textContent =
+            (peatVolume / 27).toFixed(2);
+
+
+        document.getElementById(
+            "resultLiters"
+        ).textContent =
+            (peatVolume * 28.3168466).toFixed(2);
+
+
+        document.getElementById(
+            "resultBags"
+        ).textContent =
+            bags;
+
+
+        document.getElementById(
+            "result"
+        ).style.display =
+            "block";
+
+    }
+
+
+    /* =================================================
+       LANDSCAPE ROCK
+    ================================================= */
+
+    if (id === "rockSection") {
+
+        const length =
+            parseFloat(
+                document.getElementById(
+                    "rockLength"
+                ).value
+            );
+
+        const width =
+            parseFloat(
+                document.getElementById(
+                    "rockWidth"
+                ).value
+            );
+
+        const depth =
+            parseFloat(
+                document.getElementById(
+                    "rockDepth"
+                ).value
+            );
+
+        const areas =
+            parseInt(
+                document.getElementById(
+                    "rockAreas"
+                ).value,
+                10
+            );
+
+        const unit =
+            document.getElementById(
+                "rockUnit"
+            ).value;
+
+        const bagSize =
+            parseFloat(
+                document.getElementById(
+                    "rockBagSize"
+                ).value
+            );
+
+
+        if (
+            !validPositive(
+                length,
+                width,
+                depth,
+                areas
+            )
+        ) {
+
+            alert(
+                "Please enter valid landscaping dimensions."
+            );
+
+            return;
+
+        }
+
+
+        const volume =
+            calculateRectangularVolume(
+                length,
+                width,
+                depth,
+                unit,
+                areas
+            );
+
+
+        showVolumeResults(
+            volume,
+            bagSize,
+            "landscape rock"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function validPositive() {
+
+    const values =
+        Array.from(arguments);
+
+    return values.every(function(value) {
+
+        return Number.isFinite(value) &&
+               value > 0;
+
+    });
+
+}
+
+
+/* =====================================================
+   CLEAR CALCULATOR
+===================================================== */
+
+function clearCalculator() {
+
+    const inputs =
+        document.querySelectorAll(
+            "input"
+        );
+
+    inputs.forEach(function(input) {
+
+        input.value = "";
+
+    });
+
+
+    document.getElementById(
+        "raisedBeds"
+    ).value = "1";
+
+
+    document.getElementById(
+        "gardenBeds"
+    ).value = "1";
+
+
+    document.getElementById(
+        "potCount"
+    ).value = "1";
+
+
+    document.getElementById(
+        "compostAreas"
+    ).value = "1";
+
+
+    document.getElementById(
+        "rockAreas"
+    ).value = "1";
+
+
+    document.getElementById(
+        "soilPercent"
+    ).value = "50";
+
+
+    document.getElementById(
+        "compostPercent"
+    ).value = "30";
+
+
+    document.getElementById(
+        "peatPercent"
+    ).value = "20";
+
+
+    document.getElementById(
+        "result"
+    ).style.display =
+        "none";
+
+}
+
+</script>
+
+</body>
+
+</html>
