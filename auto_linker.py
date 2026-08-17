@@ -143,7 +143,7 @@ for page in pages:
 
         links_html += (
             f'\n        <li style="margin-bottom:12px;">'
-            f'<a href="/{target["slug"]}.html" '
+            f'<a href="/{target["slug"]}" '
             f'style="color:#2e7d32;text-decoration:none;font-weight:bold;">'
             f'{target["title"]}'
             f'</a></li>'
