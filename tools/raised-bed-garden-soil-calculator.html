@@ -70,7 +70,7 @@
     }
     </script>
 
-    <!-- Google AdSense Auto Ads -->
+    <!-- Google AdSense -->
     <script async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185"
         crossorigin="anonymous"></script>
@@ -324,6 +324,67 @@
             margin: 20px 0;
         }
 
+        /* Affiliate recommendations */
+
+        .affiliate-section {
+            margin: 30px 0;
+            padding: 22px;
+            background: #f7faf7;
+            border: 1px solid #d9e6d7;
+            border-radius: 10px;
+        }
+
+        .affiliate-section h3 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .affiliate-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .affiliate-card {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .affiliate-card h4 {
+            margin-top: 0;
+            color: #3e8e41;
+            font-size: 18px;
+        }
+
+        .affiliate-card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .affiliate-button {
+            display: inline-block;
+            padding: 11px 18px;
+            background: #3e8e41;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .affiliate-button:hover {
+            background: #327336;
+        }
+
+        .affiliate-disclosure {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            margin-top: 15px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -348,63 +409,6 @@
 
         .faqs h3 {
             margin-bottom: 5px;
-        }
-
-        /* MONETIZATION */
-
-        .monetization-section {
-            max-width: 900px;
-            margin: 35px auto;
-            padding: 24px;
-            background: #f7faf7;
-            border: 1px solid #d9e6d7;
-            border-radius: 10px;
-            box-sizing: border-box;
-        }
-
-        .monetization-section h2 {
-            margin-top: 0;
-            text-align: center;
-        }
-
-        .monetization-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin-top: 20px;
-        }
-
-        .product-card {
-            background: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-        }
-
-        .product-card h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
-
-        .product-button {
-            display: inline-block;
-            background: #3e8e41;
-            color: #ffffff;
-            padding: 11px 18px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 8px;
-        }
-
-        .product-button:hover {
-            background: #327336;
-        }
-
-        .affiliate-note {
-            font-size: 12px;
-            color: #777;
-            margin-top: 18px;
         }
 
         .related-guides {
@@ -445,7 +449,8 @@
             }
 
             .dimension-grid,
-            .input-grid {
+            .input-grid,
+            .affiliate-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -468,11 +473,6 @@
             .main-result-number {
                 font-size: 27px;
             }
-
-            .monetization-grid {
-                grid-template-columns: 1fr;
-            }
-
         }
 
     </style>
@@ -485,31 +485,22 @@
     <h1>Raised Bed Garden Soil Calculator</h1>
 
     <div class="quick-answer">
-
         <strong>Free raised bed garden soil calculator.</strong>
-
         Calculate how much soil you need for raised beds based on length,
         width, depth, number of beds, and extra soil for settling.
-
         Get results in cubic feet, cubic yards, liters, and soil bags.
-
     </div>
-
 
     <div class="calculator">
 
         <h2>Raised Bed Garden Soil Calculator</h2>
-
 
         <h3>Raised Bed Dimensions</h3>
 
         <div class="dimension-grid">
 
             <div class="input-group">
-
-                <label for="length">
-                    Length
-                </label>
+                <label for="length">Length</label>
 
                 <div class="unit-row">
 
@@ -521,35 +512,17 @@
                         placeholder="e.g. 8">
 
                     <select id="lengthUnit">
-
-                        <option value="feet">
-                            ft
-                        </option>
-
-                        <option value="inches">
-                            in
-                        </option>
-
-                        <option value="meters">
-                            m
-                        </option>
-
-                        <option value="centimeters">
-                            cm
-                        </option>
-
+                        <option value="feet">ft</option>
+                        <option value="inches">in</option>
+                        <option value="meters">m</option>
+                        <option value="centimeters">cm</option>
                     </select>
 
                 </div>
-
             </div>
 
-
             <div class="input-group">
-
-                <label for="width">
-                    Width
-                </label>
+                <label for="width">Width</label>
 
                 <div class="unit-row">
 
@@ -561,35 +534,17 @@
                         placeholder="e.g. 4">
 
                     <select id="widthUnit">
-
-                        <option value="feet">
-                            ft
-                        </option>
-
-                        <option value="inches">
-                            in
-                        </option>
-
-                        <option value="meters">
-                            m
-                        </option>
-
-                        <option value="centimeters">
-                            cm
-                        </option>
-
+                        <option value="feet">ft</option>
+                        <option value="inches">in</option>
+                        <option value="meters">m</option>
+                        <option value="centimeters">cm</option>
                     </select>
 
                 </div>
-
             </div>
 
-
             <div class="input-group">
-
-                <label for="depth">
-                    Soil Depth
-                </label>
+                <label for="depth">Soil Depth</label>
 
                 <div class="unit-row">
 
@@ -601,47 +556,26 @@
                         placeholder="e.g. 12">
 
                     <select id="depthUnit">
-
-                        <option value="inches" selected>
-                            in
-                        </option>
-
-                        <option value="feet">
-                            ft
-                        </option>
-
-                        <option value="centimeters">
-                            cm
-                        </option>
-
-                        <option value="meters">
-                            m
-                        </option>
-
+                        <option value="inches" selected>in</option>
+                        <option value="feet">ft</option>
+                        <option value="centimeters">cm</option>
+                        <option value="meters">m</option>
                     </select>
 
                 </div>
-
             </div>
 
         </div>
 
-
         <p class="calculator-note">
-
             You can use different units for each dimension. For example,
             enter length and width in feet and soil depth in inches.
-
         </p>
-
 
         <div class="input-grid">
 
             <div class="input-group">
-
-                <label for="beds">
-                    Number of Identical Beds
-                </label>
+                <label for="beds">Number of Identical Beds</label>
 
                 <input
                     type="number"
@@ -649,85 +583,35 @@
                     value="1"
                     min="1"
                     step="1">
-
             </div>
 
-
             <div class="input-group">
-
-                <label for="settling">
-                    Extra Soil for Settling
-                </label>
+                <label for="settling">Extra Soil for Settling</label>
 
                 <select id="settling">
-
-                    <option value="0">
-                        None
-                    </option>
-
-                    <option value="5">
-                        5%
-                    </option>
-
-                    <option value="10" selected>
-                        10% Recommended
-                    </option>
-
-                    <option value="15">
-                        15%
-                    </option>
-
-                    <option value="20">
-                        20%
-                    </option>
-
+                    <option value="0">None</option>
+                    <option value="5">5%</option>
+                    <option value="10" selected>10% Recommended</option>
+                    <option value="15">15%</option>
+                    <option value="20">20%</option>
                 </select>
-
             </div>
 
-
             <div class="input-group">
-
-                <label for="bagSize">
-                    Soil Bag Size
-                </label>
+                <label for="bagSize">Soil Bag Size</label>
 
                 <select id="bagSize">
-
-                    <option value="0.5">
-                        0.5 cubic foot
-                    </option>
-
-                    <option value="1">
-                        1 cubic foot
-                    </option>
-
-                    <option value="1.5">
-                        1.5 cubic feet
-                    </option>
-
-                    <option value="2" selected>
-                        2 cubic feet
-                    </option>
-
-                    <option value="2.5">
-                        2.5 cubic feet
-                    </option>
-
-                    <option value="3">
-                        3 cubic feet
-                    </option>
-
-                    <option value="custom">
-                        Custom bag size
-                    </option>
-
+                    <option value="0.5">0.5 cubic foot</option>
+                    <option value="1">1 cubic foot</option>
+                    <option value="1.5">1.5 cubic feet</option>
+                    <option value="2" selected>2 cubic feet</option>
+                    <option value="2.5">2.5 cubic feet</option>
+                    <option value="3">3 cubic feet</option>
+                    <option value="custom">Custom bag size</option>
                 </select>
-
             </div>
 
         </div>
-
 
         <div
             class="input-group"
@@ -747,7 +631,6 @@
 
         </div>
 
-
         <div class="mix-section">
 
             <h3>Optional Soil Mix</h3>
@@ -763,14 +646,10 @@
                 show the amount represented by each percentage you enter.
             </p>
 
-
             <div class="mix-grid">
 
                 <div class="input-group">
-
-                    <label for="topsoil">
-                        Topsoil %
-                    </label>
+                    <label for="topsoil">Topsoil %</label>
 
                     <input
                         type="number"
@@ -779,15 +658,10 @@
                         max="100"
                         value="0"
                         step="any">
-
                 </div>
 
-
                 <div class="input-group">
-
-                    <label for="compost">
-                        Compost %
-                    </label>
+                    <label for="compost">Compost %</label>
 
                     <input
                         type="number"
@@ -796,15 +670,10 @@
                         max="100"
                         value="0"
                         step="any">
-
                 </div>
 
-
                 <div class="input-group">
-
-                    <label for="peat">
-                        Peat Moss / Coco Coir %
-                    </label>
+                    <label for="peat">Peat Moss / Coco Coir %</label>
 
                     <input
                         type="number"
@@ -813,15 +682,10 @@
                         max="100"
                         value="0"
                         step="any">
-
                 </div>
 
-
                 <div class="input-group">
-
-                    <label for="other">
-                        Other %
-                    </label>
+                    <label for="other">Other %</label>
 
                     <input
                         type="number"
@@ -830,22 +694,15 @@
                         max="100"
                         value="0"
                         step="any">
-
                 </div>
 
             </div>
 
-
-            <div
-                id="mixTotal"
-                class="mix-total">
-
+            <div id="mixTotal" class="mix-total">
                 Mix percentage entered: 0%
-
             </div>
 
         </div>
-
 
         <div class="button-row">
 
@@ -853,29 +710,19 @@
                 type="button"
                 class="calculate-button"
                 onclick="calculateSoil()">
-
                 Calculate Soil Needed
-
             </button>
-
 
             <button
                 type="button"
                 class="reset-button"
                 onclick="resetCalculator()">
-
                 Reset
-
             </button>
 
         </div>
 
-
-        <div
-            id="errorMessage"
-            class="error-message">
-        </div>
-
+        <div id="errorMessage" class="error-message"></div>
 
         <div id="results" class="results">
 
@@ -892,235 +739,160 @@
 
             </div>
 
-
             <div class="result-grid">
 
                 <div class="result-box">
-
-                    <span>
-                        Cubic Feet
-                    </span>
-
-                    <strong id="cubicFeet">
-                        0
-                    </strong>
-
+                    <span>Cubic Feet</span>
+                    <strong id="cubicFeet">0</strong>
                 </div>
 
-
                 <div class="result-box">
-
-                    <span>
-                        Cubic Yards
-                    </span>
-
-                    <strong id="cubicYards">
-                        0
-                    </strong>
-
+                    <span>Cubic Yards</span>
+                    <strong id="cubicYards">0</strong>
                 </div>
 
-
                 <div class="result-box">
-
-                    <span>
-                        Liters
-                    </span>
-
-                    <strong id="liters">
-                        0
-                    </strong>
-
+                    <span>Liters</span>
+                    <strong id="liters">0</strong>
                 </div>
 
-
                 <div class="result-box">
-
-                    <span>
-                        Soil Bags
-                    </span>
-
-                    <strong id="soilBags">
-                        0
-                    </strong>
-
+                    <span>Soil Bags</span>
+                    <strong id="soilBags">0</strong>
                 </div>
 
             </div>
-
 
             <div
                 id="mixResults"
                 class="mix-section"
                 style="display:none;">
 
-                <h3>
-                    Soil Mix Amounts
-                </h3>
+                <h3>Soil Mix Amounts</h3>
 
                 <div class="result-grid">
 
                     <div class="result-box">
-
-                        <span>
-                            Topsoil
-                        </span>
-
-                        <strong id="topsoilResult">
-                            0
-                        </strong>
-
+                        <span>Topsoil</span>
+                        <strong id="topsoilResult">0</strong>
                     </div>
 
-
                     <div class="result-box">
-
-                        <span>
-                            Compost
-                        </span>
-
-                        <strong id="compostResult">
-                            0
-                        </strong>
-
+                        <span>Compost</span>
+                        <strong id="compostResult">0</strong>
                     </div>
 
-
                     <div class="result-box">
-
-                        <span>
-                            Peat / Coco Coir
-                        </span>
-
-                        <strong id="peatResult">
-                            0
-                        </strong>
-
+                        <span>Peat / Coco Coir</span>
+                        <strong id="peatResult">0</strong>
                     </div>
 
-
                     <div class="result-box">
-
-                        <span>
-                            Other
-                        </span>
-
-                        <strong id="otherResult">
-                            0
-                        </strong>
-
+                        <span>Other</span>
+                        <strong id="otherResult">0</strong>
                     </div>
 
                 </div>
 
-                <p
-                    id="mixResultNote"
-                    class="mix-note">
-                </p>
+                <p id="mixResultNote" class="mix-note"></p>
 
             </div>
-
 
             <div class="tip-box">
 
                 <strong>Tip:</strong>
-
                 Soil can settle after a raised bed is filled. Adding around
                 10% extra soil can help compensate for settling and leave
                 enough material for topping up the bed later.
 
             </div>
 
+            <!-- VEVOR + DIGITAL PRODUCT RECOMMENDATIONS -->
+
+            <div class="affiliate-section">
+
+                <h3>
+                    Recommended Raised Garden Resources
+                </h3>
+
+                <div class="affiliate-grid">
+
+                    <!-- VEVOR -->
+                    <div class="affiliate-card">
+
+                        <h4>
+                            Raised Garden Beds
+                        </h4>
+
+                        <p>
+                            Looking for a raised garden bed for your soil?
+                            Explore raised garden bed options from VEVOR.
+                        </p>
+
+                        <a
+                            class="affiliate-button"
+                            href="https://www.awin1.com/cread.php?awinmid=28831&awinaffid=3036717&ued=https%3A%2F%2Fwww.vevor.com%2Fs%2Fraised-garden-bed"
+                            target="_blank"
+                            rel="nofollow sponsored noopener">
+                            Shop Raised Garden Beds
+                        </a>
+
+                    </div>
+
+
+                    <!-- SELAR DIGITAL PRODUCT -->
+                    <div class="affiliate-card">
+
+                        <h4>
+                            Gardening Digital Product
+                        </h4>
+
+                        <p>
+                            Explore this useful gardening digital product
+                            to help with your garden planning and growing.
+                        </p>
+
+                        <a
+                            class="affiliate-button"
+                            href="https://selar.com/1w70q65593"
+                            target="_blank"
+                            rel="nofollow sponsored noopener">
+                            View Digital Product
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <p class="affiliate-disclosure">
+                    Some links on this page may be affiliate links, which
+                    means The Plant Matrix may earn a commission if you make
+                    a purchase through them, at no additional cost to you.
+                </p>
+
+            </div>
+
+            <!-- GOOGLE ADSENSE AD UNIT -->
+
+            <div style="margin:30px 0;text-align:center;">
+
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6258569726732185"
+                     data-ad-slot="AUTO"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+
+            </div>
+
         </div>
 
     </div>
 
-</article>
-
-
-<!-- MONETIZATION RECOMMENDATIONS -->
-
-<div class="monetization-section">
-
-    <h2>
-        Recommended Raised Bed Resources
-    </h2>
-
-    <p style="text-align:center;">
-        Once you know how much soil you need, these resources can help you
-        set up and plan your raised garden.
-    </p>
-
-
-    <div class="monetization-grid">
-
-
-        <!-- VEVOR AFFILIATE -->
-
-        <div class="product-card">
-
-            <h3>
-                Raised Garden Beds
-            </h3>
-
-            <p>
-                Looking for a raised garden bed for your growing space?
-                Browse raised garden bed options from VEVOR.
-            </p>
-
-            <a
-                href="https://www.awin1.com/cread.php?awinmid=28831&awinaffid=3036717&ued=https%3A%2F%2Fwww.vevor.com%2Fs%2Fraised-garden-bed"
-                target="_blank"
-                rel="nofollow sponsored noopener"
-                class="product-button">
-
-                Shop Raised Garden Beds
-
-            </a>
-
-        </div>
-
-
-        <!-- SELAR DIGITAL PRODUCT -->
-
-        <div class="product-card">
-
-            <h3>
-                Raised Bed Gardening Resource
-            </h3>
-
-            <p>
-                Explore this digital gardening resource for additional
-                guidance and ideas for raised bed gardening.
-            </p>
-
-            <a
-                href="https://selar.com/1w70q65593"
-                target="_blank"
-                rel="nofollow sponsored noopener"
-                class="product-button">
-
-                View Digital Resource
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <p class="affiliate-note">
-
-        Some links on this page may be affiliate links. If you make a
-        purchase through one of these links, we may earn a commission
-        at no additional cost to you.
-
-    </p>
-
-</div>
-
-
-<article>
 
     <h2>
         How to Calculate Soil for a Raised Garden Bed
@@ -1201,19 +973,9 @@
         <thead>
 
             <tr>
-
-                <th>
-                    Raised Bed Size
-                </th>
-
-                <th>
-                    Soil Depth
-                </th>
-
-                <th>
-                    Base Soil Volume
-                </th>
-
+                <th>Raised Bed Size</th>
+                <th>Soil Depth</th>
+                <th>Base Soil Volume</th>
             </tr>
 
         </thead>
@@ -1221,67 +983,27 @@
         <tbody>
 
             <tr>
-
-                <td>
-                    4 × 4 ft
-                </td>
-
-                <td>
-                    12 in
-                </td>
-
-                <td>
-                    16 cubic feet
-                </td>
-
+                <td>4 × 4 ft</td>
+                <td>12 in</td>
+                <td>16 cubic feet</td>
             </tr>
 
             <tr>
-
-                <td>
-                    4 × 8 ft
-                </td>
-
-                <td>
-                    12 in
-                </td>
-
-                <td>
-                    32 cubic feet
-                </td>
-
+                <td>4 × 8 ft</td>
+                <td>12 in</td>
+                <td>32 cubic feet</td>
             </tr>
 
             <tr>
-
-                <td>
-                    4 × 12 ft
-                </td>
-
-                <td>
-                    12 in
-                </td>
-
-                <td>
-                    48 cubic feet
-                </td>
-
+                <td>4 × 12 ft</td>
+                <td>12 in</td>
+                <td>48 cubic feet</td>
             </tr>
 
             <tr>
-
-                <td>
-                    3 × 6 ft
-                </td>
-
-                <td>
-                    12 in
-                </td>
-
-                <td>
-                    18 cubic feet
-                </td>
-
+                <td>3 × 6 ft</td>
+                <td>12 in</td>
+                <td>18 cubic feet</td>
             </tr>
 
         </tbody>
@@ -1294,7 +1016,6 @@
         <h2>
             Frequently Asked Questions About Raised Bed Soil
         </h2>
-
 
         <h3>
             How much soil do I need for a raised bed?
@@ -1385,8 +1106,6 @@
 </article>
 
 
-<!-- RELATED GUIDES START -->
-
 <div class="related-guides">
 
     <h3>
@@ -1396,49 +1115,33 @@
     <ul style="padding-left:20px;margin-bottom:0;line-height:1.5;">
 
         <li style="margin-bottom:12px;">
-
             <a href="/tools/plant-spacing-calculator">
                 Plant Spacing Calculator
             </a>
-
         </li>
 
         <li style="margin-bottom:12px;">
-
             <a href="/how-often-to-water-cosmos.html">
                 How Often to Water Cosmos
             </a>
-
         </li>
 
         <li style="margin-bottom:12px;">
-
             <a href="/how-often-to-water-new-flower-garden.html">
                 How Often to Water a New Flower Garden
             </a>
-
         </li>
 
     </ul>
 
 </div>
 
-<!-- RELATED GUIDES END -->
 
+<footer style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
 
-<footer style="
-    text-align:center;
-    padding:20px 0;
-    margin-top:40px;
-    font-size:14px;
-">
-
-    <a
-        href="/privacy-policy"
-        style="color:#555;text-decoration:none;">
-
+    <a href="/privacy-policy"
+       style="color:#555;text-decoration:none;">
         Privacy Policy
-
     </a>
 
 </footer>
@@ -1448,7 +1151,6 @@
 
     const bagSizeSelect =
         document.getElementById("bagSize");
-
 
     bagSizeSelect.addEventListener(
         "change",
