@@ -67,16 +67,17 @@
         crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Free Rainwater Collection Calculator</title>
 
-    <meta name="description"
-          content="Use this free rainwater collection calculator to estimate rainwater harvested from your roof. Calculate rainwater catchment, rain capture, liters, gallons, tank capacity, and water supply.">
+    <meta name="description" content="Use this free rainwater collection calculator to estimate rainwater harvested from your roof. Calculate rainwater catchment, rain capture, liters, gallons, tank capacity, and water supply.">
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             font-family: Arial, sans-serif;
@@ -136,7 +137,6 @@
         select {
             width: 100%;
             padding: 10px;
-            box-sizing: border-box;
             border: 1px solid #bbb;
             border-radius: 5px;
             font-size: 16px;
@@ -169,13 +169,13 @@
             color: white;
         }
 
-        .calculate-btn:hover {
-            background-color: #327336;
-        }
-
         .reset-btn {
             background-color: #777;
             color: white;
+        }
+
+        .calculate-btn:hover {
+            background-color: #327536;
         }
 
         .reset-btn:hover {
@@ -241,78 +241,6 @@
             border-radius: 4px;
         }
 
-        /* Affiliate recommendations */
-
-        .affiliate-section {
-            margin: 30px 0 10px;
-            padding: 22px;
-            background: #f7faf7;
-            border: 1px solid #d9e6d7;
-            border-radius: 10px;
-        }
-
-        .affiliate-section h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            text-align: center;
-            color: #3e8e41;
-        }
-
-        .affiliate-intro {
-            text-align: center;
-            color: #555;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .affiliate-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .affiliate-card {
-            background: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 18px;
-            text-align: center;
-        }
-
-        .affiliate-card h4 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #3e8e41;
-            font-size: 18px;
-        }
-
-        .affiliate-card p {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 12px;
-        }
-
-        .affiliate-button {
-            display: inline-block;
-            padding: 11px 18px;
-            background: #3e8e41;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        .affiliate-button:hover {
-            background: #327336;
-        }
-
-        .affiliate-disclosure {
-            font-size: 12px;
-            color: #777;
-            text-align: center;
-            margin: 15px 0 0;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -335,6 +263,118 @@
             margin-top: 30px;
         }
 
+        /* AFFILIATE RECOMMENDATIONS */
+
+        .recommendations {
+            margin: 25px 0 0;
+            padding: 20px;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .recommendations h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .recommendation-item {
+            background: #ffffff;
+            border: 1px solid #e1e1e1;
+            border-radius: 7px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .recommendation-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .recommendation-item strong {
+            display: block;
+            color: #2e7d32;
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .recommendation-item p {
+            margin: 0 0 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .recommendation-link {
+            display: inline-block;
+            background: #3e8e41;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .recommendation-link:hover {
+            background: #2e7d32;
+        }
+
+        .affiliate-note {
+            text-align: center;
+            font-size: 11px;
+            color: #777;
+            margin-top: 12px;
+        }
+
+        /* RELATED TOOLS */
+
+        .related-guides {
+            clear: both;
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #f1f8e9;
+            border-top: 3px solid #4CAF50;
+            border-radius: 8px;
+        }
+
+        .related-guides h3 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            color: #2e7d32;
+            font-size: 20px;
+        }
+
+        .related-guides ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        .related-guides li {
+            margin-bottom: 12px;
+        }
+
+        .related-guides a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #555;
+            text-decoration: none;
+        }
+
         @media (max-width: 600px) {
 
             body {
@@ -349,17 +389,17 @@
                 grid-template-columns: 1fr;
             }
 
-            .affiliate-grid {
-                grid-template-columns: 1fr;
+            .calculator {
+                padding: 15px;
             }
 
-            .affiliate-card {
-                padding: 16px;
+            .recommendations {
+                padding: 15px;
             }
-
         }
 
     </style>
+
 </head>
 
 <body>
@@ -369,99 +409,63 @@
     <h1>Free Rainwater Collection Calculator</h1>
 
     <div class="quick-answer">
-
-        <strong>Estimate how much rainwater you can collect.</strong>
-
-        This free calculator estimates water captured from a single rainfall
-        event, monthly rainfall, or annual rainfall and displays the result
-        in liters, US gallons, Imperial gallons, and cubic meters.
-
+        Estimate how much rainwater you can collect from a roof or other
+        catchment area. This free calculator can estimate water captured from
+        a single rainfall event, monthly rainfall, or annual rainfall and
+        display the result in liters, US gallons, Imperial gallons, and cubic meters.
     </div>
 
+
+    <!-- CALCULATOR -->
 
     <div class="calculator">
 
         <h2>Rainwater Collection Calculator</h2>
 
-
         <h3>Catchment Area</h3>
 
         <div class="input-group">
-
-            <label for="length">
-                Roof / Catchment Length
-            </label>
-
+            <label for="length">Roof / Catchment Length</label>
             <input
                 type="number"
                 id="length"
                 min="0"
                 step="any"
-                placeholder="Example: 50">
-
+                placeholder="Example: 50"
+            >
         </div>
 
-
         <div class="input-group">
-
-            <label for="lengthUnit">
-                Length Unit
-            </label>
+            <label for="lengthUnit">Length Unit</label>
 
             <select id="lengthUnit">
-
-                <option value="ft">
-                    Feet
-                </option>
-
-                <option value="m">
-                    Meters
-                </option>
-
+                <option value="ft">Feet</option>
+                <option value="m">Meters</option>
             </select>
-
         </div>
 
-
         <div class="input-group">
-
-            <label for="width">
-                Roof / Catchment Width
-            </label>
+            <label for="width">Roof / Catchment Width</label>
 
             <input
                 type="number"
                 id="width"
                 min="0"
                 step="any"
-                placeholder="Example: 30">
-
+                placeholder="Example: 30"
+            >
         </div>
 
-
         <div class="input-group">
-
-            <label for="widthUnit">
-                Width Unit
-            </label>
+            <label for="widthUnit">Width Unit</label>
 
             <select id="widthUnit">
-
-                <option value="ft">
-                    Feet
-                </option>
-
-                <option value="m">
-                    Meters
-                </option>
-
+                <option value="ft">Feet</option>
+                <option value="m">Meters</option>
             </select>
-
         </div>
 
-
         <div class="input-group">
-
             <label for="sections">
                 Number of Identical Catchment Areas
             </label>
@@ -471,61 +475,44 @@
                 id="sections"
                 min="1"
                 step="1"
-                value="1">
+                value="1"
+            >
 
             <small>
                 Use this when multiple roof sections have the same dimensions.
             </small>
-
         </div>
 
 
         <h3>Rainfall</h3>
 
-
         <div class="input-group">
-
-            <label for="rainfall">
-                Rainfall Amount
-            </label>
+            <label for="rainfall">Rainfall Amount</label>
 
             <input
                 type="number"
                 id="rainfall"
                 min="0"
                 step="any"
-                placeholder="Example: 25">
+                placeholder="Example: 25"
+            >
 
             <small>
                 Enter the rainfall for one storm, month, season, or year.
             </small>
-
         </div>
 
-
         <div class="input-group">
-
-            <label for="rainfallUnit">
-                Rainfall Unit
-            </label>
+            <label for="rainfallUnit">Rainfall Unit</label>
 
             <select id="rainfallUnit">
-
-                <option value="mm">
-                    Millimeters (mm)
-                </option>
-
-                <option value="in">
-                    Inches
-                </option>
-
+                <option value="mm">Millimeters (mm)</option>
+                <option value="in">Inches</option>
             </select>
-
         </div>
 
 
         <h3>Roof / Catchment Surface</h3>
-
 
         <div class="input-group">
 
@@ -535,8 +522,8 @@
 
             <select
                 id="roofType"
-                onchange="updateCoefficient()">
-
+                onchange="updateCoefficient()"
+            >
                 <option value="0.90">
                     Metal / Corrugated Metal — 0.90
                 </option>
@@ -560,7 +547,6 @@
                 <option value="custom">
                     Custom
                 </option>
-
             </select>
 
         </div>
@@ -578,7 +564,8 @@
                 min="0"
                 max="1"
                 step="0.01"
-                value="0.85">
+                value="0.85"
+            >
 
             <small>
                 Enter a value from 0 to 1. A value of 0.85 means approximately
@@ -589,7 +576,6 @@
 
 
         <h3>Collection Efficiency</h3>
-
 
         <div class="input-group">
 
@@ -603,7 +589,8 @@
                 min="0"
                 max="100"
                 step="any"
-                value="100">
+                value="100"
+            >
 
             <small>
                 Optional. Use this to account for additional gutter, filter,
@@ -614,7 +601,6 @@
 
 
         <h3>Optional Storage Tank</h3>
-
 
         <div class="input-group">
 
@@ -627,7 +613,8 @@
                 id="tankSize"
                 min="0"
                 step="any"
-                placeholder="Example: 5000">
+                placeholder="Example: 5000"
+            >
 
         </div>
 
@@ -659,7 +646,6 @@
 
         <h3>Optional Water Usage</h3>
 
-
         <div class="input-group">
 
             <label for="dailyUse">
@@ -671,7 +657,8 @@
                 id="dailyUse"
                 min="0"
                 step="any"
-                placeholder="Example: 100">
+                placeholder="Example: 100"
+            >
 
             <small>
                 Enter your estimated daily rainwater use.
@@ -704,41 +691,30 @@
         <div class="button-row">
 
             <button
-                type="button"
                 class="calculate-btn"
-                onclick="calculateRainwater()">
-
+                onclick="calculateRainwater()"
+            >
                 Calculate Rainwater
-
             </button>
-
 
             <button
-                type="button"
                 class="reset-btn"
-                onclick="resetCalculator()">
-
+                onclick="resetCalculator()"
+            >
                 Reset
-
             </button>
 
         </div>
 
 
-        <div
-            id="error"
-            class="error">
-        </div>
+        <div id="error" class="error"></div>
 
 
-        <div
-            id="results"
-            class="results">
+        <!-- RESULTS -->
 
-            <h2>
-                Rainwater Collection Results
-            </h2>
+        <div id="results" class="results">
 
+            <h2>Rainwater Collection Results</h2>
 
             <div class="result-main">
 
@@ -756,112 +732,78 @@
             <div class="result-grid">
 
                 <div class="result-box">
-
-                    <span>
-                        Catchment Area
-                    </span>
+                    <span>Catchment Area</span>
 
                     <strong id="areaResult">
                         0 m²
                     </strong>
-
                 </div>
 
 
                 <div class="result-box">
-
-                    <span>
-                        Gross Rainfall Water
-                    </span>
+                    <span>Gross Rainfall Water</span>
 
                     <strong id="grossResult">
                         0 L
                     </strong>
-
                 </div>
 
 
                 <div class="result-box">
-
-                    <span>
-                        US Gallons
-                    </span>
+                    <span>US Gallons</span>
 
                     <strong id="usGallonsResult">
                         0 gal
                     </strong>
-
                 </div>
 
 
                 <div class="result-box">
-
-                    <span>
-                        Imperial Gallons
-                    </span>
+                    <span>Imperial Gallons</span>
 
                     <strong id="imperialGallonsResult">
                         0 gal
                     </strong>
-
                 </div>
 
 
                 <div class="result-box">
-
-                    <span>
-                        Cubic Meters
-                    </span>
+                    <span>Cubic Meters</span>
 
                     <strong id="cubicMetersResult">
                         0 m³
                     </strong>
-
                 </div>
 
 
                 <div class="result-box">
-
-                    <span>
-                        Liters per mm of Rain
-                    </span>
+                    <span>Liters per mm of Rain</span>
 
                     <strong id="litersPerMmResult">
                         0 L
                     </strong>
-
                 </div>
 
 
                 <div class="result-box">
-
-                    <span>
-                        Runoff Coefficient
-                    </span>
+                    <span>Runoff Coefficient</span>
 
                     <strong id="coefficientResult">
                         0
                     </strong>
-
                 </div>
 
 
                 <div class="result-box">
-
-                    <span>
-                        Collection Efficiency
-                    </span>
+                    <span>Collection Efficiency</span>
 
                     <strong id="efficiencyResult">
                         0%
                     </strong>
-
                 </div>
 
 
-                <div
-                    class="result-box"
-                    id="tankResultBox">
+                <div class="result-box" id="tankResultBox">
 
                     <span>
                         Tank Capacity
@@ -874,9 +816,7 @@
                 </div>
 
 
-                <div
-                    class="result-box"
-                    id="tankFillBox">
+                <div class="result-box" id="tankFillBox">
 
                     <span>
                         Potential Tank Fill
@@ -889,9 +829,7 @@
                 </div>
 
 
-                <div
-                    class="result-box"
-                    id="daysSupplyBox">
+                <div class="result-box" id="daysSupplyBox">
 
                     <span>
                         Days of Water Supply
@@ -918,125 +856,84 @@
             </div>
 
 
-            <!-- VEVOR + DIGITAL PRODUCT RECOMMENDATIONS -->
+            <!-- SHORT AFFILIATE RECOMMENDATIONS -->
 
-            <div class="affiliate-section">
+            <div class="recommendations">
 
                 <h3>
-                    Recommended Rainwater Harvesting Resources
+                    Recommended Rainwater Products
                 </h3>
 
-                <p class="affiliate-intro">
-                    Now that you know how much rainwater your catchment area
-                    could collect, here are practical resources that can help
-                    you put that water to use.
-                </p>
 
+                <div class="recommendation-item">
 
-                <div class="affiliate-grid">
+                    <strong>
+                        Rain Barrels & Water Storage
+                    </strong>
 
+                    <p>
+                        Need somewhere to store the rainwater you collect?
+                        Explore rain barrels and water-storage options to help
+                        capture and store more water for your garden and outdoor use.
+                    </p>
 
-                    <!-- VEVOR -->
-
-                    <div class="affiliate-card">
-
-                        <h4>
-                            Capture and Store Your Rainwater
-                        </h4>
-
-                        <p>
-                            Your calculation shows how much water could be
-                            collected from your roof, but having adequate
-                            storage is what allows you to actually make use
-                            of that water.
-                        </p>
-
-                        <p>
-                            A rain barrel can provide a convenient way to
-                            capture and store rainwater that would otherwise
-                            run off your roof. Explore VEVOR's rain barrel
-                            options to find a storage solution for your
-                            rainwater harvesting setup.
-                        </p>
-
-                        <a
-                            class="affiliate-button"
-                            href="https://www.awin1.com/cread.php?awinmid=28831&awinaffid=3036717&ued=https%3A%2F%2Fwww.vevor.com%2Fs%2Frain-barrel"
-                            target="_blank"
-                            rel="nofollow sponsored noopener">
-
-                            Explore VEVOR Rain Barrels
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- SELAR DIGITAL PRODUCT -->
-
-                    <div class="affiliate-card">
-
-                        <h4>
-                            Make More of Your Garden Resources
-                        </h4>
-
-                        <p>
-                            Collecting rainwater is only one part of creating
-                            a well-planned garden. Once you have a potential
-                            water supply, having useful gardening resources
-                            can help you organize your growing activities and
-                            make better use of the resources available to you.
-                        </p>
-
-                        <p>
-                            Explore this gardening digital product for an
-                            additional resource to support your garden
-                            planning and growing.
-                        </p>
-
-                        <a
-                            class="affiliate-button"
-                            href="https://selar.com/c776zp1fnf"
-                            target="_blank"
-                            rel="nofollow sponsored noopener">
-
-                            Explore the Gardening Product
-
-                        </a>
-
-                    </div>
+                    <a
+                        class="recommendation-link"
+                        href="https://www.awin1.com/cread.php?awinmid=28831&awinaffid=3036717&ued=https%3A%2F%2Fwww.vevor.com%2Fs%2Frain-barrel"
+                        target="_blank"
+                        rel="nofollow sponsored noopener"
+                    >
+                        Explore Rain Barrels
+                    </a>
 
                 </div>
 
 
-                <p class="affiliate-disclosure">
+                <div class="recommendation-item">
 
-                    Some links on this page may be affiliate links, which
-                    means The Plant Matrix may earn a commission if you make
-                    a purchase through them, at no additional cost to you.
+                    <strong>
+                        Rainwater & Gardening Resource
+                    </strong>
 
-                </p>
+                    <p>
+                        Looking for practical guidance to make better use of
+                        your rainwater and garden? Check out this useful digital resource.
+                    </p>
+
+                    <a
+                        class="recommendation-link"
+                        href="https://selar.com/c776zp1fnf"
+                        target="_blank"
+                        rel="nofollow sponsored noopener"
+                    >
+                        View Digital Resource
+                    </a>
+
+                </div>
+
+
+                <div class="affiliate-note">
+                    Some links above are affiliate links, which means we may
+                    earn a commission if you make a purchase through them.
+                </div>
 
             </div>
-
-            <!-- END AFFILIATE RECOMMENDATIONS -->
-
 
         </div>
 
     </div>
 
 
+    <!-- INFORMATION -->
+
     <h2>
         How to Use the Rainwater Collection Calculator
     </h2>
-
 
     <p>
         Enter the length and width of the roof or other catchment area.
         You can enter the dimensions in feet or meters.
     </p>
-
 
     <p>
         Enter the amount of rainfall you want to analyze. You can use rainfall
@@ -1044,13 +941,11 @@
         to estimate.
     </p>
 
-
     <p>
         Select the roof material to use a typical runoff coefficient, or choose
         a custom coefficient if you have a more appropriate value for your
         particular collection system.
     </p>
-
 
     <p>
         The basic rainwater harvesting calculation is based on catchment area,
@@ -1063,21 +958,18 @@
         Rainwater Collection Formula
     </h2>
 
-
     <p>
         The calculator estimates collectible water using:
     </p>
 
-
     <div class="quick-answer">
 
         <strong>
-            Collectable Rainwater = Catchment Area × Rainfall × Runoff
-            Coefficient × System Efficiency
+            Collectable Rainwater =
+            Catchment Area × Rainfall × Runoff Coefficient × System Efficiency
         </strong>
 
     </div>
-
 
     <p>
         The runoff coefficient accounts for the portion of rainfall that
@@ -1091,7 +983,6 @@
         Rainwater Collection Units
     </h2>
 
-
     <table>
 
         <thead>
@@ -1103,27 +994,34 @@
 
         </thead>
 
-
         <tbody>
 
             <tr>
                 <td>Liters</td>
-                <td>Total estimated collectible rainwater</td>
+                <td>
+                    Total estimated collectible rainwater
+                </td>
             </tr>
 
             <tr>
                 <td>US Gallons</td>
-                <td>Volume in US gallons</td>
+                <td>
+                    Volume in US gallons
+                </td>
             </tr>
 
             <tr>
                 <td>Imperial Gallons</td>
-                <td>Volume in Imperial gallons</td>
+                <td>
+                    Volume in Imperial gallons
+                </td>
             </tr>
 
             <tr>
                 <td>Cubic Meters</td>
-                <td>Volume in cubic meters</td>
+                <td>
+                    Volume in cubic meters
+                </td>
             </tr>
 
             <tr>
@@ -1142,7 +1040,6 @@
         What Roof Area Should You Use?
     </h2>
 
-
     <p>
         For a basic roof catchment calculation, use the roof's horizontal
         footprint or plan area. This represents the area covered by the roof
@@ -1156,7 +1053,6 @@
         Choosing a Runoff Coefficient
     </h2>
 
-
     <table>
 
         <thead>
@@ -1168,38 +1064,61 @@
 
         </thead>
 
-
         <tbody>
 
             <tr>
-                <td>Metal / Corrugated Metal</td>
-                <td>0.90</td>
+                <td>
+                    Metal / Corrugated Metal
+                </td>
+
+                <td>
+                    0.90
+                </td>
             </tr>
 
             <tr>
-                <td>Concrete / Tile</td>
-                <td>0.85</td>
+                <td>
+                    Concrete / Tile
+                </td>
+
+                <td>
+                    0.85
+                </td>
             </tr>
 
             <tr>
-                <td>Asphalt Shingle</td>
-                <td>0.80</td>
+                <td>
+                    Asphalt Shingle
+                </td>
+
+                <td>
+                    0.80
+                </td>
             </tr>
 
             <tr>
-                <td>Clay / Terracotta Tile</td>
-                <td>0.70</td>
+                <td>
+                    Clay / Terracotta Tile
+                </td>
+
+                <td>
+                    0.70
+                </td>
             </tr>
 
             <tr>
-                <td>Green / Vegetated Roof</td>
-                <td>0.50</td>
+                <td>
+                    Green / Vegetated Roof
+                </td>
+
+                <td>
+                    0.50
+                </td>
             </tr>
 
         </tbody>
 
     </table>
-
 
     <p>
         These are simplified planning values rather than guarantees for a
@@ -1212,7 +1131,6 @@
         Can a Rainwater Tank Hold All the Water?
     </h2>
 
-
     <p>
         Not necessarily. If the estimated rainfall collection exceeds the
         tank's capacity, some water may overflow unless additional storage is
@@ -1220,13 +1138,13 @@
         with the storage available.
     </p>
 
-
     <p>
         Tank sizing should consider rainfall patterns and water demand rather
-        than relying only on one rainfall event. Rainfall variation and demand
-        are important when determining appropriate storage capacity.
+        than relying only on one rainfall event.
     </p>
 
+
+    <!-- FAQS -->
 
     <div class="faqs">
 
@@ -1317,57 +1235,30 @@
 
 <!-- RELATED TOOLS START -->
 
-<div
-    class="related-guides"
-    style="clear:both;display:block;width:100%;max-width:900px;margin:40px auto;padding:25px;background:#f1f8e9;border-top:3px solid #4CAF50;border-radius:8px;box-sizing:border-box;font-family:sans-serif;">
+<div class="related-guides">
 
-    <h3
-        style="margin-top:0;margin-bottom:18px;color:#2e7d32;font-size:20px;">
-
+    <h3>
         Recommended Plant Tools
-
     </h3>
 
+    <ul>
 
-    <ul
-        style="padding-left:20px;margin-bottom:0;line-height:1.5;">
-
-        <li style="margin-bottom:12px;">
-
-            <a
-                href="/tools/plant-spacing-calculator"
-                style="color:#2e7d32;text-decoration:none;font-weight:bold;">
-
+        <li>
+            <a href="/tools/plant-spacing-calculator">
                 Plant Spacing Calculator
-
             </a>
-
         </li>
 
-
-        <li style="margin-bottom:12px;">
-
-            <a
-                href="/tools/raised-bed-garden-soil-calculator"
-                style="color:#2e7d32;text-decoration:none;font-weight:bold;">
-
+        <li>
+            <a href="/tools/raised-bed-garden-soil-calculator">
                 Raised Bed Garden Soil Calculator
-
             </a>
-
         </li>
 
-
-        <li style="margin-bottom:12px;">
-
-            <a
-                href="/tools/lawn-fertilizer-calculator"
-                style="color:#2e7d32;text-decoration:none;font-weight:bold;">
-
+        <li>
+            <a href="/tools/lawn-fertilizer-calculator">
                 Lawn Fertilizer Calculator
-
             </a>
-
         </li>
 
     </ul>
@@ -1377,15 +1268,10 @@
 <!-- RELATED TOOLS END -->
 
 
-<footer
-    style="text-align:center;padding:20px 0;margin-top:40px;font-size:14px;">
+<footer>
 
-    <a
-        href="/privacy-policy"
-        style="color:#555;text-decoration:none;">
-
+    <a href="/privacy-policy">
         Privacy Policy
-
     </a>
 
 </footer>
@@ -1401,11 +1287,9 @@ function updateCoefficient() {
     const coefficient =
         document.getElementById("coefficient");
 
-
     if (roofType !== "custom") {
 
-        coefficient.value =
-            roofType;
+        coefficient.value = roofType;
 
     }
 
@@ -1454,7 +1338,6 @@ function calculateRainwater() {
             document.getElementById("dailyUse").value
         );
 
-
     const lengthUnit =
         document.getElementById("lengthUnit").value;
 
@@ -1478,17 +1361,15 @@ function calculateRainwater() {
         document.getElementById("results");
 
 
-    error.style.display =
-        "none";
+    error.style.display = "none";
 
-    results.style.display =
-        "none";
+    results.style.display = "none";
 
 
     if (
-        !length ||
+        isNaN(length) ||
         length <= 0 ||
-        !width ||
+        isNaN(width) ||
         width <= 0
     ) {
 
@@ -1497,7 +1378,6 @@ function calculateRainwater() {
         );
 
         return;
-
     }
 
 
@@ -1511,18 +1391,19 @@ function calculateRainwater() {
         );
 
         return;
-
     }
 
 
-    if (sections < 1) {
+    if (
+        sections < 1 ||
+        isNaN(sections)
+    ) {
 
         showError(
             "The number of catchment areas must be at least 1."
         );
 
         return;
-
     }
 
 
@@ -1537,7 +1418,6 @@ function calculateRainwater() {
         );
 
         return;
-
     }
 
 
@@ -1552,7 +1432,6 @@ function calculateRainwater() {
         );
 
         return;
-
     }
 
 
@@ -1632,7 +1511,7 @@ function calculateRainwater() {
 
     /*
      * Apply runoff coefficient
-     * and system efficiency.
+     * and collection efficiency.
      */
 
     const collectableLiters =
@@ -1659,8 +1538,8 @@ function calculateRainwater() {
 
 
     /*
-     * Liters captured per 1 mm
-     * of additional rainfall.
+     * Collectable liters per
+     * additional 1 mm of rainfall.
      */
 
     const litersPerMm =
@@ -1670,96 +1549,70 @@ function calculateRainwater() {
 
 
     /*
-     * Display main results.
+     * Display results.
      */
 
-    document.getElementById(
-        "litersResult"
-    ).textContent =
+    document.getElementById("litersResult").textContent =
         formatNumber(
             collectableLiters,
             2
-        ) +
-        " L";
+        ) + " L";
 
 
-    document.getElementById(
-        "areaResult"
-    ).textContent =
+    document.getElementById("areaResult").textContent =
         formatNumber(
             areaM2,
             2
-        ) +
-        " m²";
+        ) + " m²";
 
 
-    document.getElementById(
-        "grossResult"
-    ).textContent =
+    document.getElementById("grossResult").textContent =
         formatNumber(
             grossLiters,
             2
-        ) +
-        " L";
+        ) + " L";
 
 
-    document.getElementById(
-        "usGallonsResult"
-    ).textContent =
+    document.getElementById("usGallonsResult").textContent =
         formatNumber(
             usGallons,
             2
-        ) +
-        " gal";
+        ) + " gal";
 
 
-    document.getElementById(
-        "imperialGallonsResult"
-    ).textContent =
+    document.getElementById("imperialGallonsResult").textContent =
         formatNumber(
             imperialGallons,
             2
-        ) +
-        " gal";
+        ) + " gal";
 
 
-    document.getElementById(
-        "cubicMetersResult"
-    ).textContent =
+    document.getElementById("cubicMetersResult").textContent =
         formatNumber(
             cubicMeters,
             3
-        ) +
-        " m³";
+        ) + " m³";
 
 
-    document.getElementById(
-        "litersPerMmResult"
-    ).textContent =
+    document.getElementById("litersPerMmResult").textContent =
         formatNumber(
             litersPerMm,
             2
-        ) +
-        " L";
+        ) + " L";
 
 
-    document.getElementById(
-        "coefficientResult"
-    ).textContent =
+    document.getElementById("coefficientResult").textContent =
         formatNumber(
             coefficient,
             2
         );
 
 
-    document.getElementById(
-        "efficiencyResult"
-    ).textContent =
+    document.getElementById("efficiencyResult").textContent =
         formatNumber(
             efficiency,
             1
-        ) +
-        "%";
+        ) + "%";
 
 
     /*
@@ -1767,18 +1620,14 @@ function calculateRainwater() {
      */
 
     const tankResultBox =
-        document.getElementById(
-            "tankResultBox"
-        );
+        document.getElementById("tankResultBox");
 
     const tankFillBox =
-        document.getElementById(
-            "tankFillBox"
-        );
+        document.getElementById("tankFillBox");
 
 
     if (
-        tankSize &&
+        !isNaN(tankSize) &&
         tankSize > 0
     ) {
 
@@ -1791,9 +1640,7 @@ function calculateRainwater() {
                 tankSize *
                 3.785411784;
 
-        } else if (
-            tankUnit === "m3"
-        ) {
+        } else if (tankUnit === "m3") {
 
             tankLiters =
                 tankSize *
@@ -1811,28 +1658,21 @@ function calculateRainwater() {
             (
                 collectableLiters /
                 tankLiters
-            ) *
-            100;
+            ) * 100;
 
 
-        document.getElementById(
-            "tankResult"
-        ).textContent =
+        document.getElementById("tankResult").textContent =
             formatNumber(
                 tankLiters,
                 0
-            ) +
-            " L";
+            ) + " L";
 
 
-        document.getElementById(
-            "tankFillResult"
-        ).textContent =
+        document.getElementById("tankFillResult").textContent =
             formatNumber(
                 tankFillPercentage,
                 1
-            ) +
-            "%";
+            ) + "%";
 
 
         tankResultBox.style.display =
@@ -1843,14 +1683,10 @@ function calculateRainwater() {
 
     } else {
 
-        document.getElementById(
-            "tankResult"
-        ).textContent =
+        document.getElementById("tankResult").textContent =
             "—";
 
-        document.getElementById(
-            "tankFillResult"
-        ).textContent =
+        document.getElementById("tankFillResult").textContent =
             "—";
 
     }
@@ -1861,13 +1697,11 @@ function calculateRainwater() {
      */
 
     const daysSupplyBox =
-        document.getElementById(
-            "daysSupplyBox"
-        );
+        document.getElementById("daysSupplyBox");
 
 
     if (
-        dailyUse &&
+        !isNaN(dailyUse) &&
         dailyUse > 0
     ) {
 
@@ -1893,14 +1727,11 @@ function calculateRainwater() {
             dailyLiters;
 
 
-        document.getElementById(
-            "daysSupplyResult"
-        ).textContent =
+        document.getElementById("daysSupplyResult").textContent =
             formatNumber(
                 daysSupply,
                 1
-            ) +
-            " days";
+            ) + " days";
 
 
         daysSupplyBox.style.display =
@@ -1908,17 +1739,23 @@ function calculateRainwater() {
 
     } else {
 
-        document.getElementById(
-            "daysSupplyResult"
-        ).textContent =
+        document.getElementById("daysSupplyResult").textContent =
             "—";
 
     }
 
 
+    /*
+     * Show results.
+     */
+
     results.style.display =
         "block";
 
+
+    /*
+     * Scroll smoothly to results.
+     */
 
     results.scrollIntoView({
         behavior: "smooth",
@@ -1931,9 +1768,7 @@ function calculateRainwater() {
 function showError(message) {
 
     const error =
-        document.getElementById(
-            "error"
-        );
+        document.getElementById("error");
 
     error.textContent =
         message;
@@ -1941,9 +1776,7 @@ function showError(message) {
     error.style.display =
         "block";
 
-    document.getElementById(
-        "results"
-    ).style.display =
+    document.getElementById("results").style.display =
         "none";
 
 }
@@ -1951,84 +1784,52 @@ function showError(message) {
 
 function resetCalculator() {
 
-    document.getElementById(
-        "length"
-    ).value =
+    document.getElementById("length").value =
         "";
 
-    document.getElementById(
-        "width"
-    ).value =
+    document.getElementById("width").value =
         "";
 
-    document.getElementById(
-        "sections"
-    ).value =
+    document.getElementById("sections").value =
         "1";
 
-    document.getElementById(
-        "rainfall"
-    ).value =
+    document.getElementById("rainfall").value =
         "";
 
-    document.getElementById(
-        "rainfallUnit"
-    ).value =
+    document.getElementById("rainfallUnit").value =
         "mm";
 
-    document.getElementById(
-        "lengthUnit"
-    ).value =
+    document.getElementById("lengthUnit").value =
         "ft";
 
-    document.getElementById(
-        "widthUnit"
-    ).value =
+    document.getElementById("widthUnit").value =
         "ft";
 
-    document.getElementById(
-        "roofType"
-    ).value =
+    document.getElementById("roofType").value =
         "0.85";
 
-    document.getElementById(
-        "coefficient"
-    ).value =
+    document.getElementById("coefficient").value =
         "0.85";
 
-    document.getElementById(
-        "efficiency"
-    ).value =
+    document.getElementById("efficiency").value =
         "100";
 
-    document.getElementById(
-        "tankSize"
-    ).value =
+    document.getElementById("tankSize").value =
         "";
 
-    document.getElementById(
-        "tankUnit"
-    ).value =
+    document.getElementById("tankUnit").value =
         "L";
 
-    document.getElementById(
-        "dailyUse"
-    ).value =
+    document.getElementById("dailyUse").value =
         "";
 
-    document.getElementById(
-        "dailyUnit"
-    ).value =
+    document.getElementById("dailyUnit").value =
         "L";
 
-    document.getElementById(
-        "error"
-    ).style.display =
+    document.getElementById("error").style.display =
         "none";
 
-    document.getElementById(
-        "results"
-    ).style.display =
+    document.getElementById("results").style.display =
         "none";
 
 }
@@ -2042,11 +1843,8 @@ function formatNumber(
     return Number(number).toLocaleString(
         undefined,
         {
-            minimumFractionDigits:
-                decimals,
-
-            maximumFractionDigits:
-                decimals
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals
         }
     );
 
