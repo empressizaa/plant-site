@@ -323,6 +323,59 @@
             margin: 20px 0;
         }
 
+        /* MONETIZATION */
+
+        .monetization-section {
+            margin-top: 25px;
+            padding: 22px;
+            background: #f1f8e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 10px;
+        }
+
+        .monetization-section h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+
+        .offer-card {
+            background: #ffffff;
+            border: 1px solid #d8e8d5;
+            border-radius: 9px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        .offer-card h4 {
+            margin: 0 0 8px;
+            color: #2e7d32;
+            font-size: 18px;
+        }
+
+        .offer-card p {
+            margin: 8px 0 14px;
+        }
+
+        .offer-button {
+            display: inline-block;
+            padding: 11px 18px;
+            border-radius: 6px;
+            background: #3e8e41;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: bold;
+        }
+
+        .offer-button:hover {
+            background: #327336;
+        }
+
+        .affiliate-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 18px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -432,7 +485,6 @@
     <div class="calculator">
 
         <h2>Raised Bed Garden Soil Calculator</h2>
-
 
         <h3>Raised Bed Dimensions</h3>
 
@@ -958,6 +1010,86 @@
                 enough material for topping up the bed later.
 
             </div>
+
+
+            <!-- MONETIZATION OFFERS -->
+
+            <div class="monetization-section">
+
+                <h3>
+                    Ready for Your Raised Bed Project?
+                </h3>
+
+                <p>
+                    Now that you know how much soil you need, you can choose
+                    a raised garden bed that fits your space and project.
+                </p>
+
+
+                <div class="offer-card">
+
+                    <h4>
+                        🪴 Shop Raised Garden Beds
+                    </h4>
+
+                    <p>
+                        Looking for a raised bed for your garden? Browse
+                        different sizes and styles of raised garden beds
+                        and choose one that fits your project.
+                    </p>
+
+                    <a
+                        href="https://www.awin1.com/cread.php?awinmid=28831&awinaffid=3036717&ued=https%3A%2F%2Fwww.vevor.com%2Fs%2Fraised-garden-bed"
+                        target="_blank"
+                        rel="nofollow sponsored noopener"
+                        class="offer-button">
+
+                        View Raised Garden Beds
+
+                    </a>
+
+                </div>
+
+
+                <div class="offer-card">
+
+                    <h4>
+                        📘 Get the Raised Bed Gardening Planner
+                    </h4>
+
+                    <p>
+                        Want help planning your raised bed? Get the complete
+                        Raised Bed Gardening Planner for practical planning,
+                        soil preparation, planting organization, and keeping
+                        your garden project on track.
+                    </p>
+
+                    <p>
+                        <strong>$3.99</strong>
+                    </p>
+
+                    <a
+                        href="https://selar.com/1w70q65593"
+                        target="_blank"
+                        rel="noopener"
+                        class="offer-button">
+
+                        Get the Raised Bed Planner
+
+                    </a>
+
+                </div>
+
+
+                <p class="affiliate-note">
+                    Disclosure: The raised garden bed link above is an
+                    affiliate link. If you make a purchase through it,
+                    we may earn a commission at no additional cost to you.
+                </p>
+
+            </div>
+
+            <!-- MONETIZATION OFFERS END -->
 
         </div>
 
@@ -1509,10 +1641,6 @@
             );
 
 
-        /*
-         * Base soil volume
-         */
-
         const baseVolume =
             lengthFeet *
             widthFeet *
@@ -1541,10 +1669,6 @@
             totalVolume *
             28.316846592;
 
-
-        /*
-         * Soil bag calculation
-         */
 
         let bagSize;
 
@@ -1594,10 +1718,6 @@
             );
 
 
-        /*
-         * Optional soil mix
-         */
-
         const topsoil =
             Number(
                 document.getElementById(
@@ -1626,10 +1746,6 @@
                 ).value
             ) || 0;
 
-
-        /*
-         * Main results
-         */
 
         document.getElementById(
             "mainResult"
@@ -1661,13 +1777,6 @@
         ).textContent =
             bags;
 
-
-        /*
-         * Soil mix results.
-         *
-         * Any percentages entered are calculated.
-         * They do NOT need to equal 100%.
-         */
 
         const mixTotal =
             topsoil +
