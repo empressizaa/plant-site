@@ -133,7 +133,7 @@ jobs:
                   | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1'
               )"
 
-              printf '    <li><a href="/%s">%s</a></li>\n' \
+              printf '    <li><a href="/%s"><h1>%s</h1></a></li>\n' \
                 "${FILE%.html}" "$TITLE" >> links.tmp
             fi
           done
