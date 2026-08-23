@@ -126,12 +126,10 @@ jobs:
             if [[ "$RELATIVE_PATH" != */* ]]; then
               FILE="$(basename "$file")"
 
-              TITLE="$(
-                echo "$FILE" \
-                  | sed 's/\.html$//' \
-                  | sed 's/-/ /g' \
-                  | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1'
-              )
+              TITLE=$(echo "$FILE" \
+                | sed 's/\.html$//' \
+                | sed 's/-/ /g' \
+                | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1')
 
               printf '    <li><a href="/%s">%s</a></li>\n' \
                 "${FILE%.html}" "$TITLE" >> links.tmp
