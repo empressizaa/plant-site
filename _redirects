@@ -1,0 +1,8 @@
+# 1. TECHNICAL CLEANUP: Strip legacy extensions with a hard HTTP 301 Redirect
+/*.html /:splat 301
+
+# 2. DUPLICATE CONTENT FIX: Group thin plant variations into Master Guides
+/how-often-to-water-ficus-* /how-often-to-water-ficus 301
+/how-often-to-water-*-succulents /how-often-and-how-much-to-water-succulents 301
+/how-often-to-water-*-grass /how-often-to-water-your-grass 301
+/how-often-to-water-tomato-* /when-and-how-often-to-water-tomato-plants 301
