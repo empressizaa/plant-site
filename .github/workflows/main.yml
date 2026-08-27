@@ -27,10 +27,60 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+      # --- TASK 0: REMOVE OLD ARTICLE PAGES ---
+      # Delete every HTML article except the approved calculators and homepage.
+      - name: Remove old article HTML files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PROTECTED_FILES=(
+            "index.html"
+            "lawn-fertilizer-calculator.html"
+            "plant-population-density-calculator.html"
+            "plant-spacing-calculator.html"
+            "rainwater-collection-calculator.html"
+            "raised-bed-garden-soil-calculator.html"
+          )
+
+          is_protected() {
+            local file="$1"
+
+            for protected in "${PROTECTED_FILES[@]}"; do
+              if [[ "$file" == "./$protected" ]]; then
+                return 0
+              fi
+            done
+
+            return 1
+          }
+
+          while IFS= read -r file; do
+            if is_protected "$file"; then
+              echo "KEEP: $file"
+            else
+              echo "DELETE: $file"
+              rm -f "$file"
+            fi
+          done < <(
+            find . \
+              -type f \
+              -name "*.html" \
+              ! -path "./.git/*" \
+              | sort
+          )
+
+          echo ""
+          echo "Verifying protected files..."
+
+          for protected in "${PROTECTED_FILES[@]}"; do
+            if [[ -f "$protected" ]]; then
+              echo "KEEP: $protected"
+            else
+              echo "ERROR: Protected file missing: $protected"
+              exit 1
+            fi
+          done
 
       # --- TASK 1: CANONICAL PATCH ---
       - name: Run Auto-Canonical Script
@@ -181,7 +231,7 @@ jobs:
           git add -A
 
           if ! git diff --cached --quiet; then
-            git commit -m "Automated build: updates to sitemap, homepage, links, and rss feed [skip ci]"
+            git commit -m "Cleanup old article pages and rebuild site [skip ci]"
             git pull origin main --rebase
             git push origin main
           else
