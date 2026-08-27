@@ -1,9 +1,7 @@
 name: Plant Matrix Unified Site Updates
-
 concurrency:
   group: plant-matrix-site-updates
   cancel-in-progress: false
-
 on:
   push:
     branches:
@@ -13,27 +11,44 @@ on:
       - index.html
       - feed.xml
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   update-site:
     runs-on: ubuntu-latest
-
     steps:
+      # ============================================================
+      # 1. CHECKOUT
+      # ============================================================
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      # --- TASK 0: REMOVE OLD ARTICLE PAGES ---
-      # Delete every HTML article except the approved calculators and homepage.
+      # ============================================================
+      # 2. SETUP PYTHON
+      # ============================================================
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      # ============================================================
+      # 3. REMOVE OLD ARTICLE HTML FILES
+      #
+      # KEEP ONLY:
+      #   index.html
+      #   lawn-fertilizer-calculator.html
+      #   plant-population-density-calculator.html
+      #   plant-spacing-calculator.html
+      #   rainwater-collection-calculator.html
+      #   raised-bed-garden-soil-calculator.html
+      #
+      # The five calculators may be inside /tools/.
+      # ============================================================
       - name: Remove old article HTML files
         shell: bash
         run: |
           set -euo pipefail
-
+          echo "Starting old article cleanup..."
           PROTECTED_FILES=(
             "index.html"
             "lawn-fertilizer-calculator.html"
@@ -42,47 +57,35 @@ jobs:
             "rainwater-collection-calculator.html"
             "raised-bed-garden-soil-calculator.html"
           )
-
-          is_protected() {
-            local file="$1"
-
-            for protected in "${PROTECTED_FILES[@]}"; do
-              if [[ "$file" == "./$protected" ]]; then
-                return 0
-              fi
-            done
-
-            return 1
-          }
-
-          while IFS= read -r file; do
-            if is_protected "$file"; then
-              echo "KEEP: $file"
-            else
-              echo "DELETE: $file"
-              rm -f "$file"
-            fi
-          done < <(
-            find . \
-              -type f \
-              -name "*.html" \
-              ! -path "./.git/*" \
-              | sort
-          )
-
+          # Delete every HTML file except index.html and protected calculators.
+          find . -type f -name "*.html" \
+            ! -path "./.git/*" \
+            ! -name "index.html" \
+            ! -name "lawn-fertilizer-calculator.html" \
+            ! -name "plant-population-density-calculator.html" \
+            ! -name "plant-spacing-calculator.html" \
+            ! -name "rainwater-collection-calculator.html" \
+            ! -name "raised-bed-garden-soil-calculator.html" \
+            -print -delete
           echo ""
           echo "Verifying protected files..."
-
-          for protected in "${PROTECTED_FILES[@]}"; do
-            if [[ -f "$protected" ]]; then
-              echo "KEEP: $protected"
+          # Check protected files wherever they exist in the repository.
+          for filename in "${PROTECTED_FILES[@]}"; do
+            if find . -type f -name "$filename" \
+              ! -path "./.git/*" | grep -q .; then
+              echo "KEEP: $filename"
             else
-              echo "ERROR: Protected file missing: $protected"
-              exit 1
+              echo "WARNING: Protected file not found: $filename"
             fi
           done
-
-      # --- TASK 1: CANONICAL PATCH ---
+          echo ""
+          echo "Remaining HTML files:"
+          find . -type f -name "*.html" \
+            ! -path "./.git/*" \
+            -print | sort
+      # ============================================================
+      # 4. CANONICAL PATCH
+      # ============================================================
       - name: Run Auto-Canonical Script
         run: |
           if [ -f auto_canonical.py ]; then
@@ -90,8 +93,9 @@ jobs:
           else
             echo "auto_canonical.py not found, skipping."
           fi
-
-      # --- TASK 2: AUTO LINK BUILDER & CLEANER ---
+      # ============================================================
+      # 5. AUTO LINK BUILDER & CLEANER
+      # ============================================================
       - name: Execute Link Rebuilder
         run: |
           if [ -f auto_linker.py ]; then
@@ -99,49 +103,14 @@ jobs:
           else
             echo "auto_linker.py not found, skipping."
           fi
-
-      # --- TASK 3: ADSENSE ARCHITECTURE ---
-      - name: Add Google AdSense code to HTML pages
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6258569726732185" crossorigin="anonymous"></script>'
-          PUBLISHER_ID = "ca-pub-6258569726732185"
-
-          for file in Path(".").rglob("*.html"):
-              if ".git" in file.parts:
-                  continue
-
-              content = file.read_text(encoding="utf-8")
-
-              if PUBLISHER_ID in content:
-                  print(f"AdSense already present: {file}")
-                  continue
-
-              if "<head>" not in content:
-                  print(f"Skipped: {file} — no <head> tag found")
-                  continue
-
-              content = content.replace(
-                  "<head>",
-                  "<head>\n    " + ADSENSE_CODE,
-                  1
-              )
-
-              file.write_text(content, encoding="utf-8")
-              print(f"Added AdSense code: {file}")
-          PY
-
-      # --- TASK 4: SITEMAP & HOMEPAGE UPDATE ---
+      # ============================================================
+      # 6. GENERATE SITEMAP AND HOMEPAGE
+      # ============================================================
       - name: Generate sitemap and homepage
         shell: bash
         run: |
           set -euo pipefail
-
           TODAY="$(date -u +'%Y-%m-%d')"
-
           {
             printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>'
             printf '%s\n' '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -152,10 +121,8 @@ jobs:
             printf '%s\n' '    <priority>1.0</priority>'
             printf '%s\n' '  </url>'
           } > sitemap.xml
-
           rm -f links.tmp
           touch links.tmp
-
           find . -type f -name "*.html" \
             ! -name "index.html" \
             ! -path "./.git/*" | sort | while IFS= read -r file
@@ -163,7 +130,6 @@ jobs:
             RELATIVE_PATH="${file#./}"
             URL_PATH="${RELATIVE_PATH%.html}"
             LASTMOD="$(date -u -r "$file" +'%Y-%m-%d')"
-
             {
               printf '%s\n' '  <url>'
               printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "$URL_PATH"
@@ -172,45 +138,48 @@ jobs:
               printf '%s\n' '    <priority>0.8</priority>'
               printf '%s\n' '  </url>'
             } >> sitemap.xml
-
+            # Add root-level HTML pages to homepage article/tool list.
             if [[ "$RELATIVE_PATH" != */* ]]; then
               FILE="$(basename "$file")"
-
               TITLE=$(echo "$FILE" \
                 | sed 's/\.html$//' \
                 | sed 's/-/ /g' \
-                | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1')
-
+                | awk '{
+                    for(i=1;i<=NF;i++)
+                      $i=toupper(substr($i,1,1)) substr($i,2)
+                  }1')
               printf '    <li><a href="/%s">%s</a></li>\n' \
                 "${FILE%.html}" "$TITLE" >> links.tmp
             fi
           done
-
           printf '%s\n' '</urlset>' >> sitemap.xml
-
-          awk '
-          /<!-- START_ARTICLE_LIST -->/ {
-              print
-              while ((getline line < "links.tmp") > 0)
-                  print line
-              close("links.tmp")
-              skip=1
-              next
-          }
-
-          /<!-- END_ARTICLE_LIST -->/ {
-              skip=0
-              print
-              next
-          }
-
-          !skip
-          ' index.html > index.new
-
-          mv index.new index.html
+          # Rebuild homepage article/tool list.
+          if [ -f index.html ]; then
+            awk '
+            /<!-- START_ARTICLE_LIST -->/ {
+                print
+                while ((getline line < "links.tmp") > 0)
+                    print line
+                close("links.tmp")
+                skip=1
+                next
+            }
+            /<!-- END_ARTICLE_LIST -->/ {
+                skip=0
+                print
+                next
+            }
+            !skip
+            ' index.html > index.new
+            mv index.new index.html
+          else
+            echo "ERROR: index.html is missing."
+            exit 1
+          fi
           rm -f links.tmp
-
-      # --- TASK 5: AUTO GENERATE RSS FEED ---
+      # ============================================================
+      # 7. RSS FEED
+      # ============================================================
       - name: Run Feed Builder
         run: |
           if [ -f "generate_feed .py" ]; then
@@ -220,20 +189,20 @@ jobs:
           else
             echo "RSS script not found, skipping."
           fi
-
-      # --- FINAL STEP: COMBINED COMMIT AND PUSH ---
+      # ============================================================
+      # 8. COMMIT AND PUSH EVERYTHING TO MAIN
+      # ============================================================
       - name: Commit and Push Changes Safely
         shell: bash
         run: |
+          set -euo pipefail
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-
           git add -A
-
           if ! git diff --cached --quiet; then
-            git commit -m "Cleanup old article pages and rebuild site [skip ci]"
+            git commit -m "Clean old articles and rebuild site"
             git pull origin main --rebase
             git push origin main
           else
-            echo "No site or asset changes detected. Skipping push."
+            echo "No site changes detected. Skipping push."
           fi
