@@ -2,7 +2,7 @@ name: Plant Matrix Unified Site Updates
 concurrency:
   group: plant-matrix-site-updates
   cancel-in-progress: false
-on:
+"on":
   push:
     branches:
       - main
@@ -17,75 +17,42 @@ jobs:
   update-site:
     runs-on: ubuntu-latest
     steps:
-      # ============================================================
-      # 1. CHECKOUT
-      # ============================================================
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      # ============================================================
-      # 2. SETUP PYTHON
-      # ============================================================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-      # ============================================================
-      # 3. REMOVE OLD ARTICLE HTML FILES
-      #
-      # KEEP ONLY:
-      #   index.html
-      #   lawn-fertilizer-calculator.html
-      #   plant-population-density-calculator.html
-      #   plant-spacing-calculator.html
-      #   rainwater-collection-calculator.html
-      #   raised-bed-garden-soil-calculator.html
-      #
-      # The five calculators may be inside /tools/.
-      # ============================================================
+          python-version: "3.10"
+      # ----------------------------------------------------------
+      # DELETE OLD ARTICLE HTML FILES
+      # ----------------------------------------------------------
       - name: Remove old article HTML files
         shell: bash
         run: |
           set -euo pipefail
-          echo "Starting old article cleanup..."
-          PROTECTED_FILES=(
-            "index.html"
-            "lawn-fertilizer-calculator.html"
-            "plant-population-density-calculator.html"
-            "plant-spacing-calculator.html"
-            "rainwater-collection-calculator.html"
-            "raised-bed-garden-soil-calculator.html"
-          )
-          # Delete every HTML file except index.html and protected calculators.
+          echo "Removing old article HTML files..."
           find . -type f -name "*.html" \
             ! -path "./.git/*" \
             ! -name "index.html" \
-            ! -name "lawn-fertilizer-calculator.html" \
-            ! -name "plant-population-density-calculator.html" \
-            ! -name "plant-spacing-calculator.html" \
-            ! -name "rainwater-collection-calculator.html" \
-            ! -name "raised-bed-garden-soil-calculator.html" \
+            ! -path "./tools/lawn-fertilizer-calculator.html" \
+            ! -path "./tools/plant-population-density-calculator.html" \
+            ! -path "./tools/plant-spacing-calculator.html" \
+            ! -path "./tools/rainwater-collection-calculator.html" \
+            ! -path "./tools/raised-bed-garden-soil-calculator.html" \
             -print -delete
           echo ""
-          echo "Verifying protected files..."
-          # Check protected files wherever they exist in the repository.
-          for filename in "${PROTECTED_FILES[@]}"; do
-            if find . -type f -name "$filename" \
-              ! -path "./.git/*" | grep -q .; then
-              echo "KEEP: $filename"
-            else
-              echo "WARNING: Protected file not found: $filename"
-            fi
-          done
-          echo ""
-          echo "Remaining HTML files:"
-          find . -type f -name "*.html" \
-            ! -path "./.git/*" \
-            -print | sort
-      # ============================================================
-      # 4. CANONICAL PATCH
-      # ============================================================
+          echo "Protected files:"
+          echo "KEEP: index.html"
+          echo "KEEP: tools/lawn-fertilizer-calculator.html"
+          echo "KEEP: tools/plant-population-density-calculator.html"
+          echo "KEEP: tools/plant-spacing-calculator.html"
+          echo "KEEP: tools/rainwater-collection-calculator.html"
+          echo "KEEP: tools/raised-bed-garden-soil-calculator.html"
+      # ----------------------------------------------------------
+      # CANONICAL PATCH
+      # ----------------------------------------------------------
       - name: Run Auto-Canonical Script
         run: |
           if [ -f auto_canonical.py ]; then
@@ -93,9 +60,9 @@ jobs:
           else
             echo "auto_canonical.py not found, skipping."
           fi
-      # ============================================================
-      # 5. AUTO LINK BUILDER & CLEANER
-      # ============================================================
+      # ----------------------------------------------------------
+      # AUTO LINK BUILDER
+      # ----------------------------------------------------------
       - name: Execute Link Rebuilder
         run: |
           if [ -f auto_linker.py ]; then
@@ -103,83 +70,87 @@ jobs:
           else
             echo "auto_linker.py not found, skipping."
           fi
-      # ============================================================
-      # 6. GENERATE SITEMAP AND HOMEPAGE
-      # ============================================================
-      - name: Generate sitemap and homepage
+      # ----------------------------------------------------------
+      # GENERATE SITEMAP
+      # ----------------------------------------------------------
+      - name: Generate sitemap
         shell: bash
         run: |
           set -euo pipefail
           TODAY="$(date -u +'%Y-%m-%d')"
-          {
-            printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>'
-            printf '%s\n' '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-            printf '%s\n' '  <url>'
-            printf '%s\n' '    <loc>https://theplantmatrix.com/</loc>'
-            printf '    <lastmod>%s</lastmod>\n' "$TODAY"
-            printf '%s\n' '    <changefreq>daily</changefreq>'
-            printf '%s\n' '    <priority>1.0</priority>'
-            printf '%s\n' '  </url>'
-          } > sitemap.xml
-          rm -f links.tmp
-          touch links.tmp
-          find . -type f -name "*.html" \
-            ! -name "index.html" \
-            ! -path "./.git/*" | sort | while IFS= read -r file
+          printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          printf '%s\n' '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+          # Homepage
+          printf '%s\n' '  <url>' >> sitemap.xml
+          printf '%s\n' '    <loc>https://theplantmatrix.com/</loc>' >> sitemap.xml
+          printf '    <lastmod>%s</lastmod>\n' "$TODAY" >> sitemap.xml
+          printf '%s\n' '    <changefreq>daily</changefreq>' >> sitemap.xml
+          printf '%s\n' '    <priority>1.0</priority>' >> sitemap.xml
+          printf '%s\n' '  </url>' >> sitemap.xml
+          # Five calculators
+          for file in \
+            tools/lawn-fertilizer-calculator.html \
+            tools/plant-population-density-calculator.html \
+            tools/plant-spacing-calculator.html \
+            tools/rainwater-collection-calculator.html \
+            tools/raised-bed-garden-soil-calculator.html
           do
-            RELATIVE_PATH="${file#./}"
-            URL_PATH="${RELATIVE_PATH%.html}"
-            LASTMOD="$(date -u -r "$file" +'%Y-%m-%d')"
-            {
-              printf '%s\n' '  <url>'
-              printf '    <loc>https://theplantmatrix.com/%s</loc>\n' "$URL_PATH"
-              printf '    <lastmod>%s</lastmod>\n' "$LASTMOD"
-              printf '%s\n' '    <changefreq>monthly</changefreq>'
-              printf '%s\n' '    <priority>0.8</priority>'
-              printf '%s\n' '  </url>'
-            } >> sitemap.xml
-            # Add root-level HTML pages to homepage article/tool list.
-            if [[ "$RELATIVE_PATH" != */* ]]; then
-              FILE="$(basename "$file")"
-              TITLE=$(echo "$FILE" \
-                | sed 's/\.html$//' \
-                | sed 's/-/ /g' \
-                | awk '{
-                    for(i=1;i<=NF;i++)
-                      $i=toupper(substr($i,1,1)) substr($i,2)
-                  }1')
-              printf '    <li><a href="/%s">%s</a></li>\n' \
-                "${FILE%.html}" "$TITLE" >> links.tmp
+            if [ -f "$file" ]; then
+              NAME="${file#tools/}"
+              NAME="${NAME%.html}"
+              LASTMOD="$(date -u -r "$file" +'%Y-%m-%d')"
+              printf '%s\n' '  <url>' >> sitemap.xml
+              printf '    <loc>https://theplantmatrix.com/tools/%s</loc>\n' "$NAME" >> sitemap.xml
+              printf '    <lastmod>%s</lastmod>\n' "$LASTMOD" >> sitemap.xml
+              printf '%s\n' '    <changefreq>monthly</changefreq>' >> sitemap.xml
+              printf '%s\n' '    <priority>0.9</priority>' >> sitemap.xml
+              printf '%s\n' '  </url>' >> sitemap.xml
             fi
           done
           printf '%s\n' '</urlset>' >> sitemap.xml
-          # Rebuild homepage article/tool list.
-          if [ -f index.html ]; then
-            awk '
-            /<!-- START_ARTICLE_LIST -->/ {
-                print
-                while ((getline line < "links.tmp") > 0)
-                    print line
-                close("links.tmp")
-                skip=1
-                next
-            }
-            /<!-- END_ARTICLE_LIST -->/ {
-                skip=0
-                print
-                next
-            }
-            !skip
-            ' index.html > index.new
-            mv index.new index.html
-          else
+          echo "Sitemap generated successfully."
+      # ----------------------------------------------------------
+      # REBUILD HOMEPAGE
+      # ONLY THE FIVE TOOLS REMAIN IN THE LIST
+      # ----------------------------------------------------------
+      - name: Rebuild homepage tool list
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f index.html ]; then
             echo "ERROR: index.html is missing."
             exit 1
           fi
-          rm -f links.tmp
-      # ============================================================
-      # 7. RSS FEED
-      # ============================================================
+          cat > tools.tmp <<'EOF'
+    <li><a href="/tools/lawn-fertilizer-calculator">Lawn Fertilizer Calculator</a></li>
+    <li><a href="/tools/plant-population-density-calculator">Plant Population Density Calculator</a></li>
+    <li><a href="/tools/plant-spacing-calculator">Plant Spacing Calculator</a></li>
+    <li><a href="/tools/rainwater-collection-calculator">Rainwater Collection Calculator</a></li>
+    <li><a href="/tools/raised-bed-garden-soil-calculator">Raised Bed Garden Soil Calculator</a></li>
+          EOF
+          awk '
+          /<!-- START_ARTICLE_LIST -->/ {
+              print
+              while ((getline line < "tools.tmp") > 0)
+                  print line
+              close("tools.tmp")
+              skip=1
+              next
+          }
+          /<!-- END_ARTICLE_LIST -->/ {
+              skip=0
+              print
+              next
+          }
+          !skip
+          ' index.html > index.new
+          mv index.new index.html
+          rm -f tools.tmp
+          echo "Homepage rebuilt successfully."
+          echo "Only the five calculators are listed."
+      # ----------------------------------------------------------
+      # RSS FEED
+      # ----------------------------------------------------------
       - name: Run Feed Builder
         run: |
           if [ -f "generate_feed .py" ]; then
@@ -189,9 +160,50 @@ jobs:
           else
             echo "RSS script not found, skipping."
           fi
-      # ============================================================
-      # 8. COMMIT AND PUSH EVERYTHING TO MAIN
-      # ============================================================
+      # ----------------------------------------------------------
+      # FINAL VERIFICATION
+      # ----------------------------------------------------------
+      - name: Verify final site
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "=========================================="
+          echo "FINAL SITE VERIFICATION"
+          echo "=========================================="
+          if [ ! -f index.html ]; then
+            echo "ERROR: index.html is missing."
+            exit 1
+          fi
+          echo "KEEP: index.html"
+          for file in \
+            tools/lawn-fertilizer-calculator.html \
+            tools/plant-population-density-calculator.html \
+            tools/plant-spacing-calculator.html \
+            tools/rainwater-collection-calculator.html \
+            tools/raised-bed-garden-soil-calculator.html
+          do
+            if [ -f "$file" ]; then
+              echo "KEEP: $file"
+            else
+              echo "WARNING: $file is missing."
+            fi
+          done
+          echo ""
+          echo "Remaining HTML files:"
+          find . -type f -name "*.html" \
+            ! -path "./.git/*" \
+            -print | sort
+          echo ""
+          echo "Checking homepage tool links..."
+          grep -q '/tools/lawn-fertilizer-calculator' index.html
+          grep -q '/tools/plant-population-density-calculator' index.html
+          grep -q '/tools/plant-spacing-calculator' index.html
+          grep -q '/tools/rainwater-collection-calculator' index.html
+          grep -q '/tools/raised-bed-garden-soil-calculator' index.html
+          echo "All five calculator links found on homepage."
+      # ----------------------------------------------------------
+      # COMMIT AND PUSH TO MAIN
+      # ----------------------------------------------------------
       - name: Commit and Push Changes Safely
         shell: bash
         run: |
@@ -204,5 +216,5 @@ jobs:
             git pull origin main --rebase
             git push origin main
           else
-            echo "No site changes detected. Skipping push."
+            echo "No changes detected. Nothing to push."
           fi
