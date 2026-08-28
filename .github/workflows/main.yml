@@ -24,7 +24,7 @@ jobs:
     steps:
 
       # --------------------------------------------------
-      # 1. CHECKOUT
+      # 1. CHECKOUT REPOSITORY
       # --------------------------------------------------
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -40,29 +40,85 @@ jobs:
           python-version: "3.10"
 
       # --------------------------------------------------
-      # 3. REMOVE ALL OLD HTML FILES
-      #    KEEP ONLY:
-      #    - index.html
-      #    - 5 calculator/tool pages
+      # 3. MOVE CALCULATORS FROM /tools/ TO ROOT
+      # --------------------------------------------------
+      - name: Move Calculators To Root
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p tools
+
+          move_if_needed() {
+            SOURCE="$1"
+            DESTINATION="$2"
+
+            if [ -f "$SOURCE" ]; then
+              if [ -f "$DESTINATION" ]; then
+                echo "Root file already exists:"
+                echo "  $DESTINATION"
+                echo "Removing duplicate tools version:"
+                echo "  $SOURCE"
+                rm -f "$SOURCE"
+              else
+                echo "Moving:"
+                echo "  $SOURCE"
+                echo "to:"
+                echo "  $DESTINATION"
+                mv "$SOURCE" "$DESTINATION"
+              fi
+            else
+              echo "Not found, skipping:"
+              echo "  $SOURCE"
+            fi
+          }
+
+          move_if_needed \
+            "tools/lawn-fertilizer-calculator.html" \
+            "lawn-fertilizer-calculator.html"
+
+          move_if_needed \
+            "tools/plant-population-density-calculator.html" \
+            "plant-population-density-calculator.html"
+
+          move_if_needed \
+            "tools/plant-spacing-calculator.html" \
+            "plant-spacing-calculator.html"
+
+          move_if_needed \
+            "tools/rainwater-collection-calculator.html" \
+            "rainwater-collection-calculator.html"
+
+          move_if_needed \
+            "tools/raised-bed-garden-soil-calculator.html" \
+            "raised-bed-garden-soil-calculator.html"
+
+          echo ""
+          echo "Calculator move completed."
+
+      # --------------------------------------------------
+      # 4. DELETE ALL OLD HTML FILES
+      #    KEEP ONLY INDEX + 5 ROOT CALCULATORS
       # --------------------------------------------------
       - name: Remove Old Article HTML Files
         shell: bash
         run: |
           set -euo pipefail
 
-          echo "Removing old HTML pages..."
-
           python - <<'PY'
           from pathlib import Path
 
           protected = {
               Path("index.html"),
-              Path("tools/lawn-fertilizer-calculator.html"),
-              Path("tools/plant-population-density-calculator.html"),
-              Path("tools/plant-spacing-calculator.html"),
-              Path("tools/rainwater-collection-calculator.html"),
-              Path("tools/raised-bed-garden-soil-calculator.html"),
+              Path("lawn-fertilizer-calculator.html"),
+              Path("plant-population-density-calculator.html"),
+              Path("plant-spacing-calculator.html"),
+              Path("rainwater-collection-calculator.html"),
+              Path("raised-bed-garden-soil-calculator.html"),
           }
+
+          print("Checking HTML files...")
+          print("")
 
           for file in Path(".").rglob("*.html"):
               if ".git" in file.parts:
@@ -90,11 +146,11 @@ jobs:
               raise SystemExit(1)
 
           print("")
-          print("Old HTML cleanup completed successfully.")
+          print("HTML cleanup completed successfully.")
           PY
 
       # --------------------------------------------------
-      # 4. RUN AUTO CANONICAL
+      # 5. RUN AUTO CANONICAL SCRIPT
       # --------------------------------------------------
       - name: Run Auto-Canonical Script
         shell: bash
@@ -106,7 +162,7 @@ jobs:
           fi
 
       # --------------------------------------------------
-      # 5. RUN AUTO LINKER
+      # 6. RUN AUTO LINK REBUILDER
       # --------------------------------------------------
       - name: Execute Link Rebuilder
         shell: bash
@@ -118,8 +174,102 @@ jobs:
           fi
 
       # --------------------------------------------------
-      # 6. REBUILD SITEMAP
-      #    ONLY SURVIVING HTML PAGES ARE INCLUDED
+      # 7. UPDATE HOMEPAGE
+      #    KEEP ONLY THE 5 CALCULATORS
+      # --------------------------------------------------
+      - name: Update Homepage Calculator Links
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+
+          index = Path("index.html")
+
+          if not index.exists():
+              raise SystemExit("ERROR: index.html not found")
+
+          content = index.read_text(encoding="utf-8")
+
+          calculators = [
+              (
+                  "/lawn-fertilizer-calculator",
+                  "Lawn Fertilizer Calculator"
+              ),
+              (
+                  "/plant-population-density-calculator",
+                  "Plant Population Density Calculator"
+              ),
+              (
+                  "/plant-spacing-calculator",
+                  "Plant Spacing Calculator"
+              ),
+              (
+                  "/rainwater-collection-calculator",
+                  "Rainwater Collection Calculator"
+              ),
+              (
+                  "/raised-bed-garden-soil-calculator",
+                  "Raised Bed Garden Soil Calculator"
+              ),
+          ]
+
+          start_marker = "<!-- START_ARTICLE_LIST -->"
+          end_marker = "<!-- END_ARTICLE_LIST -->"
+
+          if start_marker not in content:
+              raise SystemExit(
+                  "ERROR: START_ARTICLE_LIST marker not found in index.html"
+              )
+
+          if end_marker not in content:
+              raise SystemExit(
+                  "ERROR: END_ARTICLE_LIST marker not found in index.html"
+              )
+
+          links = []
+
+          for url, title in calculators:
+              file_name = url.lstrip("/") + ".html"
+
+              if not Path(file_name).exists():
+                  raise SystemExit(
+                      f"ERROR: Calculator file missing: {file_name}"
+                  )
+
+              links.append(
+                  f'    <li><a href="{url}">{title}</a></li>'
+              )
+
+          calculator_links = "\n".join(links)
+
+          start = content.index(start_marker)
+          end = content.index(end_marker)
+
+          before = content[:start + len(start_marker)]
+          after = content[end:]
+
+          new_content = (
+              before
+              + "\n"
+              + calculator_links
+              + "\n"
+              + after
+          )
+
+          index.write_text(new_content, encoding="utf-8")
+
+          print("Homepage updated successfully.")
+          print("")
+          print("Homepage calculators:")
+
+          for _, title in calculators:
+              print(f"- {title}")
+          PY
+
+      # --------------------------------------------------
+      # 8. GENERATE CLEAN SITEMAP
       # --------------------------------------------------
       - name: Generate Sitemap
         shell: bash
@@ -140,14 +290,19 @@ jobs:
             printf '%s\n' '  </url>'
           } > sitemap.xml
 
-          find . -type f -name "*.html" \
-            ! -name "index.html" \
-            ! -path "./.git/*" \
-            | sort \
-            | while IFS= read -r file
+          for file in \
+            lawn-fertilizer-calculator.html \
+            plant-population-density-calculator.html \
+            plant-spacing-calculator.html \
+            rainwater-collection-calculator.html \
+            raised-bed-garden-soil-calculator.html
           do
-            RELATIVE_PATH="${file#./}"
-            URL_PATH="${RELATIVE_PATH%.html}"
+            if [ ! -f "$file" ]; then
+              echo "ERROR: Missing calculator: $file"
+              exit 1
+            fi
+
+            URL_PATH="${file%.html}"
             LASTMOD="$(date -u -r "$file" +'%Y-%m-%d')"
 
             {
@@ -165,92 +320,7 @@ jobs:
           echo "Sitemap generated successfully."
 
       # --------------------------------------------------
-      # 7. REBUILD HOMEPAGE TOOL LIST
-      #    REMOVE OLD ARTICLE LINKS
-      #    KEEP ONLY THE 5 TOOLS
-      # --------------------------------------------------
-      - name: Update Homepage Tool Links
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          python - <<'PY'
-          from pathlib import Path
-
-          index = Path("index.html")
-
-          if not index.exists():
-              raise SystemExit("ERROR: index.html not found")
-
-          content = index.read_text(encoding="utf-8")
-
-          tools = [
-              (
-                  "/tools/lawn-fertilizer-calculator",
-                  "Lawn Fertilizer Calculator"
-              ),
-              (
-                  "/tools/plant-population-density-calculator",
-                  "Plant Population Density Calculator"
-              ),
-              (
-                  "/tools/plant-spacing-calculator",
-                  "Plant Spacing Calculator"
-              ),
-              (
-                  "/tools/rainwater-collection-calculator",
-                  "Rainwater Collection Calculator"
-              ),
-              (
-                  "/tools/raised-bed-garden-soil-calculator",
-                  "Raised Bed Garden Soil Calculator"
-              ),
-          ]
-
-          tool_links = "\n".join(
-              f'    <li><a href="{url}">{title}</a></li>'
-              for url, title in tools
-          )
-
-          start_marker = "<!-- START_ARTICLE_LIST -->"
-          end_marker = "<!-- END_ARTICLE_LIST -->"
-
-          if start_marker not in content:
-              raise SystemExit(
-                  "ERROR: START_ARTICLE_LIST marker not found in index.html"
-              )
-
-          if end_marker not in content:
-              raise SystemExit(
-                  "ERROR: END_ARTICLE_LIST marker not found in index.html"
-              )
-
-          start = content.index(start_marker)
-          end = content.index(end_marker)
-
-          before = content[:start + len(start_marker)]
-          after = content[end:]
-
-          new_content = (
-              before
-              + "\n"
-              + tool_links
-              + "\n"
-              + after
-          )
-
-          index.write_text(new_content, encoding="utf-8")
-
-          print("Homepage updated.")
-          print("")
-          print("Tools kept on homepage:")
-
-          for _, title in tools:
-              print(f"- {title}")
-          PY
-
-      # --------------------------------------------------
-      # 8. GENERATE RSS FEED
+      # 9. GENERATE RSS FEED
       # --------------------------------------------------
       - name: Run Feed Builder
         shell: bash
@@ -264,18 +334,51 @@ jobs:
           fi
 
       # --------------------------------------------------
-      # 9. SHOW FINAL HTML FILES
+      # 10. VERIFY FINAL FILE STRUCTURE
       # --------------------------------------------------
-      - name: Verify Final HTML Files
+      - name: Verify Final Site Structure
         shell: bash
         run: |
+          set -euo pipefail
+
           echo "Final HTML files:"
           find . -type f -name "*.html" \
             ! -path "./.git/*" \
             | sort
 
+          echo ""
+          echo "Checking protected calculators..."
+
+          for file in \
+            lawn-fertilizer-calculator.html \
+            plant-population-density-calculator.html \
+            plant-spacing-calculator.html \
+            rainwater-collection-calculator.html \
+            raised-bed-garden-soil-calculator.html
+          do
+            if [ -f "$file" ]; then
+              echo "OK: $file"
+            else
+              echo "ERROR: Missing $file"
+              exit 1
+            fi
+          done
+
+          echo ""
+          echo "Checking index.html..."
+
+          if [ -f index.html ]; then
+            echo "OK: index.html"
+          else
+            echo "ERROR: index.html missing"
+            exit 1
+          fi
+
+          echo ""
+          echo "Site structure verified successfully."
+
       # --------------------------------------------------
-      # 10. COMMIT AND PUSH
+      # 11. COMMIT AND PUSH EVERYTHING
       # --------------------------------------------------
       - name: Commit and Push Changes Safely
         shell: bash
